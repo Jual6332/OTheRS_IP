@@ -2,6 +2,8 @@ import numpy as np
 import cv2
 from pylepton import Lepton
 
+# Keep commented out until we can test w FLIR Lepton camera
+
 #with Lepton() as l:
 #    a,_ = l.capture()
 
