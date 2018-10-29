@@ -3,7 +3,7 @@ import cv2
 import math
 from matplotlib import pyplot as plt
 
-## Date Last Modified: 10/28/18
+## Date Last Modified: 10/29/18
 # Justin Alvey
 
 ## Purpose: To test the ORB stitchiing strategy available through the OpenCV library
@@ -20,7 +20,7 @@ from matplotlib import pyplot as plt
 
 ## ORB Implementation - The Algorithm in Action
 # Read in first image
-img = cv2.imread('mountain_one.jpg',0)
+img = cv2.imread('mountain_one.jpg', 0)
 
 # Initialization of the Feature Detector
 orb = cv2.ORB_create()
