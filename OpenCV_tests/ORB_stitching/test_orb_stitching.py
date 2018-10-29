@@ -26,11 +26,12 @@ img = cv2.imread('mountain_one.jpg',0)
 orb = cv2.ORB_create()
 
 # Locate keypoints in the image
-kp = orb.detect(img,None)
+kp = orb.detect(img, None)
 
 # Calculate descriptors for the image
-kp, desc = orb.compute(img,kp)
+kp, desc = orb.compute(img, kp)
 
 # Draw the Keypoints in the image
-img2 = cv2.drawKeypoints(img,kp,None,color=(0,0,255), flags=0)
-plt.imshow(img2),plt.show()
+img2 = cv2.drawKeypoints(img, kp, None, color = (0, 0, 255), flags = 0)
+plt.imshow(img2)
+plt.show()
