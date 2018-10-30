@@ -1,5 +1,6 @@
 # OTheRS_IP
 Image processing and software repository for OTheRS project.
+Modified: 10/30/2018
 
 ## Main Software Tasks:
 1. Capture image (FLIR Lepton)
@@ -9,3 +10,5 @@ Image processing and software repository for OTheRS project.
 5. Calculate temp. at pixel locations (FLIR calibration technique, 14-bit)
 6. 2-point Temp. Calibration
 7. Output to CSV, temp table
+
+
