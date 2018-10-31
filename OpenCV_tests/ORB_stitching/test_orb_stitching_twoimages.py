@@ -34,6 +34,20 @@ kp2 = orb.detect(img2,None)
 kp, desc = orb.compute(img1,kp)
 kp2, desc2 = orb.compute(img2,kp2)
 
+# Create BFMatcher object for Matching Images
+bf = cv2.BFMatcher(cv2.NORM_HAMMING,crossCheck=True)
+
+# Match Descriptor, Similar Features between 2 Images
+matches = bf.match(desc,desc2)
+
+# Sort the matches in order of distance for sitching/meshing
+matches_final = sorted(matches, key = lambda x:x.distance)
+
 # Draw the Keypoints in the image
-img3 = cv2.drawMatches(img1,kp,img2,kp2,None,color=(0,0,255), flags=0)
+img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final[:50],None,flags=2)
 plt.imshow(img3),plt.show()
+
+# Show final Panorama of the Image
+
+
+# Moving Forward - Modularize this script, implement OO Design principes
