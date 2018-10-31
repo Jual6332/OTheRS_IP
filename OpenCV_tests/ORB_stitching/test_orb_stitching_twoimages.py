@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import cv2
 import math
 from matplotlib import pyplot as plt
@@ -20,6 +20,8 @@ from matplotlib import pyplot as plt
 
 ## ORB Implementation - The Algorithm in Action
 # Read in first image
+img1_3D = cv2.imread('mountain_two.jpg')
+img2_3D = cv2.imread('mountain_two.jpg')
 img1 = cv2.imread('mountain_one.jpg',0)
 img2 = cv2.imread('mountain_two.jpg',0)
 
@@ -43,11 +45,29 @@ matches = bf.match(desc,desc2)
 # Sort the matches in order of distance for sitching/meshing
 matches_final = sorted(matches, key = lambda x:x.distance)
 
+# Remove "BAD" matches (85% threshold, only keep top 15% of matches)
+goodMatches = int(len(matches_final)*0.15)
+matches_final = matches_final[:goodMatches]
+
 # Draw the Keypoints in the image
-img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final[:50],None,flags=2)
-plt.imshow(img3),plt.show()
+img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final[:500],None,flags=2)
+#plt.imshow(img3),plt.show()
 
 # Show final Panorama of the Image
+# Use RANSAC algorithm to find Homography (translation+rotation) matrix
+points1 = np.zeros((len(matches),2), dtype=np.float32) # Initialization
+points2 = np.zeros((len(matches),2), dtype=np.float32) # Initialization
+for x, match in enumerate(matches):
+    points1[x,:] = kp[match.queryIdx].pt
+    points2[x,:] = kp2[match.trainIdx].pt
+h_matrix, mask = cv2.findHomography(points1,points2,cv2.RANSAC)
+
+# Method 2: Stitch of similarities + original images
+# Show final Panorama of the Image
+result = cv2.warpPerspective(img1,h_matrix,(img1_3D.shape[1] + img2_3D.shape[1], img1_3D.shape[0]))
+result[0:img2_3D.shape[0], 0:img2_3D.shape[1]] = img2
+
+cv2.imwrite("output2.jpg",result)
 
 
 # Moving Forward - Modularize this script, implement OO Design principes
