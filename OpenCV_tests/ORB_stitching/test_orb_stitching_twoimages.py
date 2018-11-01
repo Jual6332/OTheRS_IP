@@ -26,7 +26,9 @@ for i in range(0,100):
 
     ## ORB Implementation - The Algorithm in Action
     # Read in first image
-    img1_3D = cv2.imread('mountain_two.jpg')
+    # Mountain images have size 184 X 468
+    # Door (radiometric) images have size
+    img1_3D = cv2.imread('mountain_one.jpg')
     img2_3D = cv2.imread('mountain_two.jpg')
     img1 = cv2.imread('mountain_one.jpg',0)
     img2 = cv2.imread('mountain_two.jpg',0)
@@ -56,8 +58,8 @@ for i in range(0,100):
     matches_final = matches_final[:goodMatches]
 
     # Draw the Keypoints in the image
-    #img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final[:500],None,flags=2)
-    #plt.imshow(img3),plt.show()
+    img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final[:500],None,flags=2)
+    cv2.imwrite("output3.jpg",img3)
 
     # Show final Panorama of the Image
     # Use RANSAC algorithm to find Homography (translation+rotation) matrix
@@ -70,8 +72,19 @@ for i in range(0,100):
 
     # Method 2: Stitch of similarities + original images
     # Show final Panorama of the Image
-    result = cv2.warpPerspective(img1,h_matrix,(img1_3D.shape[1] + img2_3D.shape[1], img1_3D.shape[0]))
+    result = cv2.warpPerspective(img1,h_matrix,(img1_3D.shape[1] + img2_3D.shape[1], max(img1_3D.shape[0],img2_3D.shape[0])))
+    #print(img1_3D.shape)
+    #print(img2_3D.shape)
+    corrected_img = []
+
+    # Where does the first match occur?
+
+    # Construct Finished Image
+    #corrected_img[0:result] = img1
+
+    cv2.imwrite("Matches.jpg",result)
     result[0:img2_3D.shape[0], 0:img2_3D.shape[1]] = img2
+    #result[(img1_3D.shape[0]+1):img2_3D.shape[0], (img1_3D.shape[1]+1):img2_3D.shape[1]] = img2
     cv2.imwrite("output2.jpg",result)
 
     # Timing Analysis to see the O(n) running time of the algorithm
@@ -82,6 +95,5 @@ for i in range(0,100):
 
 # Average of 50 simulations
 print("Avg run-time is: "+str(100*np.mean(running_times,dtype=np.float32))+" ms.")
-
 
 # Moving Forward - Modularize this script, implement OO Design principes
