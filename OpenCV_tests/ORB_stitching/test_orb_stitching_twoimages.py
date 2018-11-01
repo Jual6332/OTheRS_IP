@@ -20,7 +20,6 @@ from matplotlib import pyplot as plt
 #     ORB builds on this heritage of feature matching called FAST and BRIEF
 
 # Timing Analysis to see the O(n) running time of the algorithm
-# Run the
 running_times = []
 for i in range(0,100):
     start = time.time()
