@@ -77,12 +77,14 @@ for i in range(0,100):
     #print(img2_3D.shape)
     corrected_img = []
 
-    # Where does the first match occur?
-
+    # Where does the first match occur? Have yet to find.
     # Construct Finished Image
     #corrected_img[0:result] = img1
 
+    # Display Matches between the two images 
     cv2.imwrite("Matches.jpg",result)
+
+    # Extend Image 2
     result[0:img2_3D.shape[0], 0:img2_3D.shape[1]] = img2
     #result[(img1_3D.shape[0]+1):img2_3D.shape[0], (img1_3D.shape[1]+1):img2_3D.shape[1]] = img2
     cv2.imwrite("output2.jpg",result)
