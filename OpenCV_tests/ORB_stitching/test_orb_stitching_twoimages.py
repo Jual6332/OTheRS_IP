@@ -28,10 +28,10 @@ for i in range(0,100):
     # Read in first image
     # Mountain images have size 184 X 468
     # Door (radiometric) images have size
-    img1_3D = cv2.imread('mountain_one.jpg')
-    img2_3D = cv2.imread('mountain_two.jpg')
-    img1 = cv2.imread('mountain_one.jpg',0)
-    img2 = cv2.imread('mountain_two.jpg',0)
+    img1_3D = cv2.imread('FLIR_first.jpg')
+    img2_3D = cv2.imread('FLIR_second.jpg')
+    img1 = cv2.imread('FLIR_first.jpg',0)
+    img2 = cv2.imread('FLIR_second.jpg',0)
 
     # Initialization of the Feature Detector
     orb = cv2.ORB_create()
@@ -58,7 +58,7 @@ for i in range(0,100):
     matches_final = matches_final[:goodMatches]
 
     # Draw the Keypoints in the image
-    img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final[:500],None,flags=2)
+    img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final[:],None,flags=2)
     cv2.imwrite("output3.jpg",img3)
 
     # Show final Panorama of the Image
