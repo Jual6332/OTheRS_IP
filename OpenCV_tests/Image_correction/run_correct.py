@@ -17,6 +17,9 @@ def load_image(name):
     img = cv2.imread(name)
     return(img)
 
+#def adaptive_thresholding():
+
+
 def Otsu_thresholding(blur):
     retval, threshold = cv2.threshold(blur,10,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     return(threshold)
@@ -24,10 +27,11 @@ def Otsu_thresholding(blur):
 
 def main():
     start = time.time()
-    img = load_image('thermal2.jpg')
+    img = load_image('IR_0561.jpg')
     gray = gray_scale(img)
-    blur = Gaussian_blur(gray)
-    thr = Otsu_thresholding(blur)
+    cv2.imwrite('New4.png',gray)
+    #blur = Gaussian_blur(gray)
+    thr = Otsu_thresholding(gray)
     cv2.imwrite('New2.png',thr)
     file = np.float32(thr)
     dst = cv2.cornerHarris(file,2,3,0.04)
