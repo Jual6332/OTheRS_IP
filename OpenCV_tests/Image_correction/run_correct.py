@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 import math
 import time
 import cv2
@@ -28,17 +28,19 @@ def main():
     blur = Gaussian_blur(gray)
     thr = Otsu_thresholding(blur)
     cv2.imwrite('New2.png',thr)
+    # Test Harris Corner Detection
+    file = np.float32(thr)
+    dst = cv2.cornerHarris(file,2,3,0.04)
+    dst = cv2.dilate(dst,None)
+    cv2.imwrite('New3.png',dst)
     end = time.time()
     return(end-start)
 
 if __name__ == "__main__":
-    runtime = main() # Functionality
+    running_times=[] # Running times, for 100 sims
+    for i in range(0,100):
+        runtime = main() # Functionality
+        running_times.append(runtime)
     print(runtime)
-    #running_times=[] # Running times, for 100 sims
-    #for i in range(0,100):
-    #start = time.time()
-    #end = time.time()
-    #running_times.append(end-start) # Store this time
-    #print(end-start)
     # Average of 50 simulations
-    #print("Avg run-time is: "+str(100*np.mean(running_times,dtype=np.float32))+" ms.")
+    print("Avg run-time is: "+str(100*np.mean(running_times,dtype=np.float32))+" ms.")
