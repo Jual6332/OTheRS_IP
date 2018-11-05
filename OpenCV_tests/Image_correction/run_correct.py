@@ -17,8 +17,9 @@ def load_image(name):
     img = cv2.imread(name)
     return(img)
 
-#def adaptive_thresholding():
-
+def adaptive_thresholding(img):
+    ad = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
+    return(ad)
 
 def Otsu_thresholding(blur):
     retval, threshold = cv2.threshold(blur,10,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
@@ -29,14 +30,18 @@ def main():
     start = time.time()
     img = load_image('IR_0561.jpg')
     gray = gray_scale(img)
-    cv2.imwrite('New4.png',gray)
-    #blur = Gaussian_blur(gray)
+    cv2.imwrite('Grayscale.png',gray)
+    blur = Gaussian_blur(gray)
+    ad = adaptive_thresholding(gray)
+    cv2.imwrite('Adaptive Thresh.png',ad)
+    ad = adaptive_thresholding(blur)
+    cv2.imwrite('Adaptive Thresh + Gaussian.png',ad)
     thr = Otsu_thresholding(gray)
-    cv2.imwrite('New2.png',thr)
-    file = np.float32(thr)
+    cv2.imwrite('Otsu Thresh.png',thr)
+    file = np.float32(gray)
     dst = cv2.cornerHarris(file,2,3,0.04)
     dst = cv2.dilate(dst,None)
-    cv2.imwrite('New3.png',dst)
+    cv2.imwrite('Corner Harris.png',dst)
     end = time.time()
     return(end-start)
 
