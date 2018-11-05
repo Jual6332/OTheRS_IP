@@ -5,6 +5,10 @@ import time
 import cv2
 from matplotlib import pyplot as plt
 
+def gaussian_thresholding(img):
+    ad = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+    return(ad)
+
 def Gaussian_blur(img):
     blur = cv2.GaussianBlur(img,(5,5),0)
     return(blur)
@@ -32,6 +36,8 @@ def main():
     gray = gray_scale(img)
     cv2.imwrite('Grayscale.png',gray)
     blur = Gaussian_blur(gray)
+    ad = gaussian_thresholding(blur)
+    cv2.imwrite('Gaussian Thresh.png',ad)
     ad = adaptive_thresholding(gray)
     cv2.imwrite('Adaptive Thresh.png',ad)
     ad = adaptive_thresholding(blur)
