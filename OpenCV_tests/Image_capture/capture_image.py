@@ -40,4 +40,4 @@ for i in range(0,100):
     running_times.append(end-start)
 
 # Average of 50 simulations
-print("Avg run-time is: "+str(100*np.mean(running_times,dtype=np.float32))+" ms.")
+print("Avg run-time is: "+str(1000*np.mean(running_times,dtype=np.float32))+" ms.")

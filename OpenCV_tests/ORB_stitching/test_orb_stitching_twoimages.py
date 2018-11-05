@@ -81,7 +81,7 @@ for i in range(0,100):
     # Construct Finished Image
     #corrected_img[0:result] = img1
 
-    # Display Matches between the two images 
+    # Display Matches between the two images
     cv2.imwrite("Matches.jpg",result)
 
     # Extend Image 2
@@ -96,6 +96,6 @@ for i in range(0,100):
     running_times.append(end-start)
 
 # Average of 50 simulations
-print("Avg run-time is: "+str(100*np.mean(running_times,dtype=np.float32))+" ms.")
+print("Avg run-time is: "+str(1000*np.mean(running_times,dtype=np.float32))+" ms.")
 
 # Moving Forward - Modularize this script, implement OO Design principes

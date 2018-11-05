@@ -28,7 +28,6 @@ def main():
     blur = Gaussian_blur(gray)
     thr = Otsu_thresholding(blur)
     cv2.imwrite('New2.png',thr)
-    # Test Harris Corner Detection
     file = np.float32(thr)
     dst = cv2.cornerHarris(file,2,3,0.04)
     dst = cv2.dilate(dst,None)
@@ -43,4 +42,4 @@ if __name__ == "__main__":
         running_times.append(runtime)
     print(runtime)
     # Average of 50 simulations
-    print("Avg run-time is: "+str(100*np.mean(running_times,dtype=np.float32))+" ms.")
+    print("Avg run-time is: "+str(1000*np.mean(running_times,dtype=np.float32))+" ms.")

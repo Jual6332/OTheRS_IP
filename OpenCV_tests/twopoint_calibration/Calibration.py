@@ -1,4 +1,5 @@
-import numpy
+import numpy as np
+import math
 import time
 import cv2
 
@@ -27,5 +28,10 @@ def calibration(Raw_Values):
     Corrected_Value = (((Raw_Values - Raw_Low)) * (Reference_Range)) / Raw_Range + Reference_Low
 
 if __name__ == "__main__":
-    runtime = main() # Functionality
+    running_times=[] # Running times, for 100 sims
+    for i in range(0,50):
+        runtime = main() # Functionality
+        running_times.append(runtime)
     print(runtime)
+    # Average of 50 simulations
+    print("Avg run-time is: "+str(1000*np.mean(running_times,dtype=np.float32))+" ms.")
