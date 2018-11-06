@@ -32,7 +32,9 @@ def Otsu_thresholding(blur):
 
 def main():
     start = time.time()
-    img = load_image('IR_0561.jpg')
+    #img = load_image('IR_0560.jpg')
+    #img = load_image('thermal2.jpg')
+    img = load_image('chessboard.jpg')
     gray = gray_scale(img)
     cv2.imwrite('Grayscale.png',gray)
     blur = Gaussian_blur(gray)
@@ -44,10 +46,15 @@ def main():
     cv2.imwrite('Adaptive Thresh + Gaussian.png',ad)
     thr = Otsu_thresholding(gray)
     cv2.imwrite('Otsu Thresh.png',thr)
-    file = np.float32(gray)
-    dst = cv2.cornerHarris(file,2,3,0.04)
+    gray = np.float32(gray)
+    # Corner Harris does not look useful
+    # Scheme -> Restrict exposure in the image to temp. cold/hot-spots
+    #        -> Locate these geometric shapes in the image using contours
+    #        -> Identify the tray elements
+    dst = cv2.cornerHarris(gray,2,3,0.04)
     dst = cv2.dilate(dst,None)
-    cv2.imwrite('Corner Harris.png',dst)
+    img[dst>0.01*dst.max()] = [0,0,255]
+    cv2.imwrite('Corner Harris.png',img)
     end = time.time()
     return(end-start)
 
