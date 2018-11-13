@@ -40,7 +40,7 @@ plot(t_full/TIME_HOURS, y_full - 273, 'b', 'linewidth', 2, 'displayname', 'Nonli
 linear_control_fn = @(T, t) control(T, t, (Ttgt - T0), Kp, Kd, Ki);
 
 % For the linearized model, it starts at an offset from T0, not an absolute temperature
-y0 = Ttgt - T0;
+y0 = 0;
 
 [t_lin, y_lin] = ode45(@(t, y) linear_odefn(t, y, m, cp, T0, Kc, Kr, linear_control_fn), [0, time_max], y0);
 y_lin = y_lin + T0; % add the simulated changes to the zero point
