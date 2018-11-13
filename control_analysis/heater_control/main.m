@@ -15,7 +15,7 @@ T0    = Ttgt;      % Inital temperature of the heaters
                    % This is also the temperature about which the linearized model is
                    % actually linearized
 
-m  = 0.1;   % kg
+m  = 13e-3; % kg
 cp = 920;   % j / kg*K  MIL-HDBK-5J, Figure 3.2.1.0 Aluminum 2014-T6
 Kc = 0.01;  % W / K
 Kr = 0.001; % W / K^3 (check units?)
