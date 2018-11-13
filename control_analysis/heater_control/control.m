@@ -3,7 +3,7 @@ function Qdot = control(T, t, Ttgt, Kp, Kd, Ki)
     % TODO: Actually do the formal analysis and find the right gains
     % TODO: All the logic for differential control
 
-    % We define a stateful variable here, which will maintain its
+    % Define a stateful variable here, which will maintain its
     % value between calls
     persistent integral_err;
     if isempty(integral_err)
@@ -14,7 +14,8 @@ function Qdot = control(T, t, Ttgt, Kp, Kd, Ki)
     if isempty(time_last)
         time_last = 0;
     end
-    % Sum error over all time
+
+    % check that ODE45 doesn't go backwards in time (it can restart a section)
     if t > time_last
         dt = t - time_last;
     else
@@ -23,6 +24,7 @@ function Qdot = control(T, t, Ttgt, Kp, Kd, Ki)
     end
     time_last = t;
 
+    % Sum error over all time
     integral_err = integral_err + (Ttgt - T)*dt;
 
     Qdot = Kp * (Ttgt - T) + Ki * integral_err;
