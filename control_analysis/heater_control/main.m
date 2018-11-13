@@ -16,22 +16,24 @@ Kr    = 0.001; % W / K^3 (units wrong?)
 
 time_max = TIME_HOURS; % seconds
 
-Kp = 0;
+Kp = 1;
 Kd = 0; % unimplemented
 Ki = 0; % implemented in a very bad way
 
-control_fn = @(T, t) control(T, t, Ttgt, Kp, Kd, Ki);
 
 figure; hold on; grid on;
 
 % Nonlinear simulation
-disp('nonlinear')
-[t_full, y_full] = ode45(@(t, y) nonlinear_odefn(t, y, m, cp, Tsurr, Kc, Kr, control_fn), [0, time_max], Tsurr);
+nonlinear_control_fn = @(T, t) control(T, t, Ttgt, Kp, Kd, Ki);
+[t_full, y_full] = ode45(@(t, y) nonlinear_odefn(t, y, m, cp, Tsurr, Kc, Kr, nonlinear_control_fn), [0, time_max], Tsurr);
+
 plot(t_full/TIME_HOURS, y_full - 273, 'b', 'linewidth', 2, 'displayname', 'Nonlinear Model')
 
 % Linearized model
-disp('linear')
-[t_lin, y_lin] = ode45(@(t, y) linear_odefn(t, y, m, cp, Tsurr, Kc, Kr, control_fn), [0, time_max], Tsurr);
+linear_control_fn = @(T, t) control(T, t, Ttgt - Tsurr, Kp, Kd, Ki);
+[t_lin, y_lin] = ode45(@(t, y) linear_odefn(t, y, m, cp, Tsurr, Kc, Kr, linear_control_fn), [0, time_max], 0);
+y_lin = y_lin + Tsurr;
+
 plot(t_lin/TIME_HOURS,  y_lin - 273, 'r',  'linewidth', 2, 'displayname', 'Linearized Model')
 
 % Target temperature
