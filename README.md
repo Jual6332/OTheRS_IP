@@ -20,11 +20,11 @@ Modified: 11/13/18
 - Once branch is merged, the team can debug further
 
 ## Making a commit to the Master Branch
-git add -A or git add filename.py // Adds changes (all or a single file)
-git commit -m "" // Commit these changes, leave a message on valuable changes. 
+- git add -A or git add filename.py // Adds changes (all or a single file)
+- git commit -m "" // Commit these changes, leave a message on valuable changes. 
 // Think, how is this change improving the software? 
 // Is this commit really needed?
-git push origin master // Push to master branch
+- git push origin master // Push to master branch
 
 ##  How will software development flow for this project?
 - Software development is ongoing on a large project, to mitigate bugs in the overall software system. 
