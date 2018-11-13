@@ -22,9 +22,9 @@ Kr = 0.001; % W / K^3 (check units?)
 
 time_max = 2*TIME_HOURS; % seconds
 
-Kp = Kc + 4*Kr*sigma*T0^3 % proportional gain (calculated from delU = Ku*delT/[m*cp] -> such that delTdot = 0)
-Kd = 0;                   % unimplemented
-Ki = 0.001;               % implemented in a very bad way
+Kp = Kc + 4*Kr*sigma*T0^3; % proportional gain (calculated from delU = Ku*delT/[m*cp] -> such that delTdot = 0)
+Kd = 0;                    % unimplemented
+Ki = 0;                    % implemented in a very bad way
 
 figure; hold on; grid on;
 
