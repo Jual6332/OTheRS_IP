@@ -5,10 +5,29 @@ import imutils
 import numpy as np
 from matplotlib import pyplot as pylepton
 
+def contours(gray):
+    ret, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
+    cv2.bitwise_not(thresh,thresh)
+    cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if imutils.is_cv2() else cnts[1]
+    c = max(cnts, key=cv2.contourArea)
+    [x,y,w,h] = cv2.boundingRect(c)
+
+def remove_glare(img):
+    # Create CLAHE object
+    clahe = cv2.createCLAHE(clipLimit=3.0,tileGridSize=(8,8))
+    # Apply CLAHE to lightness channel
+    cl1 = clahe.apply(img)
+    return(cl1)
+
 # Grayscale
 def gray_scale(img):
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     return(gray)
+
+# Geometric Calibration Functionality
+#getPerspectiveTransform
+#warpPerspectivd
 
 # Load Image
 def load_image(name):
@@ -50,13 +69,19 @@ def noise_removal(img1,img2):
 def main():
     start = time.time()
     # Image 1
-    img = load_image('FLIR_first.jpg')
+    img = load_image('cars.jpg')
     img_subtract = load_image('FLIR_first.jpg')
-    img = noise_removal(img,img_subtract)
+    #img = noise_removal(img,img_subtract)
+    img = gray_scale(img)
+    img = remove_glare(img)
+    cv2.imwrite('Removing Glare.png',img)
+
+    img = load_image('FLIR_first.jpg')
+
     # Image 2
     img2 = load_image('FLIR_second.jpg')
     img_subtract2 = load_image('FLIR_second.jpg')
-    img = noise_removal(img2,img_subtract2)
+    img2 = noise_removal(img2,img_subtract2)
 
     # Clean up the image
     gray = gray_scale(img)
@@ -65,14 +90,9 @@ def main():
     gray = np.float32(gray)
 
     # Test Contours
-    img = cv2.imread('bulb.png')
+    img = load_image('bulb.png')
     gray = gray_scale(img)
-    ret, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
-    cv2.bitwise_not(thresh,thresh)
-    cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-    cnts = cnts[0] if imutils.is_cv2() else cnts[1]
-    c = max(cnts, key=cv2.contourArea)
-    [x,y,w,h] = cv2.boundingRect(c)
+    contours(gray)
 
 if __name__ == "__main__":
     runtime = main() # Functionality
