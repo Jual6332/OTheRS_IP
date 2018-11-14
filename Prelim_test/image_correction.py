@@ -3,7 +3,10 @@ import cv2
 import time
 import imutils
 import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib import pyplot as pylepton
+import matplotlib.pyplot as pylepton
+from sklearn.cluster import k_means
 
 def contours(gray):
     ret, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
@@ -13,13 +16,6 @@ def contours(gray):
     c = max(cnts, key=cv2.contourArea)
     [x,y,w,h] = cv2.boundingRect(c)
 
-def remove_glare(img):
-    # Create CLAHE object
-    clahe = cv2.createCLAHE(clipLimit=3.0,tileGridSize=(8,8))
-    # Apply CLAHE to lightness channel
-    cl1 = clahe.apply(img)
-    return(cl1)
-
 # Grayscale
 def gray_scale(img):
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -28,6 +24,15 @@ def gray_scale(img):
 # Geometric Calibration Functionality
 #getPerspectiveTransform
 #warpPerspectivd
+
+# K-Means
+def kmeans(img,Z,K):
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER,10,1.0)
+    ret, label, center = cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
+    center = np.uint8(center)
+    res = center[label.flatten()]
+    res2 = res.reshape((img.shape))
+    return(res2)
 
 # Load Image
 def load_image(name):
@@ -66,6 +71,14 @@ def noise_removal(img1,img2):
     img_new = img1-img2 # Difference
     return(img_new)
 
+# Remove Glare
+def remove_glare(img):
+    # Create CLAHE object
+    clahe = cv2.createCLAHE(clipLimit=3.0,tileGridSize=(8,8))
+    # Apply CLAHE to lightness channel
+    cl1 = clahe.apply(img)
+    return(cl1)
+
 def main():
     start = time.time()
     # Image 1
@@ -93,6 +106,43 @@ def main():
     img = load_image('bulb.png')
     gray = gray_scale(img)
     contours(gray)
+
+    # K-Means
+    img = load_image('FLIR_second.jpg')
+    Z = img.reshape((-1,3))
+    Z = np.float32(Z)
+    output = kmeans(img,Z,8)
+    cv2.imwrite('res2.png',output)
+
+    # Remove Glare + Add colors based on k-means
+    img = load_image('FLIR_second.jpg')
+    gray = gray_scale(img)
+    img_hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+    mask = ((img_hsv > np.array([0,0,230])).astype(np.float32) + (img_hsv > np.array([0,0,230])).astype(np.float32) * (-0.5)+0.5)
+    img_partly_darken = cv2.cvtColor(mask*img_hsv, cv2.COLOR_HSV2BGR)
+    plt.imshow(cv2.cvtColor(img_partly_darken,cv2.COLOR_BGR2RGB))
+    cv2.imwrite("Partly Darken.png",img_partly_darken)
+
+    # Pick Out Green Pixels:
+    green_mask = img[:,:,1] > img[:,:,2]
+    green_mask = (green_mask.astype(np.uint8))*255
+    green_mask = cv2.cvtColor(green_mask,cv2.COLOR_GRAY2BGR)
+    green3_mask = (green_mask >0).astype(np.uint8)*255
+    img_green = cv2.bitwise_and(green3_mask,img)
+
+    # Add back in Original Image's Colors:
+    ret, thr = cv2.threshold(cv2.cvtColor(img_green,cv2.COLOR_BGR2GRAY),10,255,cv2.THRESH_BINARY)
+    blue_mask = (cv2.cvtColor(thr,cv2.COLOR_GRAY2BGR)>0).astype(np.uint8)*255
+    kernel_open = cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
+    blue_mask = cv2.morphologyEx(blue_mask,cv2.MORPH_OPEN,kernel_open)
+    yellow_mask = 255 - blue_mask
+
+    # Use k-means to get the two main colors -- blue and yellow
+    pixels = img
+    pixels = pixels.reshape(pixels.shape[0]*pixels.shape[1],3)
+    [centroids, labels, inertia] = k_means(pixels,2)
+    # Blue Channel
+    centroids = np.array(sorted(centroids.astype(np.uint8).tolist(),key=lambda x:x[0]))
 
 if __name__ == "__main__":
     runtime = main() # Functionality
