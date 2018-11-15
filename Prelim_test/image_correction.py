@@ -1,21 +1,39 @@
-#!/usr/bin/env python3
 import math
 import cv2
 import time
 import imutils
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import pyplot as pylepton
-import matplotlib.pyplot as pylepton
-from sklearn.cluster import k_means
 
-def contours(gray):
-    ret, thresh = cv2.threshold(gray, 240, 255, cv2.THRESH_BINARY)
+def adaptive_thresholding(img):
+    ad = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
+    return(ad)
+
+def contours(img):
+    ret, thresh = cv2.threshold(img, 240, 255, cv2.THRESH_BINARY)
     cv2.bitwise_not(thresh,thresh)
     cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
     cnts = cnts[0] if imutils.is_cv2() else cnts[1]
     c = max(cnts, key=cv2.contourArea)
+    left = tuple(c[c[:,:,0].argmin()][0])
+    right = tuple(c[c[:,:,0].argmax()][0])
+    distance = np.sqrt((right[0] - left[0])**2 + (right[1] - left[1])**2)
     [x,y,w,h] = cv2.boundingRect(c)
+    centx = np.sqrt(((right[0]+left[0])**2)/4)
+    centy = np.sqrt(((right[1]+left[1])**2)/4)
+    return(distance,x,y,w,h,c,left,right,centx,centy)
+
+# Guassian Thresholding
+def gaussian_thresholding(img):
+    ad = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)
+    return(ad)
+
+# Gaussian Blur
+def Gaussian_blur(img):
+    blur = cv2.GaussianBlur(img,(5,5),0)
+    return(blur)
 
 # Grayscale
 def gray_scale(img):
@@ -23,6 +41,8 @@ def gray_scale(img):
     return(gray)
 
 # Geometric Calibration Functionality
+
+
 #getPerspectiveTransform
 #warpPerspectivd
 
@@ -80,6 +100,14 @@ def remove_glare(img):
     cl1 = clahe.apply(img)
     return(cl1)
 
+def skew_transforn(img):
+    rows, cols, ch = img.shape
+    pts1 = np.float32([[cols*.25, rows*.95],[cols*.90,rows*.95],[cols*.1, 0],[cols, 0]])
+    pts2 = np.float32([[cols*0.1, rows],[cols,rows],[0,0],[cols, 0]])
+    M = cv2.getPerspectiveTransform(pts1,pts2)
+    dst = cv2.warpPerspective(img,M,(cols,rows))
+    return(dst)
+
 def main():
     start = time.time()
     # Image 1
@@ -103,47 +131,36 @@ def main():
     cv2.imwrite('Otsu Thresh.png',thr)
     gray = np.float32(gray)
 
-    # Test Contours
-    img = load_image('bulb.png')
-    gray = gray_scale(img)
-    contours(gray)
-
-    # K-Means
+    # K-Means Color Quantization Test 1
     img = load_image('FLIR_second.jpg')
     Z = img.reshape((-1,3))
     Z = np.float32(Z)
     output = kmeans(img,Z,8)
     cv2.imwrite('res2.png',output)
 
-    # Remove Glare + Add colors based on k-means
-    img = load_image('FLIR_second.jpg')
-    gray = gray_scale(img)
-    img_hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-    mask = ((img_hsv > np.array([0,0,230])).astype(np.float32) + (img_hsv > np.array([0,0,230])).astype(np.float32) * (-0.5)+0.5)
-    img_partly_darken = cv2.cvtColor(mask*img_hsv, cv2.COLOR_HSV2BGR)
-    plt.imshow(cv2.cvtColor(img_partly_darken,cv2.COLOR_BGR2RGB))
-    cv2.imwrite("Partly Darken.png",img_partly_darken)
+    # K-Means Color Quantization Test 2
+    img = load_image('bulb.png')
+    Z = img.reshape((-1,3))
+    Z = np.float32(Z)
+    output = kmeans(img,Z,8)
+    cv2.imwrite('test1.png',output)
 
-    # Pick Out Green Pixels:
-    green_mask = img[:,:,1] > img[:,:,2]
-    green_mask = (green_mask.astype(np.uint8))*255
-    green_mask = cv2.cvtColor(green_mask,cv2.COLOR_GRAY2BGR)
-    green3_mask = (green_mask >0).astype(np.uint8)*255
-    img_green = cv2.bitwise_and(green3_mask,img)
+    # Potential Skew Angle Fix
+    img = cv2.imread('box.jpg')
+    dst = skew_transforn(img)
+    cv2.imwrite('Skew Transform.png',dst)
 
-    # Add back in Original Image's Colors:
-    ret, thr = cv2.threshold(cv2.cvtColor(img_green,cv2.COLOR_BGR2GRAY),10,255,cv2.THRESH_BINARY)
-    blue_mask = (cv2.cvtColor(thr,cv2.COLOR_GRAY2BGR)>0).astype(np.uint8)*255
-    kernel_open = cv2.getStructuringElement(cv2.MORPH_RECT,(5,5))
-    blue_mask = cv2.morphologyEx(blue_mask,cv2.MORPH_OPEN,kernel_open)
-    yellow_mask = 255 - blue_mask
-
-    # Use k-means to get the two main colors -- blue and yellow
-    pixels = img
-    pixels = pixels.reshape(pixels.shape[0]*pixels.shape[1],3)
-    [centroids, labels, inertia] = k_means(pixels,2)
-    # Blue Channel
-    centroids = np.array(sorted(centroids.astype(np.uint8).tolist(),key=lambda x:x[0]))
+    # Test Contours - Under Construction
+    #img = load_image('bulb.png')
+    #gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    #[distance,x,y,w,h,c,left,right,centx,centy] = contours(gray)
+    #cv2.circle(img,left,5,(0,0,255),-1)
+    #cv2.circle(img,right,5,(0,0,255),-1)
+    #cv2.circle(img,(int(centx),int(centy)),5,(0,0,255),-1)
+    #cv2.line(img,left,right,(255,0,0),2)
+    #cv2.drawContours(img,[c],-1,(0,255,0),2)
+    #cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
+    #cv2.imwrite('BulbResult.png',img)
 
 if __name__ == "__main__":
     runtime = main() # Functionality
