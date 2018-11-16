@@ -5,23 +5,17 @@ function Qdot = control(T, t, Ttgt, Kp, Kd, Ki)
 
     % Define a stateful variable here, which will maintain its
     % value between calls
-    persistent integral_err;
+    global integral_err;
     if isempty(integral_err)
         integral_err = 0;
     end
 
-    persistent time_last;
+    global time_last;
     if isempty(time_last)
         time_last = 0;
     end
 
-    % check that ODE45 doesn't go backwards in time (it can restart a section)
-    if t > time_last
-        dt = t - time_last;
-    else
-        warning('ode45 went backwards in time!');
-        dt = 0;
-    end
+    dt = t - time_last;
     time_last = t;
 
     % Sum error over all time
