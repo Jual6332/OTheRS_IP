@@ -1,0 +1,5 @@
+This holds the controller software for an arduino to regulate the heaters
+
+It's not finished yet.
+
+I use PlatformIO (platformio.org) as a build platform, but my goal is that it should compile on the plain arduino IDE if the files are copied into a new Arduino project and the file main.ino is renamed.
