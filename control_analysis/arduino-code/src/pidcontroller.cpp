@@ -68,7 +68,7 @@ float PIDController::derivativeControl(float reading, unsigned long now) {
 // a method which accepts a particular timestamp is available for better precision
 float PIDController::integralControl(float reading, unsigned long now) {
     // sum error over all time
-    float dt = now - _integral_last_millis;
+    float dt  = (float) (now - _integral_last_millis) / 1000.0; // convert to seconds
     float err = _target - reading;
 
     _accumulated_err += err*dt;
