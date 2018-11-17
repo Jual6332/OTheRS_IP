@@ -12,10 +12,10 @@ PIDController::PIDController(float target, float Kp, float Kd, float Ki) {
     _target = target;
 
     // derivative control state variables
-    _last_reading          = 0.0;
+    _last_reading           = 0.0;
     _derivative_last_millis = 0;
     // integral control state variables
-    _accumulated_err     = 0.0;
+    _accumulated_err      = 0.0;
     _integral_last_millis = 0;
 }
 
@@ -52,7 +52,7 @@ float PIDController::derivativeControl(float reading, unsigned long now) {
     // derivative since there's no previous reading
     if (_derivative_last_millis == 0) {
         _derivative_last_millis = now;
-        return 0;
+        return 0.0;
     }
 
     // calculate the derivative using this measurement and the last
