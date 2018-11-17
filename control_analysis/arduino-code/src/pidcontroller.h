@@ -9,7 +9,7 @@ public:
     // constructor
     PIDController(float target, float Kp, float Kd, float Ki);
 
-    // general control
+    // run the control algorithm
     float control(float reading);
 
     // proportional control method

@@ -56,7 +56,7 @@ float PIDController::derivativeControl(float reading, unsigned long now) {
     }
 
     // calculate the derivative using this measurement and the last
-    float dt         = now - _derivative_last_millis;
+    float dt         = (float) (now - _derivative_last_millis) / 1000.0; // convert to seconds
     float delta      = reading - _last_reading;
     float derivative = delta / dt;
 
