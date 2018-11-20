@@ -2,8 +2,6 @@
 clear all; clc;
 
 Vin = 3.3;
-% Tmax = 60;
-% Tmin = -30;
 Tmax =  60;
 Tmin = -30;
 
@@ -15,7 +13,7 @@ data = load('./temperatures');
 idx  = Tmin <= data(:, 1) & data(:, 1) <= Tmax;
 data = data(idx, :);
 datalen = length(data);
-resistance_range = 1e3:1e5;
+resistance_range = linspace(1e3, 1e5, 1e3)
 
 differentials = zeros(length(resistance_range), 1);
 min_max_temp_reading = zeros(length(resistance_range), 2);
@@ -45,19 +43,25 @@ for i = 1:length(resistance_range)
     % ADC_reading(i) = ceil(max_volt ./ ADC_resolution);
 end
 
+
+
+
 voltage_range = min_max_temp_reading(:, 1) - min_max_temp_reading(:, 2);
 
 [maxval, idx] = max(voltage_range);
 ideal_resistance = resistance_range(idx);
-fprintf('Ideal resistance %d\n', ideal_resistance/1000);
+fprintf('Ideal resistance %d kOhms\n', ideal_resistance/1000);
 
 
 figure; hold on; grid on;
-plot(resistance_range, min_max_temp_reading(:, 1), ... 
+title('Voltage Range vs Resistor Value');
+xlabel('R1 Resistance (\Omega)');
+ylabel('Output Voltage');
+semilogx(resistance_range, min_max_temp_reading(:, 1), 'b', ... 
                         'displayname', 'Voltage at -30 degC')
-plot(resistance_range, min_max_temp_reading(:, 2), ... 
+semilogx(resistance_range, min_max_temp_reading(:, 2), 'r', ... 
                         'displayname', 'Voltage at 60 degC')
-plot(resistance_range, voltage_range,   ... 
+semilogx(resistance_range, voltage_range, 'g', ... 
                         'linewidth', 2, ... 
                         'displayname', 'Voltage Range')
 legend('show')
