@@ -1,20 +1,13 @@
-// g++ potato.cpp -lwiringPi -std=c++11
-#include <iostream>
-#include <bitset>
 #include <sstream>
 #include <string>
 #include <errno.h>
 #include <cstdint>
-#include <unistd.h>
 #include <wiringPiSPI.h>
 
-using namespace std;
-
-const int CHANNEL = 0;
 
 // A simple class for the data from a MAX31855K thermocouple chip
 // this class does not handle the SPI communication
-// TODO: might be glitching at temperatures below zero
+// TODO: Cold junction temperature compensation reading
 class MAX31855K {
 public:
     MAX31855K(uint32_t data) {
@@ -24,13 +17,13 @@ public:
         reserved2 = (data >> 3) & 1; // D3 always 0
 
         // 12 bit internal temperature (bits 4:15)
-        raw_internal_temp = (data >> 4) & 0b111111111111;
+        raw_internal_temp = (data >> 4) & 0b0000111111111111;
 
         fault = (data >> 16) & 1; // D16
         reserved1 = (data >> 17) & 1; // D16 always 0
 
         // 14 bit thermocouple temperature
-        raw_temp = (data >> 18) & 0b11111111111111;
+        // raw_temp = (data >> 18) & 0b0011111111111111;
 
         /* the block below is shamelessly copied from sparkfun code. This kind of bitmath is beyond me */
 
@@ -100,11 +93,11 @@ public:
 
 private:
     double   temp;
-    int16_t  raw_temp;
+    uint16_t raw_temp;
     uint8_t  reserved1;
     uint8_t  fault;
     double   internal_temp;
-    int16_t  raw_internal_temp;
+    uint16_t raw_internal_temp;
     uint8_t  reserved2;
     uint8_t  scv_fault;
     uint8_t  scg_fault;
@@ -132,20 +125,3 @@ private:
 };
 
 
-
-int main(int argc, char* argv[]) {
-    int fd;
-    uint8_t buffer[4] = {0};
-
-    fd = wiringPiSPISetup(CHANNEL, 500000);
-
-
-    if (fd > 0) {
-        while(true) {
-            wiringPiSPIDataRW(CHANNEL, buffer, sizeof(buffer));
-            MAX31855K max = MAX31855K::from_bytes_le(buffer);
-            cout << max.display() << endl;
-            sleep(1);
-        }
-    }
-}
