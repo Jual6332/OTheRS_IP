@@ -2,12 +2,11 @@ CXX := g++
 CFLAGS = -std=c++11 -Wall
 
 .PHONY: all
-all: thermocouple
+all: example_main
 
-thermocouple: thermocouple.cpp
+example_main: example_main.cpp
 	$(CXX) $(CFLAGS) $^ -o $@ -lwiringPi
 
 .PHONY: all
 clean:
-	rm -f thermocouple
-	rm -f *.o
+	rm -f example_main
