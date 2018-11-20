@@ -11,7 +11,7 @@ ADC_BITS = 10;
 ADC_resolution = Vin/(2^ADC_BITS -1);
 
 % Load data between Tmin and Tmax
-data = load('/home/jacob/Desktop/temperatures');
+data = load('./temperatures');
 idx  = Tmin <= data(:, 1) & data(:, 1) <= Tmax;
 data = data(idx, :);
 datalen = length(data);
