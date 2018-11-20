@@ -1,7 +1,9 @@
 % Compare the response of a linearized and nonlinear model for a simple resistive heater
 % Jacob Killelea
 % TODO: many of the coefficients in here are just guesses.
-clear all; clc; close all;
+clear all;
+close all;
+% clc;
 
 global integral_err;
 global time_last;
@@ -25,9 +27,9 @@ Kr = 0.001; % W / K^3 (check units?)
 
 time_max = 2*TIME_HOURS; % seconds
 
-Kp = Kc + 4*Kr*sigma*T0^3; % proportional gain (calculated from delU = Ku*delT/[m*cp] -> such that delTdot = 0)
-Kd = 0;                    % unimplemented
-Ki = 5e-5;                    % implemented in a very bad way
+Kp = Kc + 4*Kr*sigma*T0^3; % Proportional gain (calculated from delU = Ku*delT/[m*cp] -> such that delTdot = 0)
+Kd = -1.0;                  % Integral gain
+Ki = 5e-5;                 % Derivative gain
 
 figure; hold on; grid on;
 
@@ -89,8 +91,11 @@ plot([0, time_max/TIME_HOURS], [Ttgt,  Ttgt]  - 273, 'r', ...
 plot([0, time_max/TIME_HOURS], [Tsurr, Tsurr] - 273, 'b', ...
                             'displayname', 'Ambient Temperature')
 
-title(sprintf('Temperature over time (K_p = %f, K_I = %f)', Kp, Ki))
+title(sprintf('Temperature over time (K_P=%.1d, K_I=%.1d, K_D=%.1d)', Kp, Ki, Kd))
 xlabel('Time (hours)')
 ylabel('Temperature (deg C)')
 legend('show', 'location', 'southeast')
 ylim([0, 120])
+
+fprintf('Linearized max overshoot %f\n', max(y_lin - Ttgt));
+

@@ -5,11 +5,11 @@
 #include "pidcontroller.h"
 #include <Arduino.h>
 
-PIDController::PIDController(float target, float Kp, float Kd, float Ki) {
-    _Kp = Kp; // I know initializer lists are a feature of modern C++
-    _Kd = Kd; // but I hate them.
-    _Ki = Ki; 
+PIDController::PIDController(float target, float Kp, float Ki, float Kd) {
     _target = target;
+    _Kp = Kp;
+    _Ki = Ki;
+    _Kd = Kd;
 
     // derivative control state variables
     _last_reading           = 0.0;

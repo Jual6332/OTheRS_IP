@@ -18,6 +18,7 @@ function [dT] = nonlinear_odefn(t, y, m, cp, Tsurr, Kc, Kr, control_fn)
     QdotC = -Kc*(T - Tsurr);           % conduction
     QdotR = -Kr*sigma*(T^4 - Tsurr^4); % radiation
     QdotE = control_fn(T, t);          % control
+    QdotE = max([QdotE, 0]); % Clamp at zero
 
     dT = (QdotC + QdotR + QdotE) / (m*cp);
 end
