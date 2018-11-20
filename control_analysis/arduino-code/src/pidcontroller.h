@@ -7,7 +7,7 @@
 class PIDController {
 public:
     // constructor
-    PIDController(float target, float Kp, float Kd, float Ki);
+    PIDController(float target, float Kp, float Ki, float Kd);
 
     // run the control algorithm
     float control(float reading);
