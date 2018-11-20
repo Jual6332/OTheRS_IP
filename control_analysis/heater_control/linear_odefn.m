@@ -19,6 +19,7 @@ function [dT] = linear_odefn(t, y, m, cp, T0, Kc, Kr, control_fn)
     QdotC = -Kc*dT;                % conduction
     QdotR = -(4*Kr*sigma*T0^3)*dT; % radiation
     QdotE = control_fn(dT, t);     % control
+    QdotE = max([QdotE, 0]); % Clamp at zero
 
     dT = (QdotC + QdotR + QdotE) / (m*cp);
 end
