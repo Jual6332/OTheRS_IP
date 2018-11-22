@@ -13,7 +13,7 @@ data = load('./temperatures');
 idx  = Tmin <= data(:, 1) & data(:, 1) <= Tmax;
 data = data(idx, :);
 datalen = length(data);
-resistance_range = linspace(1e3, 1e5, 1e3)
+resistance_range = linspace(1e3, 1e5, 1e3);
 
 differentials = zeros(length(resistance_range), 1);
 min_max_temp_reading = zeros(length(resistance_range), 2);
@@ -55,7 +55,7 @@ fprintf('Ideal resistance %d kOhms\n', ideal_resistance/1000);
 
 figure; hold on; grid on;
 title('Voltage Range vs Resistor Value');
-xlabel('R1 Resistance (\Omega)');
+xlabel('log_{10}(R1) Resistance (log_{10}(\Omega))');
 ylabel('Output Voltage');
 semilogx(resistance_range, min_max_temp_reading(:, 1), 'b', ... 
                         'displayname', 'Voltage at -30 degC')
