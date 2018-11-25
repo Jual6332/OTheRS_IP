@@ -2,7 +2,8 @@
 import tkinter as tk
 import subprocess
 import math
-#import tkMessageBox
+import os
+from pathlib import Path
 
 # Define Constants
 SMALL_FONT = "Helvetica 10"
@@ -32,6 +33,7 @@ class HomePage(tk.Frame):
         initialize_class(self,parent,controller)
     def set_page(self,controller):
         label = tk.Label(self, font = LARGE_FONT, text = "OTheRS Image Processing Test GUI\n").grid(row=0,column=1,columnspan=3)
+        button_capture_image = tk.Button(self,bd="2",fg="white",bg="gray",font=NORMAL_FONT,text="Capture Image",command=lambda: runscript_callback(controller)).grid(row=5,column=0,rowspan=1)
         pad_children(self) # Assign padding to child widgets (aesthetic)
 
 ## Global Functions
@@ -49,6 +51,19 @@ def initialize_class(self,parent,controller):
 def pad_children(self):
     for child in self.winfo_children(): child.grid_configure(padx=5,pady=5)
 
+# Run Image Capture Script for Testing
+def runscript_callback(controller):
+    error = False
+    script_filename = "capture_image.py"
+    my_file = Path(script_filename) # Does the file exist?
+    if not my_file.is_file():
+        error = True
+    else:
+        error = False
+    if (not error):
+        os.system('python3 '+script_filename) # Run Script
+
+## Running the Program
 def main():
     gui = App() # Instantiate GUI object
     gui.mainloop() # Keep open until user closes

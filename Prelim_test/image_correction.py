@@ -8,10 +8,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import pyplot as pylepton
 
+# Adaptive Thresholding
 def adaptive_thresholding(img):
     ad = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
     return(ad)
 
+# Find Contours
 def contours(img):
     ret, thresh = cv2.threshold(img, 240, 255, cv2.THRESH_BINARY)
     cv2.bitwise_not(thresh,thresh)
@@ -170,4 +172,3 @@ def main():
 
 if __name__ == "__main__":
     runtime = main() # Functionality
-    # Remove noise ->
