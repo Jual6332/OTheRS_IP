@@ -11,23 +11,13 @@ ADC_resolution = Vin/(2^ADC_BITS -1);
 % Load data between Tmin and Tmax
 data = load('./temperatures');
 idx  = Tmin <= data(:, 1) & data(:, 1) <= Tmax;
-data = data(idx, :);
-datalen = length(data);
-resistance_range = linspace(1e3, 1e5, 1e3)
+data = data(Tmin <= data(:, 1) & data(:, 1) <= Tmax, :);
+resistance_range = linspace(1e2, 1e5, 1e4);
 
-differentials = zeros(length(resistance_range), 1);
 min_max_temp_reading = zeros(length(resistance_range), 2);
 
 for i = 1:length(resistance_range)
-    min_volt = 0;
-    max_volt = 0;
     R1 = resistance_range(i);
-    % for j = 1:datalen % Every data point
-    %     Rth = data(j, 2) * 1e3; % thermistor resistance
-    %     output_voltage = Vin*(Rth/(Rth+R1));
-    %     min_volt = min([min_volt, output_voltage]);
-    %     max_volt = max([max_volt, output_voltage]);
-    % end
     
     % -30 degC
     Rth = data(1, 2) * 1e3;
@@ -38,25 +28,20 @@ for i = 1:length(resistance_range)
     Rth = data(end, 2) * 1e3;
     output_voltage = Vin*(Rth/(Rth+R1));
     min_max_temp_reading(i, 2) = output_voltage;
-
-    differentials(i) = max_volt - min_volt;
-    % ADC_reading(i) = ceil(max_volt ./ ADC_resolution);
 end
 
-
-
-
+% Find the resistor R1 that gives the widest voltage range across the relevant temperatures
 voltage_range = min_max_temp_reading(:, 1) - min_max_temp_reading(:, 2);
-
 [maxval, idx] = max(voltage_range);
 ideal_resistance = resistance_range(idx);
-fprintf('Ideal resistance %d kOhms\n', ideal_resistance/1000);
 
+fprintf('Ideal resistance %d kOhms\n', ideal_resistance/1000);
 
 figure; hold on; grid on;
 title('Voltage Range vs Resistor Value');
 xlabel('R1 Resistance (\Omega)');
 ylabel('Output Voltage');
+
 semilogx(resistance_range, min_max_temp_reading(:, 1), 'b', ... 
                         'displayname', 'Voltage at -30 degC')
 semilogx(resistance_range, min_max_temp_reading(:, 2), 'r', ... 
