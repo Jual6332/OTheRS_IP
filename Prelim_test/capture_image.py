@@ -4,6 +4,8 @@ import cv2
 import time
 from pylepton import Lepton
 
+# Enable SPI on the raspberry pi! After bootup,
+# SPI is enabled if /dev/spidev0.0 and /deb/spidev0.1 exist.
 with Lepton() as l:
     a,_ = l.capture()
 
@@ -14,3 +16,4 @@ emptyImg = np.zeros((h, w)) # Image for manipulation
 # Sensor Data is Read-in as 14-bit, extend to 16 bits without losing data
 test = cv2.normalize(a,emptyImg,0,65535,cv2.NORM_MINMAX)
 cv2.imwrite("output.png", np.uint16(a))
+cv2.imshow("Captured Image",uint16(a))

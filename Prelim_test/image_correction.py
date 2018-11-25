@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import math
 import cv2
 import time
@@ -7,10 +8,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import pyplot as pylepton
 
+# Adaptive Thresholding
 def adaptive_thresholding(img):
     ad = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
     return(ad)
 
+# Find Contours
 def contours(img):
     ret, thresh = cv2.threshold(img, 240, 255, cv2.THRESH_BINARY)
     cv2.bitwise_not(thresh,thresh)
@@ -129,7 +132,6 @@ def main():
     gray = gray_scale(img)
     thr = Otsu_thresholding(gray)
     cv2.imwrite('Otsu Thresh.png',thr)
-    gray = np.float32(gray)
 
     # K-Means Color Quantization Test 1
     img = load_image('FLIR_second.jpg')
@@ -149,6 +151,12 @@ def main():
     img = cv2.imread('box.jpg')
     dst = skew_transforn(img)
     cv2.imwrite('Skew Transform.png',dst)
+    # ---> Apply Thresholding
+    gray = gray_scale(dst)
+    thr = Otsu_thresholding(gray)
+    cv2.imwrite('Skew Transforn + Otsu.png',thr)
+
+
 
     # Test Contours - Under Construction
     #img = load_image('bulb.png')
@@ -164,4 +172,3 @@ def main():
 
 if __name__ == "__main__":
     runtime = main() # Functionality
-    # Remove noise ->
