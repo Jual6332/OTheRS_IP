@@ -8,9 +8,9 @@
 // A simple class for the data from a MAX31855K thermocouple chip
 // this class does not handle the SPI communication
 // TODO: Cold junction temperature compensation reading
-class MAX31855K {
+class Max31855kReading {
 public:
-    MAX31855K(uint32_t data) {
+    Max31855kReading(uint32_t data) {
         oc_fault  = data        & 1; // D0
         scg_fault = (data >> 1) & 1; // D1
         scv_fault = (data >> 2) & 1; // D2
@@ -40,14 +40,14 @@ public:
 
     // construct from 4 bytes, little endian
     static
-    MAX31855K from_bytes_le(uint8_t *bytes) {
-        return MAX31855K(bytes_to_uint_le(bytes));
+    Max31855kReading from_bytes_le(uint8_t *bytes) {
+        return Max31855kReading(bytes_to_uint_le(bytes));
     }
 
     // construct from 4 bytes, big endian
     static
-    MAX31855K from_bytes_be(uint8_t *bytes) {
-        return MAX31855K(bytes_to_uint_be(bytes));
+    Max31855kReading from_bytes_be(uint8_t *bytes) {
+        return Max31855kReading(bytes_to_uint_be(bytes));
     }
 
     std::string display() {
