@@ -121,20 +121,20 @@ def main():
     img = remove_glare(img)
     cv2.imwrite('Removing Glare.png',img)
 
-    img = load_image('FLIR_first.jpg')
-
     # Image 2
     img2 = load_image('FLIR_second.jpg')
     img_subtract2 = load_image('FLIR_second.jpg')
     img2 = noise_removal(img2,img_subtract2)
 
     # Clean up the image
+    img = load_image('FLIR_first.jpg')
     gray = gray_scale(img)
     thr = Otsu_thresholding(gray)
     cv2.imwrite('Otsu Thresh.png',thr)
 
     # K-Means Color Quantization Test 1
-    img = load_image('FLIR_second.jpg')
+    img = load_image('FLIR_first.jpg')
+    img = load_image('FLIR0014.jpg')
     Z = img.reshape((-1,3))
     Z = np.float32(Z)
     output = kmeans(img,Z,8)
@@ -154,9 +154,7 @@ def main():
     # ---> Apply Thresholding
     gray = gray_scale(dst)
     thr = Otsu_thresholding(gray)
-    cv2.imwrite('Skew Transforn + Otsu.png',thr)
-
-
+    cv2.imwrite('Skew Transform + Otsu.png',thr)
 
     # Test Contours - Under Construction
     #img = load_image('bulb.png')

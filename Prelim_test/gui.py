@@ -32,8 +32,10 @@ class HomePage(tk.Frame):
     def __init__(self,parent,controller):
         initialize_class(self,parent,controller)
     def set_page(self,controller):
-        label = tk.Label(self, font = LARGE_FONT, text = "OTheRS Image Processing Test GUI\n").grid(row=0,column=1,columnspan=3)
-        button_capture_image = tk.Button(self,bd="2",fg="white",bg="gray",font=NORMAL_FONT,text="Capture Image",command=lambda: runscript_callback(controller)).grid(row=5,column=0,rowspan=1)
+        label = tk.Label(self, font = LARGE_FONT, text = "OTheRS Image Processing Test GUI\n").grid(row=0,column=0,columnspan=3)
+        button_capture_image = tk.Button(self,bd="2",fg="white",bg="gray",font=NORMAL_FONT,text="Capture Image Method 1",command=lambda: runscript_callback(controller,"capture_image.py")).grid(row=4,column=0,rowspan=1)
+        button_capture_image_backup = tk.Button(self,bd="2",fg="white",bg="gray",font=NORMAL_FONT,text="Capture Image Method 2",command=lambda: runscript_callback_backup(controller,"raspberrypi_capture")).grid(row=4,column=1,rowspan=1)
+        button_noise_removal = tk.Button(self,bd="2",fg="white",bg="gray",font=NORMAL_FONT,text="Noise Removal",command=lambda: runscript_callback(controller,"noise_removal.py")).grid(row=5,column=0,rowspan=1)
         pad_children(self) # Assign padding to child widgets (aesthetic)
 
 ## Global Functions
@@ -52,9 +54,9 @@ def pad_children(self):
     for child in self.winfo_children(): child.grid_configure(padx=5,pady=5)
 
 # Run Image Capture Script for Testing
-def runscript_callback(controller):
+def runscript_callback(controller,fname):
     error = False
-    script_filename = "capture_image.py"
+    script_filename = fname
     my_file = Path(script_filename) # Does the file exist?
     if not my_file.is_file():
         error = True
@@ -62,6 +64,17 @@ def runscript_callback(controller):
         error = False
     if (not error):
         os.system('python3 '+script_filename) # Run Script
+
+def runscript_callback_backup(controller,script_filename):
+    error = False
+    path = "Backup_scripts/"+script_filename
+    my_file = Path(path) # Does the file exist?
+    if not my_file.is_file():
+        error = True
+    else:
+        error = False
+    if (not error):
+        subprocess.call(path)
 
 ## Running the Program
 def main():
