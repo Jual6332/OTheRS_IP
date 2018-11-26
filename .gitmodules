@@ -1,6 +1,3 @@
-[submodule "Prelim_test/--force"]
-	path = Prelim_test/--force
-	url = https://github.com/groupgets/pylepton
 [submodule "Prelim_test/pylepton"]
 	path = Prelim_test/pylepton
 	url = https://github.com/groupgets/pylepton
