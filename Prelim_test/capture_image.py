@@ -10,8 +10,10 @@ from pylepton import Lepton
 with Lepton() as l:
     a,_ = l.capture()
 
+# Update w/ actual img size to get initialization size
 # Initialize Array
-h, w, ch = img.shape
+#h, w, ch = img.shape
+h=160;w=120;
 emptyImg = np.zeros((h, w)) # Image for manipulation
 
 # Sensor Data is Read-in as 14-bit, extend to 16 bits without losing data
