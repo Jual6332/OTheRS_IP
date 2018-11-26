@@ -154,7 +154,7 @@ def main():
     # ---> Apply Thresholding
     gray = gray_scale(dst)
     thr = Otsu_thresholding(gray)
-    cv2.imwrite('Skew Transforn + Otsu.png',thr)
+    cv2.imwrite('Skew Transform + Otsu.png',thr)
 
     # Test Contours - Under Construction
     #img = load_image('bulb.png')

@@ -27,10 +27,10 @@ start = time.time()
 # Read in first image
 # Mountain images have size 184 X 468
 # Door (radiometric) images have size
-img1_3D = cv2.imread('FLIR_first.jpg')
-img2_3D = cv2.imread('FLIR_second.jpg')
-img1 = cv2.imread('FLIR_first.jpg',0)
-img2 = cv2.imread('FLIR_second.jpg',0)
+img1_3D = cv2.imread('mountain_one.jpg')
+img2_3D = cv2.imread('mountain_two.jpg')
+img1 = cv2.imread('mountain_one.jpg',0)
+img2 = cv2.imread('mountain_two.jpg',0)
 
 # Initialization of the Feature Detector
 orb = cv2.ORB_create()

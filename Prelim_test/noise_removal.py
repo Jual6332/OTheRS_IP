@@ -20,7 +20,7 @@ def noise_removal(img1,img2):
 
 def main():
     img2 = load_image('FLIR_first.jpg')
-    img_subtract2 = load_image('FLIR_first.jpg')
+    img_subtract2 = load_image('FLIR_first.jpg') # Reference image to remove noise
     img2 = noise_removal(img2,img_subtract2)
     cv2.imwrite("Noise Removed.png",img2)
 

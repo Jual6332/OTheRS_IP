@@ -19,5 +19,5 @@ test = cv2.normalize(a,emptyImg,0,65535,cv2.NORM_MINMAX)
 cv2.imwrite("output.png", np.uint16(a))
 
 # Save to a particular destination
-path = "/home/user/Desktop/Python/OTheRS_IP/Prelim_test"
+path = "/home/user/Desktop/Python/OTheRS_IP/Prelim_test/ImageCollection"
 cv2.imwrite(os.path.join(path,"output_image.jpg"),np.uint16(a))
