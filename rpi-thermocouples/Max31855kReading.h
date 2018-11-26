@@ -1,12 +1,10 @@
 #include <sstream>
 #include <string>
-#include <errno.h>
 #include <cstdint>
-#include <wiringPiSPI.h>
 
 
 // A simple class for the data from a MAX31855K thermocouple chip
-// this class does not handle the SPI communication
+// this class does not handle the SPI communication, just decoding
 // TODO: Cold junction temperature compensation reading
 class Max31855kReading {
 public:
@@ -30,10 +28,6 @@ public:
         } else {
             raw_temp = data >> 18; // Shift off all but the temperature data
         }
-
-        // FIXME
-        // temp = raw_temp / 4.0; // convert to degC
-        // internal_temp = raw_internal_temp / 4.0; // convert to degC
     }
 
     // construct from 4 bytes, little endian
@@ -48,22 +42,23 @@ public:
         return Max31855kReading(bytes_to_uint_be(bytes));
     }
 
+    // method to display all the relevant data from a reading
     std::string display() {
         std::ostringstream stream;
         stream << temp_degC() << " degrees C";
         // various faults
         if (is_scv_fault()) {
-            stream << "\nSCV FAULT";
+            stream << " [SCV FAULT]";
         }
         if (is_scg_fault()) {
-            stream << "\nSCG FAULT";
+            stream << " [SCG FAULT]";
         }
         if (is_oc_fault()) {
-            stream << "\nOC FAULT";
+            stream << " [OC FAULT]";
         }
         if (is_all_zeros()) {
-            stream << "\nWARNING: all data in packet is zero. "
-                "Is the breakout board plugged in?";
+            stream << "\n[WARNING]: all data in packet is zero. "
+                      "Is the breakout board plugged in?";
         }
         return stream.str();
     }
@@ -83,6 +78,7 @@ public:
         return oc_fault == 1;
     }
 
+    // check if all the data pulled from a reading is zero
     bool is_all_zeros() {
         return raw_temp          == 0
             && reserved1         == 0
@@ -105,8 +101,6 @@ public:
     }
 
 private:
-    // double   temp;
-    // double   internal_temp;
     uint16_t raw_temp;
     uint8_t  reserved1;
     uint8_t  fault;
@@ -116,6 +110,8 @@ private:
     uint8_t  scg_fault;
     uint8_t  oc_fault;
 
+    // convert 4 bytes to a uint32_t (big endian)
+    // Warning!: No bounds checking is performed
     static
     uint32_t bytes_to_uint_be(uint8_t *buffer) {
         uint32_t result = 0;
@@ -126,6 +122,8 @@ private:
         return result;
     }
 
+    // convert 4 bytes to a uint32_t (little endian)
+    // Warning!: No bounds checking is performed
     static
     uint32_t bytes_to_uint_le(uint8_t *buffer) {
         uint32_t result = 0;
