@@ -22,11 +22,8 @@ public:
         fault = (data >> 16) & 1; // D16
         reserved1 = (data >> 17) & 1; // D16 always 0
 
-        // 14 bit thermocouple temperature
-        // raw_temp = (data >> 18) & 0b0011111111111111;
 
         /* the block below is shamelessly copied from sparkfun code. This kind of bitmath is beyond me */
-
         // Bits D[31:18] are the signed 14-bit thermocouple temperature value
         if (data & ((uint32_t)1 << 31)) { // Sign extend negative numbers
             raw_temp = 0xC000 | ((data >> 18) & 0x3FFF);
@@ -34,8 +31,9 @@ public:
             raw_temp = data >> 18; // Shift off all but the temperature data
         }
 
-        temp = raw_temp / 4.0; // convert to degC
-        internal_temp = raw_internal_temp / 4.0; // convert to degC
+        // FIXME
+        // temp = raw_temp / 4.0; // convert to degC
+        // internal_temp = raw_internal_temp / 4.0; // convert to degC
     }
 
     // construct from 4 bytes, little endian
@@ -63,6 +61,10 @@ public:
         if (is_oc_fault()) {
             stream << "\nOC FAULT";
         }
+        if (is_all_zeros()) {
+            stream << "\nWARNING: all data in packet is zero. "
+                "Is the breakout board plugged in?";
+        }
         return stream.str();
     }
 
@@ -81,6 +83,17 @@ public:
         return oc_fault == 1;
     }
 
+    bool is_all_zeros() {
+        return raw_temp          == 0
+            && reserved1         == 0
+            && fault             == 0
+            && raw_internal_temp == 0
+            && reserved2         == 0
+            && scv_fault         == 0
+            && scg_fault         == 0
+            && oc_fault          == 0;
+    }
+
     // temperature in celcius
     double temp_degC() {
         return (raw_temp / 4.0);
@@ -92,11 +105,11 @@ public:
     }
 
 private:
-    double   temp;
+    // double   temp;
+    // double   internal_temp;
     uint16_t raw_temp;
     uint8_t  reserved1;
     uint8_t  fault;
-    double   internal_temp;
     uint16_t raw_internal_temp;
     uint8_t  reserved2;
     uint8_t  scv_fault;
