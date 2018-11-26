@@ -1,5 +1,10 @@
 CXX := g++
-CFLAGS = -std=c++11 -Wall
+CFLAGS = -std=c++11 -Wall -march=native
+
+# Debugging
+CFLAGS += -g
+# Release
+CFLAGS += -O3
 
 .PHONY: all
 all: example_main
