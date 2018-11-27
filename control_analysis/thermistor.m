@@ -34,19 +34,22 @@ ideal_resistance = resistance_range(idx);
 
 fprintf('Ideal resistance %d kOhms\n', ideal_resistance/1000);
 
-figure; hold on; grid on;
-title('Voltage Range vs Resistor Value');
-xlabel('log_{10}(R1) Resistance (log_{10}(\Omega))');
-ylabel('Output Voltage');
+% Try and plot only if Java UI libs are present
+if usejava('awt') | usejava('swing')
+    figure; hold on; grid on;
+    title('Voltage Range vs Resistor Value');
+    xlabel('log_{10}(R1) Resistance (log_{10}(\Omega))');
+    ylabel('Output Voltage');
 
-semilogx(resistance_range, min_max_temp_reading(:, 1), 'b', ... 
-                        'displayname', 'Voltage at -30 degC')
-semilogx(resistance_range, min_max_temp_reading(:, 2), 'r', ... 
-                        'displayname', 'Voltage at 60 degC')
-semilogx(resistance_range, voltage_range, 'g', ... 
-                        'linewidth', 2, ... 
-                        'displayname', 'Voltage Range')
-legend('show')
+    semilogx(resistance_range, min_max_temp_reading(:, 1), 'b', ... 
+                            'displayname', 'Voltage at -30 degC')
+    semilogx(resistance_range, min_max_temp_reading(:, 2), 'r', ... 
+                            'displayname', 'Voltage at 60 degC')
+    semilogx(resistance_range, voltage_range, 'g', ... 
+                            'linewidth', 2, ... 
+                            'displayname', 'Voltage Range')
 
-plot(ideal_resistance, maxval, 'ro')
+    semilogx(ideal_resistance, maxval, 'ro')
 
+    legend('show')
+end
