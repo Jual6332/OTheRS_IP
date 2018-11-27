@@ -5,15 +5,11 @@ Vin = 3.3;
 Tmax =  60;
 Tmin = -30;
 
-ADC_BITS = 10;
-ADC_resolution = Vin/(2^ADC_BITS -1);
-
 % Load data between Tmin and Tmax
 data = load('./temperatures');
 idx  = Tmin <= data(:, 1) & data(:, 1) <= Tmax;
-
 data = data(Tmin <= data(:, 1) & data(:, 1) <= Tmax, :);
-resistance_range = linspace(1e2, 1e5, 1e4);
+resistance_range = linspace(1e3, 1e5, 1e4);
 
 min_max_temp_reading = zeros(length(resistance_range), 2);
 
@@ -21,12 +17,12 @@ for i = 1:length(resistance_range)
     R1 = resistance_range(i);
     
     % -30 degC
-    Rth = data(1, 2) * 1e3;
+    Rth = data(1, 2);
     output_voltage = Vin*(Rth/(Rth+R1));
     min_max_temp_reading(i, 1) = output_voltage;
 
     % 60 degC
-    Rth = data(end, 2) * 1e3;
+    Rth = data(end, 2);
     output_voltage = Vin*(Rth/(Rth+R1));
     min_max_temp_reading(i, 2) = output_voltage;
 end
