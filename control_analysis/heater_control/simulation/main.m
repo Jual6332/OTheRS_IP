@@ -20,6 +20,7 @@ T0    = Tsurr;      % Inital temperature of the heaters
                    % This is also the temperature about which the linearized model is
                    % actually linearized
 
+R  = 10;    % Ohms
 m  = 13e-3; % kg
 cp = 920;   % j / kg*K  MIL-HDBK-5J, Figure 3.2.1.0 Aluminum 2014-T6
 Kc = 0.02;  % W / K
@@ -55,9 +56,7 @@ y0 = T0;
                                              [0, time_max],             ... % Time range
                                              y0);                           % Initial state (just T0)
 
-plot(t_full, y_full - 273, 'b',            ...
-                          'linewidth', 2, ...
-                          'displayname', 'Nonlinear Model')
+plot(t_full, y_full - 273, 'b', 'linewidth', 2, 'displayname', 'Nonlinear Model')
 
 % %%% Linearized Model %%%
 % % The control law drives the temperature to an offset (Ttgt - T0) instead of an absolute value (Ttgt)
@@ -102,4 +101,11 @@ ylabel('Temperature (deg C)')
 legend('show', 'location', 'southeast')
 ylim([0, 120])
 
+
+% Input current calculation
+figure; hold on; grid on;
+Tdot = diff(y_full);
+Qdot = Tdot * m * cp; % P = I^2 * R
+I = sqrt(Qdot / R);
+plot(t_full(2:end), I, 'r', 'linewidth', 2, 'displayname', 'Input Current');
 

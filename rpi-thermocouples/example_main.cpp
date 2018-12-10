@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bitset>
 #include <string>
 #include <errno.h>
 #include <cstdint>
