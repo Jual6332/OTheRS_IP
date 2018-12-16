@@ -71,7 +71,7 @@ h_matrix, mask = cv2.findHomography(points1,points2,cv2.RANSAC)
 
 # Method 2: Stitch of similarities + original images
 # Show final Panorama of the Image
-result = cv2.warpPerspective(img1,h_matrix,(img1_3D.shape[1] + img2_3D.shape[1], max(img1_3D.shape[0],img2_3D.shape[0])))
+result = cv2.warpPerspective(img2,h_matrix,(img1_3D.shape[1] + img2_3D.shape[1], img1_3D.shape[0]))
 #print(img1_3D.shape)
 #print(img2_3D.shape)
 corrected_img = []
@@ -84,7 +84,7 @@ corrected_img = []
 cv2.imwrite("Matches.jpg",result)
 
 # Extend Image 2
-result[0:img2_3D.shape[0], 0:img2_3D.shape[1]] = img2
+result[0:img1_3D.shape[0], 0:img1_3D.shape[1]] = img1
 #result[(img1_3D.shape[0]+1):img2_3D.shape[0], (img1_3D.shape[1]+1):img2_3D.shape[1]] = img2
 cv2.imwrite("output2.jpg",result)
 
