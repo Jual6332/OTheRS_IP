@@ -90,7 +90,7 @@ def alignImages(img1,img2):
 
     stitcher = cv2.createStitcher(False)
     result = stitcher.stitch((img1,img2))
-    cv2.imwrite("output2.jpg",result[1])
+    cv2.imwrite("output2_hand.jpg",result[1])
 
     # Display First Image
     plt.imshow(img1)
@@ -111,8 +111,8 @@ def alignImages(img1,img2):
 
 if __name__ == '__main__':
     # Read in images
-    img = cv2.imread('mountain_one.jpg',cv2.IMREAD_COLOR) # Left image for stitch
-    img2 = cv2.imread('mountain_two.jpg',cv2.IMREAD_COLOR) # Right image for stitch
+    img = cv2.imread('hand_1.png',cv2.IMREAD_COLOR) # Left image for stitch
+    img2 = cv2.imread('hand_2.png',cv2.IMREAD_COLOR) # Right image for stitch
     #stitcher = cv2.createStitcher()
     #images = []; images.append(img); images.append(img2)
     #ret, pano = stitcher.stitch(images)
