@@ -22,11 +22,11 @@ def kmeans(img,Z,K):
     return(res2)
 
 def main():
-    img = load_image('bulb.png')
+    img = load_image('Inputs/bulb.png')
     Z = img.reshape((-1,3))
     Z = np.float32(Z)
     output = kmeans(img,Z,8)
-    cv2.imwrite('test1.png',output)
+    cv2.imwrite('Outputs/test1.png',output)
 
 if __name__ == "__main__":
     runtime = main() # Functionality
