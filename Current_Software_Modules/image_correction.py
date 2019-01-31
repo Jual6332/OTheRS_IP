@@ -141,11 +141,11 @@ def main():
     cv2.imwrite('res2.png',output)
 
     # K-Means Color Quantization Test 2
-    img = load_image('bulb.png')
-    Z = img.reshape((-1,3))
-    Z = np.float32(Z)
-    output = kmeans(img,Z,8)
-    cv2.imwrite('test1.png',output)
+    #img = load_image('bulb.png')
+    #Z = img.reshape((-1,3))
+    #Z = np.float32(Z)
+    #output = kmeans(img,Z,8)
+    #cv2.imwrite('test1.png',output)
 
     # Potential Skew Angle Fix
     img = cv2.imread('box.jpg')

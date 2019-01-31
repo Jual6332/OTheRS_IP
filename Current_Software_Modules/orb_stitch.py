@@ -40,8 +40,8 @@ def alignImages(img1,img2):
     print(len(matches_final))
 
     # Remove "BAD" matches (85% threshold, only keep top 15% of matches)
-    goodMatches = int(len(matches_final)*0.15)
-    matches_final = matches_final[:goodMatches]
+    #goodMatches = int(len(matches_final)*0.15)
+    #matches_final = matches_final[:goodMatches]
     #print(len(matches_final))
 
     # Draw the top Matches in the Image
@@ -114,8 +114,8 @@ def alignImages(img1,img2):
 
 if __name__ == '__main__':
     # Read in images
-    img = cv2.imread('hand_1.png',cv2.IMREAD_COLOR) # Left image for stitch
-    img2 = cv2.imread('hand_2.png',cv2.IMREAD_COLOR) # Right image for stitch
+    img = cv2.imread('handsup1.png',cv2.IMREAD_COLOR) # Left image for stitch
+    img2 = cv2.imread('handsup2.jpg',cv2.IMREAD_COLOR) # Right image for stitch
     #stitcher = cv2.createStitcher()
     #images = []; images.append(img); images.append(img2)
     #ret, pano = stitcher.stitch(images)
