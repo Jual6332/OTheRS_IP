@@ -37,10 +37,12 @@ def alignImages(img1,img2):
 
     # Sort the matches by score for sitching/meshing
     matches_final = sorted(matches, key = lambda x:x.distance)
+    print(len(matches_final))
 
     # Remove "BAD" matches (85% threshold, only keep top 15% of matches)
     goodMatches = int(len(matches_final)*0.15)
     matches_final = matches_final[:goodMatches]
+    #print(len(matches_final))
 
     # Draw the top Matches in the Image
     img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final,None,flags=2)
@@ -59,38 +61,39 @@ def alignImages(img1,img2):
         points2[x,:] = kp2[match.trainIdx].pt
 
     # Find Homography Matrix
-    h_matrix, mask = cv2.findHomography(points1,points2,cv2.RANSAC,5.0)
+    #h_matrix, mask = cv2.findHomography(points1,points2,cv2.RANSAC,5.0)
 
     # Image Dimensions
-    h1,w1,c1 = img1.shape
-    h2,w2,c2 = img2.shape
+    #h1,w1,c1 = img1.shape
+    #h2,w2,c2 = img2.shape
 
     # Get the Canvas Dimensions
-    img1_dims = np.float32([[0,0],[0,w1],[h1,w1],[h1,0]]).reshape(-1,1,2)
-    img2_dims_temp = np.float32([[0,0],[0,w2],[h2,w2],[h2,0]]).reshape(-1,1,2)
+    #img1_dims = np.float32([[0,0],[0,w1],[h1,w1],[h1,0]]).reshape(-1,1,2)
+    #img2_dims_temp = np.float32([[0,0],[0,w2],[h2,w2],[h2,0]]).reshape(-1,1,2)
 
     # Get Relative Perspective of second Image
-    img2_dims = cv2.perspectiveTransform(img2_dims_temp,h_matrix)
+    #img2_dims = cv2.perspectiveTransform(img2_dims_temp,h_matrix)
 
     # Resulting Dimensions
-    result_dims = np.concatenate((img1_dims,img2_dims),axis=0)
+    #result_dims = np.concatenate((img1_dims,img2_dims),axis=0)
 
     # Calculating dimensions of matched points
-    [x_min,y_min] = np.int32(result_dims.min(axis=0).ravel()-0.5)
-    [x_max,y_max] = np.int32(result_dims.max(axis=0).ravel()+0.5)
+    #[x_min,y_min] = np.int32(result_dims.min(axis=0).ravel()-0.5)
+    #[x_max,y_max] = np.int32(result_dims.max(axis=0).ravel()+0.5)
 
     # Create Output Array after
-    transform_dist = [-x_min,-y_min]
-    transform_array = np.array([[1,0,transform_dist[0]],[0,1,transform_dist[1]],[0,0,1]])
+    #transform_dist = [-x_min,-y_min]
+    #transform_array = np.array([[1,0,transform_dist[0]],[0,1,transform_dist[1]],[0,0,1]])
 
     # Warp Images to get the Resulting Image
-    result_img = cv2.warpPerspective(img2,transform_array.dot(h_matrix),(x_max-x_min,y_max-y_min))
-    A = img1.shape[1]
-    B = img1.shape[0]
+    #result_img = cv2.warpPerspective(img2,transform_array.dot(h_matrix),(x_max-x_min,y_max-y_min))
+    #A = img1.shape[1]
+    #B = img1.shape[0]
 
     stitcher = cv2.createStitcher(False)
     result = stitcher.stitch((img1,img2))
-    cv2.imwrite("output2_hand.jpg",result[1])
+    print(result)
+    cv2.imwrite("Low-ResThermalOutput.jpg",result[1])
 
     # Display First Image
     plt.imshow(img1)
@@ -103,11 +106,11 @@ def alignImages(img1,img2):
     plt.show(); plt.figure()
 
     # Save Image
-    plt.imshow(result[1])
-    plt.title('Warped Image')
-    plt.show(); plt.figure()
+    #plt.imshow(result[1])
+    #plt.title('Warped Image')
+    #plt.show(); plt.figure()
 
-    return result, h_matrix
+    #return result, h_matrix
 
 if __name__ == '__main__':
     # Read in images
