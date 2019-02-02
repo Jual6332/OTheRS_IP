@@ -17,10 +17,31 @@ def transpose(array):
         array[i] = [elem for elem in row if elem is not None]
     return array
 
+# Grayscale
+def gray_scale(img):
+    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    return(gray)
+
+# Load Image
+def load_image(name):
+    img = cv2.imread(name)
+    return(img)
+
+# Otsu Thresholding
+def Otsu_thresholding(blur):
+    retval, threshold = cv2.threshold(blur,10,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    return(threshold)
+
 def alignImages(img1,img2):
-    # Convert Images to Grayscale
-    img1Gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
-    img2Gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+    # Otsu Thresholding Test 1
+    img1Gray = gray_scale(img1)
+    thr = Otsu_thresholding(img1Gray)
+    #cv2.imwrite('Otsu Thresh Test1.png',thr)
+
+    # Otsu Thresholding Test 2
+    img2Gray = gray_scale(img2)
+    thr2 = Otsu_thresholding(img2Gray)
+    #cv2.imwrite('Otsu Thresh Test2.png',thr)
 
     # Initialization of the Feature Detector
     orb = cv2.ORB_create()
@@ -37,15 +58,15 @@ def alignImages(img1,img2):
 
     # Sort the matches by score for sitching/meshing
     matches_final = sorted(matches, key = lambda x:x.distance)
-    print(len(matches_final))
+    print("Total matches:"+str(len(matches_final)))
 
     # Remove "BAD" matches (85% threshold, only keep top 15% of matches)
-    #goodMatches = int(len(matches_final)*0.15)
-    #matches_final = matches_final[:goodMatches]
-    #print(len(matches_final))
+    goodMatches = int(len(matches_final)*0.85)
+    matches_final = matches_final[:goodMatches]
+    print("Top 15% of matches:"+str(len(matches_final)))
 
     # Draw the top Matches in the Image
-    img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final,None,flags=2)
+    img3 = cv2.drawMatches(thr,kp,thr2,kp2,matches_final,None,flags=2)
     cv2.imwrite("output3.jpg",img3)
 
     # Show final Panorama of the Image
@@ -90,10 +111,11 @@ def alignImages(img1,img2):
     #A = img1.shape[1]
     #B = img1.shape[0]
 
+    # Call Stitch API
     stitcher = cv2.createStitcher(False)
-    result = stitcher.stitch((img1,img2))
+    result = stitcher.stitch((thr,thr2))
     print(result)
-    cv2.imwrite("Low-ResThermalOutput.jpg",result[1])
+    #cv2.imwrite("Low-ResThermalOutput.jpg",result[1])
 
     # Display First Image
     plt.imshow(img1)
@@ -110,7 +132,7 @@ def alignImages(img1,img2):
     #plt.title('Warped Image')
     #plt.show(); plt.figure()
 
-    #return result, h_matrix
+    # Hard-Code Solution
 
 if __name__ == '__main__':
     # Read in images
@@ -122,4 +144,5 @@ if __name__ == '__main__':
     #if ret == cv2.STITCHER_OK:
     #    cv2.imshow('panorama',pano)
     #    cv2.waitKey()
+
     alignImages(img,img2)

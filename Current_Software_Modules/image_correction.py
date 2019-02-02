@@ -126,19 +126,24 @@ def main():
     img_subtract2 = load_image('FLIR_second.jpg')
     img2 = noise_removal(img2,img_subtract2)
 
-    # Clean up the image
+    # Otsu Thresholding Test 1
     img = load_image('FLIR_first.jpg')
     gray = gray_scale(img)
     thr = Otsu_thresholding(gray)
-    cv2.imwrite('Otsu Thresh.png',thr)
+    cv2.imwrite('Otsu Thresh Test1.png',thr)
+
+    # Otsu Thresholding Test 2
+    img = load_image('stitch3.png')
+    gray = gray_scale(img)
+    thr = Otsu_thresholding(gray)
+    cv2.imwrite('Otsu Thresh Test2.png',thr)
 
     # K-Means Color Quantization Test 1
-    img = load_image('FLIR_first.jpg')
-    img = load_image('FLIR0014.jpg')
+    img = load_image('handsup2.jpg')
     Z = img.reshape((-1,3))
     Z = np.float32(Z)
     output = kmeans(img,Z,8)
-    cv2.imwrite('res2.png',output)
+    cv2.imwrite('KMeans Test1.png',output)
 
     # K-Means Color Quantization Test 2
     #img = load_image('bulb.png')
