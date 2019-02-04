@@ -118,22 +118,44 @@ def alignImages(img1,img2):
     #cv2.imwrite("Low-ResThermalOutput.jpg",result[1])
 
     # Display First Image
-    plt.imshow(img1)
-    plt.title('Input Image A')
-    plt.show(); plt.figure()
+    #plt.imshow(img1)
+    #plt.title('Input Image A')
+    #plt.show(); plt.figure()
 
     # Display Second Image
-    plt.imshow(img2)
-    plt.title('Input Image B')
-    plt.show(); plt.figure()
+    #plt.imshow(img2)
+    #plt.title('Input Image B')
+    #plt.show(); plt.figure()
 
     # Save Image
     #plt.imshow(result[1])
     #plt.title('Warped Image')
     #plt.show(); plt.figure()
 
-    # Hard-Code Solution
+    ## Custom Hard-Code Solution
+    # Find Dimensions
+    print(img1.shape)
 
+    # Step 1. Draw bounds for Overlapped Region
+    for height_elem in range(0,img1.shape[0]):
+        img1[height_elem][42][:] = 255;
+        img1[height_elem][img1.shape[1]-1][:] = 255;
+
+    # Step 2. Mask Overlapped Region
+    for length_elem in range(43,img1.shape[1]-1):
+        img1[0][length_elem][:] = 255;
+        img1[img1.shape[0]-1][length_elem][:] = 255;
+
+    # Step 3. Write Image - Find overlap line
+    cv2.imwrite("Correction.png",img)
+
+    # Step 4. Map Image Panorama
+    img_final = np.zeros((120,109,3));
+    for height_elem in range(0,10):
+        for length_elem in range(0,10):
+            img_final[height_elem][length_elem][:] = img1[height_elem][length_elem][:]
+
+    print(img_final.shape)
 
 if __name__ == '__main__':
     # Read in images
