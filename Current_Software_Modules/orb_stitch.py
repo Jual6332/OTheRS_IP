@@ -61,12 +61,12 @@ def alignImages(img1,img2):
     print("Total matches:"+str(len(matches_final)))
 
     # Remove "BAD" matches (85% threshold, only keep top 15% of matches)
-    goodMatches = int(len(matches_final)*0.85)
+    goodMatches = int(len(matches_final)*0.90)
     matches_final = matches_final[:goodMatches]
-    print("Top 15% of matches:"+str(len(matches_final)))
+    print("Top matches:"+str(len(matches_final)))
 
     # Draw the top Matches in the Image
-    img3 = cv2.drawMatches(thr,kp,thr2,kp2,matches_final,None,flags=2)
+    img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final,None,flags=2)
     cv2.imwrite("output3.jpg",img3)
 
     # Show final Panorama of the Image
@@ -113,7 +113,7 @@ def alignImages(img1,img2):
 
     # Call Stitch API
     stitcher = cv2.createStitcher(False)
-    result = stitcher.stitch((thr,thr2))
+    result = stitcher.stitch((img1,img2))
     print(result)
     #cv2.imwrite("Low-ResThermalOutput.jpg",result[1])
 
@@ -134,10 +134,11 @@ def alignImages(img1,img2):
 
     # Hard-Code Solution
 
+
 if __name__ == '__main__':
     # Read in images
-    img = cv2.imread('handsup1.png',cv2.IMREAD_COLOR) # Left image for stitch
-    img2 = cv2.imread('handsup2.jpg',cv2.IMREAD_COLOR) # Right image for stitch
+    img = cv2.imread('stitch3.png',cv2.IMREAD_COLOR) # Left image for stitch
+    img2 = cv2.imread('stitch4.png',cv2.IMREAD_COLOR) # Right image for stitch
     #stitcher = cv2.createStitcher()
     #images = []; images.append(img); images.append(img2)
     #ret, pano = stitcher.stitch(images)
