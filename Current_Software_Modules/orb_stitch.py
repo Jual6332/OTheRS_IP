@@ -168,12 +168,13 @@ def alignImages(img1,img2):
     length_idx = 0; height_idx = 0;
     print(length_idx)
     for height_elem in range(0,img1.shape[0]):
-        length_idx = 0; height_idx = 0;
+        #length_idx = 0; height_idx = 0;
+        height_idx+=1;
         for length_elem in range(43,length_overlap-1):
             if (length_idx < 117 and height_idx < 120):
                 print(length_idx)
                 img_final[height_elem][length_elem] = img2[height_idx][length_idx]
-                length_idx+=1; height_idx+=1;
+                length_idx+=1;
 
 
 
