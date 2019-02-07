@@ -135,6 +135,7 @@ def alignImages(img1,img2):
     ## Custom Hard-Code Solution
     # Find Dimensions
     print(img1.shape)
+    print(img2.shape)
 
     # Step 1. Draw bounds for Overlapped Region
     for height_elem in range(0,img1.shape[0]):
@@ -147,13 +148,38 @@ def alignImages(img1,img2):
         img1[img1.shape[0]-1][length_elem][:] = 255;
 
     # Step 3. Write Image - Find overlap line
-    cv2.imwrite("Correction.png",img)
+    cv2.imwrite("OverlappedImage.png",img1)
 
-    # Step 4. Map Image Panorama
-    img_final = np.zeros((120,109,3));
-    for height_elem in range(0,10):
-        for length_elem in range(0,10):
-            img_final[height_elem][length_elem][:] = img1[height_elem][length_elem][:]
+    # Step 4: Find dimensions of final image
+    height_overlap = img1.shape[0]
+    length_overlap = 42+img2.shape[1]
+
+    print("Final height:"+str(height_overlap))
+    print("Final length:"+str(length_overlap))
+
+    # Step 5: Map Image Panorama - First Image
+    img_final = np.zeros((height_overlap,length_overlap,3));
+    print(img_final.shape)
+    for height_elem in range(0,img1.shape[0]):
+        for length_elem in range(0,42):
+            img_final[height_elem][length_elem] = img1[height_elem][length_elem]
+
+    # Step 6: Map Image Panorama - Second Image
+    length_idx = 0; height_idx = 0;
+    print(length_idx)
+    for height_elem in range(0,img1.shape[0]):
+        length_idx = 0; height_idx = 0;
+        for length_elem in range(43,length_overlap-1):
+            if (length_idx < 117 and height_idx < 120):
+                print(length_idx)
+                img_final[height_elem][length_elem] = img2[height_idx][length_idx]
+                length_idx+=1; height_idx+=1;
+
+
+
+    # Step 6: Write Image - Find overlap line
+    cv2.imwrite("FinalImage.png",img_final)
+
 
     print(img_final.shape)
 
