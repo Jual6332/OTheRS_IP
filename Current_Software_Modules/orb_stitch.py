@@ -3,6 +3,8 @@ import numpy as np
 import cv2
 import math
 import time
+import sys
+from PIL import Image
 from matplotlib import pyplot as plt
 from random import randrange
 
@@ -152,7 +154,7 @@ def alignImages(img1,img2):
 
     # Step 4: Find dimensions of final image
     height_overlap = img1.shape[0]
-    length_overlap = 42+img2.shape[1]
+    length_overlap = 42
 
     print("Final height:"+str(height_overlap))
     print("Final length:"+str(length_overlap))
@@ -164,25 +166,17 @@ def alignImages(img1,img2):
         for length_elem in range(0,42):
             img_final[height_elem][length_elem] = img1[height_elem][length_elem]
 
-    # Step 6: Map Image Panorama - Second Image
-    length_idx = 0; height_idx = 0;
-    print(length_idx)
-    for height_elem in range(0,img1.shape[0]):
-        #length_idx = 0; height_idx = 0;
-        height_idx+=1;
-        for length_elem in range(43,length_overlap-1):
-            if (length_idx < 117 and height_idx < 120):
-                print(length_idx)
-                img_final[height_elem][length_elem] = img2[height_idx][length_idx]
-                length_idx+=1;
+    # Step 6: Write First Image to PNG
+    cv2.imwrite("FirstImage.png",img_final)
+
+    # Step 7: Concatenate Two Images
+    first_image = cv2.imread('FirstImage.png',cv2.IMREAD_COLOR)
+    second_image = cv2.imread('stitch4.png',cv2.IMREAD_COLOR)
+    images_setstack = np.hstack((first_image, second_image))
+    images_horizontal_concat = np.concatenate((first_image, second_image), axis=1)
+    cv2.imwrite("FinalImage.png",images_horizontal_concat)
 
 
-
-    # Step 6: Write Image - Find overlap line
-    cv2.imwrite("FinalImage.png",img_final)
-
-
-    print(img_final.shape)
 
 if __name__ == '__main__':
     # Read in images
