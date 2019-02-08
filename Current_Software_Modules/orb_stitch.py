@@ -135,19 +135,16 @@ def alignImages(img1,img2):
     #plt.show(); plt.figure()
 
     ## Custom Hard-Code Solution
-    # Find Dimensions
-    print(img1.shape)
-    print(img2.shape)
 
     # Step 1. Draw bounds for Overlapped Region
     for height_elem in range(0,img1.shape[0]):
-        img1[height_elem][42][:] = 255;
-        img1[height_elem][img1.shape[1]-1][:] = 255;
+      img1[height_elem][42][:] = 255;
+      img1[height_elem][img1.shape[1]-1][:] = 255;
 
     # Step 2. Mask Overlapped Region
     for length_elem in range(43,img1.shape[1]-1):
-        img1[0][length_elem][:] = 255;
-        img1[img1.shape[0]-1][length_elem][:] = 255;
+      img1[0][length_elem][:] = 255;
+      img1[img1.shape[0]-1][length_elem][:] = 255;
 
     # Step 3. Write Image - Find overlap line
     cv2.imwrite("OverlappedImage.png",img1)
@@ -163,19 +160,11 @@ def alignImages(img1,img2):
     img_final = np.zeros((height_overlap,length_overlap,3));
     print(img_final.shape)
     for height_elem in range(0,img1.shape[0]):
-        for length_elem in range(0,42):
-            img_final[height_elem][length_elem] = img1[height_elem][length_elem]
+      for length_elem in range(0,42):
+          img_final[height_elem][length_elem] = img1[height_elem][length_elem]
 
     # Step 6: Write First Image to PNG
     cv2.imwrite("FirstImage.png",img_final)
-
-    # Step 7: Concatenate Two Images
-    first_image = cv2.imread('FirstImage.png',cv2.IMREAD_COLOR)
-    second_image = cv2.imread('stitch4.png',cv2.IMREAD_COLOR)
-    images_setstack = np.hstack((first_image, second_image))
-    images_horizontal_concat = np.concatenate((first_image, second_image), axis=1)
-    cv2.imwrite("FinalImage.png",images_horizontal_concat)
-
 
 
 if __name__ == '__main__':
