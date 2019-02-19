@@ -86,4 +86,4 @@ def diagImgStitch(toprow,topcol,botrow,botcol): #output: topDiag, botDiag
 botrow = 0; botcol = 160; toprow = 120; topcol = 0;
 
 diagImgSlice(0,160,120,0) #img is 120,160,3
-diagImgStitch(0,160,120,0)
+diagImgStitch(0,160,120,0);
