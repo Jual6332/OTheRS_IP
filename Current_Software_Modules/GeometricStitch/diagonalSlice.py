@@ -29,22 +29,61 @@ def diagImgSlice(toprow,topcol,botrow,botcol): #output: topDiag, botDiag
     lenCols = topcol;
     riseCount = 0;
 
-    #note: x = rows ---  y = cols
     #iterate through rows starting at topx row and ending at botx row
     for i in range(0,botrow-toprow):
 
-        if riseCount > rise:
+        if riseCount > (rise-1):
             lenCols -= run;
             riseCount = 1;
         else:
             riseCount+=1;
 
-        topDiag[i,0:lenCols] = image[i,0:lenCols,:];
-        botDiag[i,lenCols:-1] = image[i,lenCols:-1,:];
+        print(lenCols)
+        topDiag[i,:lenCols] = image[i,0:lenCols,:];
+        botDiag[i,lenCols:] = image[i,lenCols:,:];
 
     #write output arrays to png files
     cv2.imwrite("Outputs/topDiag.png",topDiag);
     cv2.imwrite("Outputs/botDiag.png",botDiag);
 
-# diagImgSlice(topx,topy,botx,boty)
+def diagImgStitch(toprow,topcol,botrow,botcol): #output: topDiag, botDiag
+    # read input image
+    image1 = cv2.imread('Outputs/topDiag.png',cv2.IMREAD_COLOR); #image 1
+    image2 = cv2.imread('Outputs/botDiag.png',cv2.IMREAD_COLOR);#image 2
+
+    finalImage = np.zeros(image1.shape);
+
+   #define diagonal slice using slope. Simplify to find most accurate diagonal path
+    slope = Fraction(botrow-toprow,topcol-botcol);
+    rise  = slope.numerator;
+    run   = slope.denominator;
+    print(rise,run,sep="/")
+    #check to make sure imgrabing num cols here
+    lenCols = topcol;
+    riseCount = 0;
+
+    #iterate through rows starting at topx row and ending at botx row
+    for i in range(0,botrow-toprow):
+
+        if riseCount > (rise-1):
+            lenCols -= run;
+            riseCount = 1;
+        else:
+            riseCount+=1;
+
+        print(lenCols)
+
+        #Left = image1[i,:lenCols,:];
+        #Right = image2[i,lenCols:,:];
+
+        finalImage[i,:lenCols,:] = image1[i,:lenCols,:];
+        finalImage[i,lenCols:,:] = image2[i,lenCols:,:];
+
+    #write output arrays to png files
+    cv2.imwrite("Outputs/StitchedImg.png",finalImage);
+
+# diagImgSlice(toprow,topcol,botrow,botcol)
+botrow = 0; botcol = 160; toprow = 120; topcol = 0;
+
 diagImgSlice(0,160,120,0) #img is 120,160,3
+diagImgStitch(0,160,120,0)
