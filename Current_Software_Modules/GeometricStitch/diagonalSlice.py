@@ -13,7 +13,7 @@ def write_image(fileName,data):
     cv2.imwrite(str(fileName)+".png",data);
 
 
-def diagImgSlice(topx,topy,botx,boty): #output: topDiag, botDiag
+def diagImgSlice(toprow,topcol,botrow,botcol): #output: topDiag, botDiag
     # read input image
     image = cv2.imread('Inputs/rgb1.png',cv2.IMREAD_COLOR); #image
 
@@ -23,18 +23,17 @@ def diagImgSlice(topx,topy,botx,boty): #output: topDiag, botDiag
 
 
    #define diagonal slice using slope. Simplify to find most accurate diagonal path
-    slope = Fraction(boty,topx);
+    slope = Fraction(botrow-toprow,topcol-botcol);
     rise  = slope.numerator;
     run   = slope.denominator;
 
     #check to make sure imgrabing num cols here
-    lenCols = topy;
-
+    lenCols = topcol;
     riseCount = 0;
 
     #note: x = rows ---  y = cols
     #iterate through rows starting at topx row and ending at botx row
-    for i in range(0,botx-topx):
+    for i in range(0,botrow-toprow):
 
         if riseCount > rise:
             lenCols -= run;
@@ -51,4 +50,4 @@ def diagImgSlice(topx,topy,botx,boty): #output: topDiag, botDiag
 
 
 # diagImgSlice(topx,topy,botx,boty)
-diagImgSlice(2,160,120,2) #img is 120,160,3
+diagImgSlice(0,160,120,0) #img is 120,160,3
