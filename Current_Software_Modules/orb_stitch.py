@@ -3,6 +3,8 @@ import numpy as np
 import cv2
 import math
 import time
+import sys
+from PIL import Image
 from matplotlib import pyplot as plt
 from random import randrange
 
@@ -17,10 +19,31 @@ def transpose(array):
         array[i] = [elem for elem in row if elem is not None]
     return array
 
+# Grayscale
+def gray_scale(img):
+    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    return(gray)
+
+# Load Image
+def load_image(name):
+    img = cv2.imread(name)
+    return(img)
+
+# Otsu Thresholding
+def Otsu_thresholding(blur):
+    retval, threshold = cv2.threshold(blur,10,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    return(threshold)
+
 def alignImages(img1,img2):
-    # Convert Images to Grayscale
-    img1Gray = cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY)
-    img2Gray = cv2.cvtColor(img2,cv2.COLOR_BGR2GRAY)
+    # Otsu Thresholding Test 1
+    img1Gray = gray_scale(img1)
+    thr = Otsu_thresholding(img1Gray)
+    #cv2.imwrite('Otsu Thresh Test1.png',thr)
+
+    # Otsu Thresholding Test 2
+    img2Gray = gray_scale(img2)
+    thr2 = Otsu_thresholding(img2Gray)
+    #cv2.imwrite('Otsu Thresh Test2.png',thr)
 
     # Initialization of the Feature Detector
     orb = cv2.ORB_create()
@@ -37,12 +60,12 @@ def alignImages(img1,img2):
 
     # Sort the matches by score for sitching/meshing
     matches_final = sorted(matches, key = lambda x:x.distance)
-    print(len(matches_final))
+    print("Total matches:"+str(len(matches_final)))
 
     # Remove "BAD" matches (85% threshold, only keep top 15% of matches)
-    goodMatches = int(len(matches_final)*0.15)
+    goodMatches = int(len(matches_final)*0.90)
     matches_final = matches_final[:goodMatches]
-    #print(len(matches_final))
+    print("Top matches:"+str(len(matches_final)))
 
     # Draw the top Matches in the Image
     img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final,None,flags=2)
@@ -90,36 +113,69 @@ def alignImages(img1,img2):
     #A = img1.shape[1]
     #B = img1.shape[0]
 
+    # Call Stitch API
     stitcher = cv2.createStitcher(False)
     result = stitcher.stitch((img1,img2))
     print(result)
-    cv2.imwrite("Low-ResThermalOutput.jpg",result[1])
+    #cv2.imwrite("Low-ResThermalOutput.jpg",result[1])
 
     # Display First Image
-    plt.imshow(img1)
-    plt.title('Input Image A')
-    plt.show(); plt.figure()
+    #plt.imshow(img1)
+    #plt.title('Input Image A')
+    #plt.show(); plt.figure()
 
     # Display Second Image
-    plt.imshow(img2)
-    plt.title('Input Image B')
-    plt.show(); plt.figure()
+    #plt.imshow(img2)
+    #plt.title('Input Image B')
+    #plt.show(); plt.figure()
 
     # Save Image
     #plt.imshow(result[1])
     #plt.title('Warped Image')
     #plt.show(); plt.figure()
 
-    #return result, h_matrix
+    ## Custom Hard-Code Solution
+
+    # Step 1. Draw bounds for Overlapped Region
+    for height_elem in range(0,img1.shape[0]):
+      img1[height_elem][42][:] = 255;
+      img1[height_elem][img1.shape[1]-1][:] = 255;
+
+    # Step 2. Mask Overlapped Region
+    for length_elem in range(43,img1.shape[1]-1):
+      img1[0][length_elem][:] = 255;
+      img1[img1.shape[0]-1][length_elem][:] = 255;
+
+    # Step 3. Write Image - Find overlap line
+    cv2.imwrite("OverlappedImage.png",img1)
+
+    # Step 4: Find dimensions of final image
+    height_overlap = img1.shape[0]
+    length_overlap = 42
+
+    print("Final height:"+str(height_overlap))
+    print("Final length:"+str(length_overlap))
+
+    # Step 5: Map Image Panorama - First Image
+    img_final = np.zeros((height_overlap,length_overlap,3));
+    print(img_final.shape)
+    for height_elem in range(0,img1.shape[0]):
+      for length_elem in range(0,42):
+          img_final[height_elem][length_elem] = img1[height_elem][length_elem]
+
+    # Step 6: Write First Image to PNG
+    cv2.imwrite("FirstImage.png",img_final)
+
 
 if __name__ == '__main__':
     # Read in images
-    img = cv2.imread('hand_1.png',cv2.IMREAD_COLOR) # Left image for stitch
-    img2 = cv2.imread('hand_2.png',cv2.IMREAD_COLOR) # Right image for stitch
+    img = cv2.imread('stitch3.png',cv2.IMREAD_COLOR) # Left image for stitch
+    img2 = cv2.imread('stitch4.png',cv2.IMREAD_COLOR) # Right image for stitch
     #stitcher = cv2.createStitcher()
     #images = []; images.append(img); images.append(img2)
     #ret, pano = stitcher.stitch(images)
     #if ret == cv2.STITCHER_OK:
     #    cv2.imshow('panorama',pano)
     #    cv2.waitKey()
+
     alignImages(img,img2)
