@@ -67,7 +67,7 @@ def alignImages(img1,img2):
 
     # Draw the top Matches in the Image
     img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final,None,flags=2)
-    cv2.imwrite("output3.jpg",img3)
+    #cv2.imwrite("output3.jpg",img3)
 
     # Show final Panorama of the Image
     # Use RANSAC algorithm to find Homography (translation+rotation) matrix
@@ -99,7 +99,7 @@ def alignImages(img1,img2):
       img1[img1.shape[0]-1][length_elem][:] = 255;
 
     # Step 3. Write Image - Find overlap line
-    cv2.imwrite("OverlappedImage.png",img1)
+    cv2.imwrite("Outputs/OverlappedImage.png",img1)
 
     # Step 4: Find dimensions of final image
     height_overlap = img1.shape[0]
@@ -116,7 +116,7 @@ def alignImages(img1,img2):
           img_final[height_elem][length_elem] = img1[height_elem][length_elem]
 
     # Step 6: Write First Image to PNG
-    cv2.imwrite("FirstImage.png",img_final)
+    cv2.imwrite("Outputs/FirstImage.png",img_final)
 
 
 if __name__ == '__main__':

@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-import numpy as np
-import cv2
-import math
-import time
-import sys
-from PIL import Image
-from matplotlib import pyplot as plt
-from random import randrange
+################################################################################
+### Helper Function: "transpose.py" ############################################
+################################################################################
+##  Justin Alvey            ####################################################
+##  OTheRS IP Lead          ####################################################
+##  Date Created: 1/20/19   ####################################################
+##  Date Modified: 2/20/19  ####################################################
+################################################################################
+
+#####################---------Main Code---------################################
 
 # Function Descriptions
 def transpose(array):
@@ -18,3 +20,5 @@ def transpose(array):
     for i, row in enumerate(array):
         array[i] = [elem for elem in row if elem is not None]
     return array
+
+#####################-----------Close-----------################################

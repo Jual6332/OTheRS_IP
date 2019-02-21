@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-import numpy as np
-import cv2
-import math
-import time
-import sys
-from PIL import Image
-from matplotlib import pyplot as plt
-from random import randrange
-
+################################################################################
 ################################################################################
 ### "run_stitchAPI.py" #########################################################
 ################################################################################
@@ -19,34 +11,31 @@ from random import randrange
 
 # Main Purpose: Continue to explore image stitching techniques. Return StitchAPI
 # resulting image data.
-
-# Action Item: Test with
-
+# Action Item: Test with 160X120 images.
 # Caution: Prevent temperature data from being compromised.
+
+#####################---------Libraries---------################################
+import numpy as np
+import cv2
+import math
+import time
+import sys
+from PIL import Image
+from matplotlib import pyplot as plt
+from random import randrange
 
 #####################---------Main Code---------################################
 def main():
     # Read in images
     img = cv2.imread('Inputs/stitch3.png',cv2.IMREAD_COLOR) # Left image for stitch
     img2 = cv2.imread('Inputs/stitch4.png',cv2.IMREAD_COLOR) # Right image for stitch
-    align_images(img,img2) # Run Align Images
-    result = call_stitchAPI(img1,img2)
-    return result
 
-# Grayscale
-def gray_scale(img):
-    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    return(gray)
+    # Align Images
+    align_images(img,img2) # Check # matches, quality of matches
+    result = call_stitchAPI(img,img2) # (img1,img2) -> single image
 
-# Load Image
-def load_image(name):
-    img = cv2.imread(name)
-    return(img)
-
-# Otsu Thresholding
-def Otsu_thresholding(blur):
-    retval, threshold = cv2.threshold(blur,10,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-    return(threshold)
+    # Write Image
+    cv2.imwrite("Outputs/Low-ResThermalOutput.jpg",result) # Output
 
 def align_images(img1,img2):
     # Otsu Thresholding Test 1
@@ -81,7 +70,7 @@ def align_images(img1,img2):
 
     # Draw the top Matches in the Image
     img3 = cv2.drawMatches(img1,kp,img2,kp2,matches_final,None,flags=2)
-    cv2.imwrite("output3.jpg",img3)
+    cv2.imwrite("Outputs/FindMatches.jpg",img3)
 
     # Initialize Image Objects
     points1 = np.zeros((len(matches),2), dtype=np.float32) # Initialization
@@ -98,5 +87,17 @@ def call_stitchAPI(img1,img2):
     result = stitcher.stitch((img1,img2))
     return result[1]
 
+# Grayscale
+def gray_scale(img):
+    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    return(gray)
+
+# Otsu Thresholding
+def Otsu_thresholding(blur):
+    retval, threshold = cv2.threshold(blur,10,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    return(threshold)
+
 if __name__ == '__main__':
-    cv2.imwrite("Outputs/Low-ResThermalOutput.jpg",result) # Write Output
+    main()
+
+#####################-----------Close-----------################################
