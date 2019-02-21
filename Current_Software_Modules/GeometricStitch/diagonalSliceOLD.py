@@ -12,7 +12,9 @@ from random import randrange
 def write_image(fileName,data):
     cv2.imwrite(str(fileName)+".png",data);
 
-def diagImgSlice(img1,img2,toprow,topcol,botrow,botcol): #output: topDiag, botDiag
+def diagImgSlice(toprow,topcol,botrow,botcol): #output: topDiag, botDiag
+    # read input image
+    image = cv2.imread('Inputs/rgb1.png',cv2.IMREAD_COLOR); #image
 
     #initialize arrays to hold each side of slice
     topDiag = np.zeros(image.shape);
@@ -85,10 +87,5 @@ def diagImgStitch(toprow,topcol,botrow,botcol): #output: topDiag, botDiag
 # diagImgSlice(toprow,topcol,botrow,botcol)
 botrow = 0; botcol = 160; toprow = 120; topcol = 0;
 
-# read input image
-image1 = cv2.imread('Inputs/testdata/topLoc/rgb3.png',cv2.IMREAD_COLOR); #image1
-image2 = cv2.imread('Inputs/testdata/botLoc/rgb3.png',cv2.IMREAD_COLOR); #image2
-
-
-diagImgSlice(image1,image2,0,160,120,0) #img is 120,160,3
+diagImgSlice(0,160,120,0) #img is 120,160,3
 diagImgStitch(0,160,120,0);
