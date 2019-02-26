@@ -26,8 +26,6 @@ from random import randrange
 
 #####################---------Main Code---------################################
 def main():
-    # Step 6: Write First Image to PNG
-    #cv2.imwrite("FirstImage.png",img_final)
     # Step 7: Concatenate Images
     image_first = cv2.imread('Inputs/FirstImage.png',cv2.IMREAD_COLOR) # First Image
     image_second = cv2.imread('Inputs/stitch4.png',cv2.IMREAD_COLOR) # Second Image
