@@ -25,7 +25,8 @@ from random import randrange
 def main():
     bottomMount = cv2.imread('StackImages/bottomMount.png',cv2.IMREAD_COLOR) # First Image
     topMount = cv2.imread('StackImages/topMount.png',cv2.IMREAD_COLOR) # Second Image
-    print("Result.")
+    print(type(topMount))
+    print("Result")
 
     # Manually Locate Pixels
     bottomMount[113][0][:] = 0;

@@ -16,7 +16,7 @@ def display_image(filename):
                 numbers = [float(i) for i in line.strip().split(" ")]
                 data[row, :] = numbers
             except Exception as e:
-                print("Excption: {}".format(e))
+                print("Exception: {}".format(e))
             row += 1
     # Show the result
     fig = plt.figure()
@@ -30,4 +30,3 @@ if len(sys.argv) < 2:
 
 for filename in sys.argv[1:]:
     display_image(filename)
-
