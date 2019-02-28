@@ -8,9 +8,7 @@
 ##  Date Created: 2/15/19   ####################################################
 ##  Date Modified: 2/21/19  ####################################################
 ################################################################################
-
 # Main Purpose: Locate stack face, aluminum face
-
 #####################---------Libraries---------################################
 import numpy as np
 import cv2
@@ -20,7 +18,6 @@ import sys
 from PIL import Image
 from matplotlib import pyplot as plt
 from random import randrange
-
 #####################---------Main Code---------################################
 def main():
     bottomMount = cv2.imread('StackImages/bottomMount.png',cv2.IMREAD_COLOR) # First Image
