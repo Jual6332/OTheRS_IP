@@ -29,7 +29,6 @@ data = np.zeros((HEIGHT, WIDTH))
 def main():
     # Load Temp Values
     temps = load_temp_values('StackImages/raw1.txt')
-
     # Store Temp Values, Sort through array
     tiles_data = []
     # Row 1
@@ -60,14 +59,23 @@ def main():
     num23=0; max23=0; min23=temps[40][120];
     num24=0; max24=0; min24=temps[40][140];
     # Row 4
-    num25=0; max25=0; min17=temps[60][0];
-    num26=0; max26=0; min18=temps[60][20];
-    num27=0; max27=0; min19=temps[60][40];
-    num28=0; max28=0; min20=temps[60][60];
-    num29=0; max29=0; min21=temps[60][80];
-    num30=0; max30=0; min22=temps[60][100];
-    num31=0; max31=0; min23=temps[60][120];
-    num32=0; max32=0; min24=temps[60][140];
+    num25=0; max25=0; min25=temps[60][0];
+    num26=0; max26=0; min26=temps[60][20];
+    num27=0; max27=0; min27=temps[60][40];
+    num28=0; max28=0; min28=temps[60][60];
+    num29=0; max29=0; min29=temps[60][80];
+    num30=0; max30=0; min30=temps[60][100];
+    num31=0; max31=0; min31=temps[60][120];
+    num32=0; max32=0; min32=temps[60][140];
+    # Row 5
+    num33=0; max33=0; min33=temps[80][0];
+    num34=0; max34=0; min34=temps[80][20];
+    num35=0; max35=0; min35=temps[80][40];
+    num36=0; max36=0; min36=temps[80][60];
+    num37=0; max37=0; min37=temps[80][80];
+    num38=0; max38=0; min38=temps[80][100];
+    num39=0; max39=0; min39=temps[80][120];
+    num40=0; max40=0; min40=temps[80][140];
 
     ## Divide Data into 20X20 Squares
     for idx in range(0,len(temps[0])):
@@ -163,7 +171,9 @@ def main():
                 row.append(temps[idy][idx])
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
         tiles_data.append(row)
-    print(num1);print(num2);print(num3);print(num4);print(num5);print(num6)
+
+    ## Print Number of Saved Elements in Each Tile
+    #print(num1);print(num2);print(num3);print(num4);print(num5);print(num6)
 
     ## Check Max and Min Values
     temp_range_check("1",min1,max1+50)
