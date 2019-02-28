@@ -32,98 +32,172 @@ def main():
 
     # Store Temp Values, Sort through array
     tiles_data = []
-    num1=0
-    num2=0
-    num7=0
-    num13=0
-    num19=0
+    # Row 1
+    num1=0; max1=0; min1=temps[0][0];
+    num2=0; max2=0; min2=temps[0][20];
+    num3=0; max3=0; min3=temps[0][40];
+    num4=0; max4=0; min4=temps[0][60];
+    num5=0; max5=0; min5=temps[0][80];
+    num6=0; max6=0; min6=temps[0][100];
+    num7=0; max7=0; min7=temps[0][120];
+    num8=0; max8=0; min8=temps[0][140];
+    # Row 2
+    num9=0; max9=0; min9=temps[20][0];
+    num10=0; max10=0; min10=temps[20][20];
+    num11=0; max11=0; min11=temps[20][40];
+    num12=0; max12=0; min12=temps[20][60];
+    num13=0; max13=0; min13=temps[20][80];
+    num14=0; max14=0; min14=temps[20][100];
+    num15=0; max15=0; min15=temps[20][120];
+    num16=0; max16=0; min16=temps[20][140];
+    # Row 3
+    num17=0; max17=0; min17=temps[40][0];
+    num18=0; max18=0; min18=temps[40][20];
+    num19=0; max19=0; min19=temps[40][40];
+    num20=0; max20=0; min20=temps[40][60];
+    num21=0; max21=0; min21=temps[40][80];
+    num22=0; max22=0; min22=temps[40][100];
+    num23=0; max23=0; min23=temps[40][120];
+    num24=0; max24=0; min24=temps[40][140];
+    # Row 4
+    num25=0; max25=0; min17=temps[60][0];
+    num26=0; max26=0; min18=temps[60][20];
+    num27=0; max27=0; min19=temps[60][40];
+    num28=0; max28=0; min20=temps[60][60];
+    num29=0; max29=0; min21=temps[60][80];
+    num30=0; max30=0; min22=temps[60][100];
+    num31=0; max31=0; min23=temps[60][120];
+    num32=0; max32=0; min24=temps[60][140];
+
+    ## Divide Data into 20X20 Squares
     for idx in range(0,len(temps[0])):
         row = []
         for idy in range(0,len(temps)):
             #find_temp_max(a,b,c,d)
             # Case 1: Tile 1 Quadrant
-            if (idx < 8 and idy < 6):
-                num1+=1
-                print("Tile 1 Quadrant")
-                row.append(temps[idx][idy])
+            if (idx < 20 and idy < 20):
+                num1+=1;
+                temp = temps[idy][idx]/1000
+                if (temp > max1):
+                    max1 = temp
+                elif (temp < min1):
+                    min1 = temp
+                #print("Tile 1 Quadrant")
+                row.append(temp)
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
             # Case 2: Tile 2 Quadrant
-            elif (idx > 8 and idx < 16 and idy < 6):
-                num2+=1
-                print("Tile 2 Quadrant")
-                row.append(temps[idx][idy])
+            elif (idx >= 20 and idx < 40 and idy < 20):
+                num2+=1;
+                temp = temps[idy][idx]/1000
+                if (temp > max2):
+                    max2 = temp
+                elif (temp < min2):
+                    min2 = temp
+                #print("Tile 2 Quadrant")
+                row.append(temp)
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
             # Case 3: Tile 3 Quadrant
-            elif (idx > 8 and idx < 16 and idy > 6 and idy < 12):
-                num2+=1
-                print("Tile 3 Quadrant")
-                row.append(temps[idx][idy])
+            elif (idx >= 40 and idx < 60 and idy < 20):
+                num3+=1
+                temp = temps[idy][idx]/1000
+                if (temp > max3):
+                    max3 = temp
+                elif (temp < min3):
+                    min3 = temp
+                #print("Tile 3 Quadrant")
+                row.append(temp)
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
             # Case 4: Tile 4 Quadrant
-            elif (idx > 16 and idx < 24 and idy > 6 and idy < 12):
-                num2+=1
-                print("Tile 4 Quadrant")
-                row.append(temps[idx][idy])
+            elif (idx >= 60 and idx < 80 and idy < 20):
+                num4+=1
+                temp = temps[idy][idx]/1000
+                if (temp > max4):
+                    max4 = temp
+                elif (temp < min4):
+                    min4 = temp
+                #print("Tile 4 Quadrant")
+                row.append(temps[idy][idx])
+                #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 5: Tile 5 Quadrant
+            elif (idx >= 80 and idx < 100 and idy < 20):
+                num5+=1
+                temp = temps[idy][idx]/1000
+                if (temp > max5):
+                    max5 = temp
+                elif (temp < min5):
+                    min5 = temp
+                #print("Tile 5 Quadrant")
+                row.append(temps[idy][idx])
+                #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 6: Tile 6 Quadrant
+            elif (idx >= 100 and idx < 120 and idy < 20):
+                num6+=1
+                temp = temps[idy][idx]/1000
+                if (temp > max6):
+                    max6 = temp
+                elif (temp < min6):
+                    min6 = temp
+                #print("Tile 6 Quadrant")
+                row.append(temps[idy][idx])
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
             # Case 7: Tile 7 Quadrant
-            elif (idx >= 8 and idx < 16 and idy >= 6 and idy < 12):
-                #print(idx)
+            elif (idx >= 120 and idx < 140 and idy < 20):
                 num7+=1
-                print("Tile 7 Quadrant")
-                row.append(temps[idx][idy])
+                temp = temps[idy][idx]/1000
+                if (temp > max7):
+                    max7 = temp
+                elif (temp < min7):
+                    min7 = temp
+                #print("Tile 7 Quadrant")
+                row.append(temps[idy][idx])
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
-            # Case 13: Tile 13 Quadrant
-            elif (idx > 16 and idx < 24 and idy > 12 and idy < 18):
-                #print("Tile 1 Quadrant")
-                num13+=1
-                print("Tile 13 Quadrant")
-                row.append(temps[idx][idy])
+            # Case 8: Tile 8 Quadrant
+            elif (idx >= 140 and idx < 160 and idy < 20):
+                num8+=1
+                temp = temps[idy][idx]/1000
+                if (temp > max8):
+                    max8 = temp
+                elif (temp < min8):
+                    min8 = temp
+                #print("Tile 8 Quadrant")
+                row.append(temps[idy][idx])
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
-            # Case 19: Tile 19 Quadrant
-            elif (idx > 24 and idx < 32 and idy > 18 and idy < 24):
-                num19+=1
-                print("Tile 19 Quadrant")
-                row.append(temps[idx][idy])
-                #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
-            elif (idx > 32 and idx < 40 and idy > 24 and idy < 30):
-                row.append(temps[idx][idy])
-                #print("Dimension: "+str(idx,idy)+" Temperature: "+str(temps[idx][idy]))
         tiles_data.append(row)
-    #print(num1);print(num2);print(num3);print(num4);print(num5);print(num6)
+    print(num1);print(num2);print(num3);print(num4);print(num5);print(num6)
 
-    ## Store these values in a 8X6 simplified tile structure
-    tiles_data = []
+    ## Check Max and Min Values
+    temp_range_check("1",min1,max1+50)
+    temp_range_check("2",min2,max2)
+    temp_range_check("3",min3,max3)
+    temp_range_check("4",min4,max4)
+    temp_range_check("5",min5,max5)
+    temp_range_check("6",min6-51,max6)
+    temp_range_check("7",min7,max7)
+    temp_range_check("8",min8,max8)
 
-            #if (idx < 8):
-            #    row.append
-            #else if (idx > 8 and idx < ):
-
-    #row = []
-
-
-    # Load Image, Remove Whitespace
+    ## Load Image, Remove Whitespace
     # I tried a few different methods for removing the whitespace which arises from
     # saving the PIL image. This custom trim() function seems to work best. - Justin 2/27/19
     def trim(im):
-        bg = Image.new(im.mode, im.size, im.getpixel((0,0)))
-        diff = ImageChops.difference(im, bg)
+        bg = Image.new(im.mode, im.size, im.getpixel((0,0))) # New Image
+        diff = ImageChops.difference(im, bg) # Diff w background
         diff = ImageChops.add(diff, diff, 2.0, -100)
         bbox = diff.getbbox()
         if bbox:
-            return im.crop(bbox)
+            return im.crop(bbox) # Return Trimmed Image object
 
-    # Save Trimmed Image
+    ## Save Trimmed Image
     im = Image.open("output.png") # Open whitespace image
     im = trim(im) # Call trim() function
     im.show() # Show
     im.save("output.png") # Save image
 
-    # Call Image_Slicer
-    num_tiles = 20
-    tiles = image_slicer.slice('output.png',num_tiles, save=False)
-    image_slicer.save_tiles(tiles,directory='Outputs',prefix='slice',format='png')
+    ## Call Image_Slicer
+    num_tiles = 48
+    tiles = image_slicer.slice('output.png',num_tiles, save=False) # Slice into tiles
+    image_slicer.save_tiles(tiles,directory='Outputs',prefix='slice',format='png') # Save tiles
 
-    # Overlay Tiles
+    ## Overlay Tiles in Single Joined Image
     for tile in tiles:
         overlay = ImageDraw.Draw(tile.image)
         overlay.text((5,5),str(tile.number),(255,255,255),ImageFont.load_default()) # Draw #s on the image
@@ -131,48 +205,15 @@ def main():
     image = join(tiles) # Join tiled images
     image.save('watch-join.png') # Save final image
 
-    # Test Temp Values for the Individual Images
-    #im_new = cv2.imread("Outputs/slice_01_01.png",cv2.IMREAD_COLOR) # Second Image
-    #im_new = Image.open("Outputs/slice_01_01.png") # Open whitespace image
-    #print(im_new)
+## Check if Temp of Current Tile is Out of Range (Too Hot/Too Low)
+def temp_range_check(tile_number,min,max):
+    # Outside Range of -20C to 50C
+    if (max > 50):
+        print("Tile "+str(tile_number)+" failed. Too hot!")
+    elif (min < -20):
+        print("Tile "+str(tile_number)+" failed. Too cold!")
 
-def find_temp_max(a,b,c,d):
-    max = a[0]; idx = 0
-    the_rest = []
-    the_rest.append(b)
-    the_rest.append(c)
-    the_rest.append(d)
-    while idx < 3:
-        temp = the_rest[idx][0]
-        if temp > max:
-            max = temp
-        idx = idx + 1
-    print("Max is"+str(max))
-    # Print Values for Verification
-    print(a)
-    print(b)
-    print(c)
-    print(d)
-
-def find_temp_min(a,b,c,d):
-    min = a[0]; idx = 0
-    the_rest = []
-    the_rest.append(b)
-    the_rest.append(c)
-    the_rest.append(d)
-    while idx < 3:
-        temp = the_rest[idx][0]
-        if temp < min:
-            min = temp
-        idx = idx + 1
-    print("Min is"+str(min))
-    # Print Values for Verification
-    print(a)
-    print(b)
-    print(c)
-    print(d)
-
-# Load Temp Values and Write to Image
+## Load Temp Values and Write to Image
 def load_temp_values(filename):
     # Parse file of floating point numbers into 2D array
     with open(filename, "r") as f:
@@ -184,9 +225,7 @@ def load_temp_values(filename):
             except Exception as e:
                 print("Exception: {}".format(e))
             row += 1
-    return data
-
-    # Show, Save the result
+    ## Show, Save the result
     fig = plt.figure(frameon=False)
     ax = plt.subplot(111)
     ax = plt.Axes(fig,[0,0,1,1])
@@ -195,6 +234,7 @@ def load_temp_values(filename):
     plt.axis('off')
     fig.tight_layout()
     fig.savefig("output.png",pad_inches=0,bbox_inches='tight')
+    return data
 
 def write_image(fileName,data):
     cv2.imwrite(fileName+".png",data)
