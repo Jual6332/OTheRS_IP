@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 ################################################################################
 ################################################################################
-### ImageSlicing - "main.py" ################################################
+### ImageSlicing - "main.py" ###################################################
 ################################################################################
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 2/25/19   ####################################################
-##  Date Modified: 2/27/19  ####################################################
+##  Date Modified: 3/3/19  #####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -85,7 +85,10 @@ def main():
             # Case 1: Tile 1 Quadrant
             if (idx < 20 and idy < 20):
                 num1+=1;
-                temp = temps[idy][idx]/1000
+                print("Before in K:"+str(temps[idy][idx]))
+                temp = temps[idy][idx]/100 - 273.15
+                print("After in C:"+str(temp))
+                #print(temp)
                 if (temp > max1):
                     max1 = temp
                 elif (temp < min1):
@@ -96,7 +99,7 @@ def main():
             # Case 2: Tile 2 Quadrant
             elif (idx >= 20 and idx < 40 and idy < 20):
                 num2+=1;
-                temp = temps[idy][idx]/1000
+                temp = temps[idy][idx]/100 - 273.15
                 if (temp > max2):
                     max2 = temp
                 elif (temp < min2):
@@ -107,7 +110,7 @@ def main():
             # Case 3: Tile 3 Quadrant
             elif (idx >= 40 and idx < 60 and idy < 20):
                 num3+=1
-                temp = temps[idy][idx]/1000
+                temp = temps[idy][idx]/100 - 273.15
                 if (temp > max3):
                     max3 = temp
                 elif (temp < min3):
@@ -118,7 +121,7 @@ def main():
             # Case 4: Tile 4 Quadrant
             elif (idx >= 60 and idx < 80 and idy < 20):
                 num4+=1
-                temp = temps[idy][idx]/1000
+                temp = temps[idy][idx]/100 - 273.15
                 if (temp > max4):
                     max4 = temp
                 elif (temp < min4):
@@ -129,7 +132,7 @@ def main():
             # Case 5: Tile 5 Quadrant
             elif (idx >= 80 and idx < 100 and idy < 20):
                 num5+=1
-                temp = temps[idy][idx]/1000
+                temp = temps[idy][idx]/100 - 273.15
                 if (temp > max5):
                     max5 = temp
                 elif (temp < min5):
@@ -140,7 +143,7 @@ def main():
             # Case 6: Tile 6 Quadrant
             elif (idx >= 100 and idx < 120 and idy < 20):
                 num6+=1
-                temp = temps[idy][idx]/1000
+                temp = temps[idy][idx]/100 - 273.15
                 if (temp > max6):
                     max6 = temp
                 elif (temp < min6):
@@ -151,7 +154,7 @@ def main():
             # Case 7: Tile 7 Quadrant
             elif (idx >= 120 and idx < 140 and idy < 20):
                 num7+=1
-                temp = temps[idy][idx]/1000
+                temp = temps[idy][idx]/100 - 273.15
                 if (temp > max7):
                     max7 = temp
                 elif (temp < min7):
@@ -162,11 +165,22 @@ def main():
             # Case 8: Tile 8 Quadrant
             elif (idx >= 140 and idx < 160 and idy < 20):
                 num8+=1
-                temp = temps[idy][idx]/1000
+                temp = temps[idy][idx]/100 - 273.15
                 if (temp > max8):
                     max8 = temp
                 elif (temp < min8):
                     min8 = temp
+                #print("Tile 8 Quadrant")
+                row.append(temps[idy][idx])
+                #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 9: Tile 9 Quadrant
+            elif (idx < 20 and idy >= 20 and idy < 40):
+                num9+=1
+                temp = temps[idy][idx]/100 - 273.15
+                if (temp > max9):
+                    max9 = temp
+                elif (temp < min9):
+                    min9 = temp
                 #print("Tile 8 Quadrant")
                 row.append(temps[idy][idx])
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
@@ -176,14 +190,21 @@ def main():
     #print(num1);print(num2);print(num3);print(num4);print(num5);print(num6)
 
     ## Check Max and Min Values
-    temp_range_check("1",min1,max1+50)
-    temp_range_check("2",min2,max2)
-    temp_range_check("3",min3,max3)
-    temp_range_check("4",min4,max4)
-    temp_range_check("5",min5,max5)
-    temp_range_check("6",min6-51,max6)
-    temp_range_check("7",min7,max7)
-    temp_range_check("8",min8,max8)
+    result = []
+    # Row 1
+    result.append(temp_range_check("1",min1,max1+50))
+    result.append(temp_range_check("2",min2,max2))
+    result.append(temp_range_check("3",min3,max3))
+    result.append(temp_range_check("4",min4,max4))
+    result.append(temp_range_check("5",min5,max5))
+    result.append(temp_range_check("6",min6-51,max6))
+    result.append(temp_range_check("7",min7,max7))
+    result.append(temp_range_check("8",min8,max8))
+
+
+
+    temp_range_check("9",min9,max9)
+
 
     ## Load Image, Remove Whitespace
     # I tried a few different methods for removing the whitespace which arises from
@@ -218,10 +239,14 @@ def main():
 ## Check if Temp of Current Tile is Out of Range (Too Hot/Too Low)
 def temp_range_check(tile_number,min,max):
     # Outside Range of -20C to 50C
+    passCheck = True
     if (max > 50):
+        passCheck=False
         print("Tile "+str(tile_number)+" failed. Too hot!")
     elif (min < -20):
         print("Tile "+str(tile_number)+" failed. Too cold!")
+        passCheck=False
+    return(passCheck)
 
 ## Load Temp Values and Write to Image
 def load_temp_values(filename):
@@ -238,7 +263,7 @@ def load_temp_values(filename):
     ## Show, Save the result
     fig = plt.figure(frameon=False)
     ax = plt.subplot(111)
-    ax = plt.Axes(fig,[0,0,1,1])
+    #ax = plt.Axes(fig,[0,0,1,1])
     ax.set_axis_off()
     plt.imshow(data)
     plt.axis('off')
@@ -248,6 +273,9 @@ def load_temp_values(filename):
 
 def write_image(fileName,data):
     cv2.imwrite(fileName+".png",data)
+
+#def data_export(minArray,maxArray):
+
 
 if __name__ == '__main__':
     main()
