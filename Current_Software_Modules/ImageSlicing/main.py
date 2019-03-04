@@ -29,6 +29,7 @@ data = np.zeros((HEIGHT, WIDTH))
 def main():
     # Load Temp Values
     temps = load_temp_values('StackImages/raw1.txt')
+    print(len(temps[0]))
     # Store Temp Values, Sort through array
     tiles_data = []
     # Row 1
@@ -85,9 +86,9 @@ def main():
             # Case 1: Tile 1 Quadrant
             if (idx < 20 and idy < 20):
                 num1+=1;
-                print("Before in K:"+str(temps[idy][idx]))
+                #print("Before in K:"+str(temps[idy][idx]))
                 temp = temps[idy][idx]/100 - 273.15
-                print("After in C:"+str(temp))
+                #print("After in C:"+str(temp))
                 #print(temp)
                 if (temp > max1):
                     max1 = temp
@@ -184,13 +185,58 @@ def main():
                 #print("Tile 8 Quadrant")
                 row.append(temps[idy][idx])
                 #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 10: Tile 10 Quadrant
+            elif (idx >= 20 and idx < 40 and idy >= 20 and idy < 40):
+                num10+=1
+                temp = temps[idy][idx]/100 - 273.15
+                if (temp > max10):
+                    max10 = temp
+                elif (temp < min10):
+                    min10 = temp
+                #print("Tile 8 Quadrant")
+                row.append(temps[idy][idx])
+                #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 11: Tile 11 Quadrant
+            elif (idx >= 40 and idx < 60 and idy >= 20 and idy < 40):
+                num11+=1
+                temp = temps[idy][idx]/100 - 273.15
+                if (temp > max11):
+                    max11 = temp
+                elif (temp < min11):
+                    min11 = temp
+                #print("Tile 8 Quadrant")
+                row.append(temps[idy][idx])
+                #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 12: Tile 12 Quadrant
+            elif (idx >= 60 and idx < 80 and idy >= 20 and idy < 40):
+                    num12+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max12):
+                        max12 = temp
+                    elif (temp < min12):
+                        min12 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 13: Tile 13 Quadrant
+            elif (idx >= 80 and idx < 100 and idy >= 20 and idy < 40):
+                    num13+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max13):
+                        max13 = temp
+                    elif (temp < min13):
+                        min13 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+
         tiles_data.append(row)
 
     ## Print Number of Saved Elements in Each Tile
     #print(num1);print(num2);print(num3);print(num4);print(num5);print(num6)
 
     ## Check Max and Min Values
-    result = []
+    result = []; results = [];
     # Row 1
     result.append(temp_range_check("1",min1,max1+50))
     result.append(temp_range_check("2",min2,max2))
@@ -200,10 +246,14 @@ def main():
     result.append(temp_range_check("6",min6-51,max6))
     result.append(temp_range_check("7",min7,max7))
     result.append(temp_range_check("8",min8,max8))
+    results.append(result)
+    result = [];
+    result.append(temp_range_check("9",min9,max9))
+    result.append(temp_range_check("10",min10,max10))
+    result.append(temp_range_check("11",min11,max11))
+    result.append(temp_range_check("12",min12,max12))
+    result.append(temp_range_check("13",min13,max13))
 
-
-
-    temp_range_check("9",min9,max9)
 
 
     ## Load Image, Remove Whitespace
