@@ -229,6 +229,39 @@ def main():
                     #print("Tile 8 Quadrant")
                     row.append(temps[idy][idx])
                     #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 14: Tile 14 Quadrant
+            elif (idx >= 100 and idx < 120 and idy >= 20 and idy < 40):
+                    num14+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max14):
+                        max14 = temp
+                    elif (temp < min14):
+                        min14 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 15: Tile 15 Quadrant
+            elif (idx >= 120 and idx < 140 and idy >= 20 and idy < 40):
+                    num15+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max15):
+                        max15 = temp
+                    elif (temp < min15):
+                        min15 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 16: Tile 16 Quadrant
+            elif (idx >= 140 and idx < 160 and idy >= 20 and idy < 40):
+                    num16+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max16):
+                        max16 = temp
+                    elif (temp < min16):
+                        min16 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
 
         tiles_data.append(row)
 
@@ -253,6 +286,9 @@ def main():
     result.append(temp_range_check("11",min11,max11))
     result.append(temp_range_check("12",min12,max12))
     result.append(temp_range_check("13",min13,max13))
+    result.append(temp_range_check("14",min13,max14))
+    result.append(temp_range_check("15",min13,max15))
+    result.append(temp_range_check("16",min13,max16))
 
 
 
