@@ -262,6 +262,94 @@ def main():
                     #print("Tile 8 Quadrant")
                     row.append(temps[idy][idx])
                     #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 17: Tile 17 Quadrant
+            elif (idx < 20 and idy >= 40 and idy < 60):
+                    num17+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max17):
+                        max17 = temp
+                    elif (temp < min17):
+                        min17 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 18: Tile 18 Quadrant
+            elif (idx >= 20 and idx < 40 and idy >= 40 and idy < 60):
+                    num18+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max18):
+                        max18 = temp
+                    elif (temp < min18):
+                        min18 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 19: Tile 19 Quadrant
+            elif (idx >= 40 and idx < 60 and idy >= 40 and idy < 60):
+                    num19+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max19):
+                        max19 = temp
+                    elif (temp < min19):
+                        min19 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 20: Tile 20 Quadrant
+            elif (idx >= 60 and idx < 80 and idy >= 40 and idy < 60):
+                    num20+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max20):
+                        max20 = temp
+                    elif (temp < min20):
+                        min20 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 21: Tile 21 Quadrant
+            elif (idx >= 80 and idx < 100 and idy >= 40 and idy < 60):
+                    num21+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max21):
+                        max21 = temp
+                    elif (temp < min21):
+                        min21 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 22: Tile 22 Quadrant
+            elif (idx >= 100 and idx < 120 and idy >= 40 and idy < 60):
+                    num22+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max22):
+                        max22 = temp
+                    elif (temp < min22):
+                        min22 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 23: Tile 23 Quadrant
+            elif (idx >= 120 and idx < 140 and idy >= 40 and idy < 60):
+                    num23+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max23):
+                        max23 = temp
+                    elif (temp < min23):
+                        min23 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
+            # Case 24: Tile 24 Quadrant
+            elif (idx >= 140 and idx < 160 and idy >= 40 and idy < 60):
+                    num24+=1
+                    temp = temps[idy][idx]/100 - 273.15
+                    if (temp > max24):
+                        max24 = temp
+                    elif (temp < min24):
+                        min24 = temp
+                    #print("Tile 8 Quadrant")
+                    row.append(temps[idy][idx])
+                    #print("Dimension: "+str((idx,idy))+" Temperature: "+str(temps[idx][idy]))
 
         tiles_data.append(row)
 
@@ -289,6 +377,30 @@ def main():
     result.append(temp_range_check("14",min13,max14))
     result.append(temp_range_check("15",min13,max15))
     result.append(temp_range_check("16",min13,max16))
+    results.append(result)
+    result = [];
+    result.append(temp_range_check("17",min17,max17))
+    result.append(temp_range_check("18",min18,max18))
+    result.append(temp_range_check("19",min19,max19))
+    result.append(temp_range_check("20",min20,max20))
+    result.append(temp_range_check("21",min21,max21))
+    result.append(temp_range_check("22",min22,max22))
+    result.append(temp_range_check("23",min23,max23))
+    result.append(temp_range_check("24",min24,max24))
+    results.append(result)
+    result = [];
+    result.append(temp_range_check("25",min25,max25))
+    result.append(temp_range_check("26",min26,max26))
+    result.append(temp_range_check("27",min27,max27))
+    result.append(temp_range_check("28",min28,max28))
+    result.append(temp_range_check("29",min29,max29))
+    result.append(temp_range_check("30",min30,max30))
+    result.append(temp_range_check("31",min31,max31))
+    result.append(temp_range_check("32",min32,max32))
+    results.append(result)
+    result = [];
+
+    print(max24)
 
 
 
