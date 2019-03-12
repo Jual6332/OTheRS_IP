@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/8/19   ####################################################
-##  Date Modified: 3/9/19  #####################################################
+##  Date Modified: 3/12/19  ####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -40,15 +40,22 @@ def Test1():
     left = load_image('Inputs/test1/left.png') # Left
     right = load_image('Inputs/test1/right.png') # Right
 
-    right_stack = locate_stack_right(right) # Locate Stack
+    # Locate Stack Face, draw outline
+    left_stack = locate_stack_left(left)
+    right_stack = locate_stack_right(right)
+
+    # Rotated Image, Stack Located
+    left_stack_rotate = ndimage.rotate(left_stack, -90) # Rotate stack image CCW 90deg
     right_stack_rotate = ndimage.rotate(right_stack, 90) # Rotate stack image CCW 90deg
+    cv2.imwrite('Outputs/RotatedImages/Left_LocateStack.png',left_stack_rotate)
     cv2.imwrite('Outputs/RotatedImages/Right_LocateStack.png',right_stack_rotate)
 
+    # Rotated Image, Data Selected, Stack located
     right_stack_select = select_stack_data_right(right_stack) # Locate Stack
     left_stack_rotate = ndimage.rotate(left, -90) # Rotate stack image CW 90deg
     right_stack_rotate = ndimage.rotate(right_stack_select, 90) # Rotate stack image CCW 90deg
 
-    # Rotated Images
+    # Write Image
     cv2.imwrite('Outputs/RotatedImages/Left.png',left_stack_rotate)
     cv2.imwrite('Outputs/RotatedImages/Right_SelectStackData.png',right_stack_rotate)
 
@@ -57,6 +64,12 @@ def Test1():
 # Output: Image data of size (WIDTH X HEIGHT X 3)
 def load_image(name):
     img = cv2.imread(name)
+    return(img)
+
+# Function: Load image data from file
+# Input: Name of file as a string
+# Output: Image data of size (WIDTH X HEIGHT X 3)
+def select_stack_data_left(img):
     return(img)
 
 # Function:
@@ -222,6 +235,97 @@ def select_stack_data_right(img):
         empty_img[idy][159][2] = 255
 
     return(empty_img)
+
+# Function:
+# Input:
+# Output:
+def locate_stack_left(left):
+    ## Quadrant 1
+    # North Side
+    left[98][0][:] = 0;
+    left[98][0][0] = 255;
+    left[98][1][:] = 0;
+    left[98][1][0] = 255;
+    left[98][2][:] = 0;
+    left[98][2][0] = 255;
+    left[98][3][:] = 0;
+    left[98][3][0] = 255;
+    left[98][4][:] = 0;
+    left[98][4][0] = 255;
+    left[98][5][:] = 0;
+    left[98][5][0] = 255;
+    left[98][6][:] = 0;
+    left[98][6][0] = 255;
+    left[99][7][:] = 0;
+    left[99][7][0] = 255;
+    left[99][8][:] = 0;
+    left[99][8][0] = 255;
+    left[99][9][:] = 0;
+    left[99][9][0] = 255;
+    left[99][10][:] = 0;
+    left[99][10][0] = 255;
+    left[99][11][:] = 0;
+    left[99][11][0] = 255;
+    left[99][12][:] = 0;
+    left[99][12][0] = 255;
+    left[99][13][:] = 0;
+    left[99][13][0] = 255;
+    left[99][14][:] = 0;
+    left[99][14][0] = 255;
+    left[99][15][:] = 0;
+    left[99][15][0] = 255;
+    left[100][16][:] = 0;
+    left[100][16][0] = 255;
+    left[100][17][:] = 0;
+    left[100][17][0] = 255;
+    left[100][18][:] = 0;
+    left[100][18][0] = 255;
+    left[101][19][:] = 0;
+    left[101][19][0] = 255;
+    left[101][20][:] = 0;
+    left[101][20][0] = 255;
+    left[101][21][:] = 0;
+    left[101][21][0] = 255;
+    left[101][22][:] = 0;
+    left[101][22][0] = 255;
+    left[101][23][:] = 0;
+    left[101][23][0] = 255;
+    left[101][24][:] = 0;
+    left[101][24][0] = 255;
+    left[101][25][:] = 0;
+    left[101][25][0] = 255;
+    left[101][26][:] = 0;
+    left[101][26][0] = 255;
+    left[101][27][:] = 0;
+    left[101][27][0] = 255;
+    left[102][28][:] = 0;
+    left[102][28][0] = 255;
+    left[102][29][:] = 0;
+    left[102][29][0] = 255;
+    left[102][30][:] = 0;
+    left[102][30][0] = 255;
+
+    left[102][31][:] = 0;
+    left[102][31][0] = 255;
+    left[102][32][:] = 0;
+    left[102][32][0] = 255;
+    left[102][33][:] = 0;
+    left[102][33][0] = 255;
+
+    left[102][34][:] = 0;
+    left[102][34][0] = 255;
+    left[102][35][:] = 0;
+    left[102][35][0] = 255;
+    left[102][36][:] = 0;
+    left[102][36][0] = 255;
+
+    left[102][37][:] = 0;
+    left[102][37][0] = 255;
+    left[102][38][:] = 0;
+    left[102][38][0] = 255;
+    left[102][39][:] = 0;
+    left[102][39][0] = 255;
+    return(left)
 
 # Function:
 # Input:
