@@ -39,12 +39,18 @@ def Test1():
     # Load Images
     left = load_image('Inputs/test1/left.png') # Left
     right = load_image('Inputs/test1/right.png') # Right
-    right_stack = locate_stack(right) # Locate Stack
-    left_stack_rotate = ndimage.rotate(left, -90) # Rotate stack image CW 90deg
+
+    right_stack = locate_stack_right(right) # Locate Stack
     right_stack_rotate = ndimage.rotate(right_stack, 90) # Rotate stack image CCW 90deg
+    cv2.imwrite('Outputs/RotatedImages/Right_LocateStack.png',right_stack_rotate)
+
+    right_stack_select = select_stack_data_right(right_stack) # Locate Stack
+    left_stack_rotate = ndimage.rotate(left, -90) # Rotate stack image CW 90deg
+    right_stack_rotate = ndimage.rotate(right_stack_select, 90) # Rotate stack image CCW 90deg
+
     # Rotated Images
-    cv2.imwrite('Outputs/RotatedImages/Left_Threshold.png',left_stack_rotate)
-    cv2.imwrite('Outputs/RotatedImages/Right_Threshold.png',right_stack_rotate)
+    cv2.imwrite('Outputs/RotatedImages/Left.png',left_stack_rotate)
+    cv2.imwrite('Outputs/RotatedImages/Right_SelectStackData.png',right_stack_rotate)
 
 # Function: Load image data from file
 # Input: Name of file as a string
@@ -53,7 +59,174 @@ def load_image(name):
     img = cv2.imread(name)
     return(img)
 
-def locate_stack(right):
+# Function:
+# Input:
+# Output:
+def select_stack_data_right(img):
+    for idx in range(0,160):
+        for idy in range(0,24):
+            img[idy][idx][:] = 0
+    for idx in range(0,160):
+        for idy in range(111,120):
+            img[idy][idx][:] = 0
+    empty_img = np.zeros([88,160,3])
+    i=0;j=0;
+    for idx in range(0,159):
+        i += 1; j=0;
+        for idy in range(24,111):
+            j+=1;
+            empty_img[j][i][:] = img[idy][idx]
+
+    # Bottom Triangle
+    for idx in range(0,29):
+        empty_img[1][idx][:] = 0
+    for idx in range(0,28):
+        empty_img[2][idx][:] = 0
+    for idx in range(0,27):
+        empty_img[3][idx][:] = 0
+    for idx in range(0,26):
+        empty_img[4][idx][:] = 0
+    for idx in range(0,25):
+        empty_img[5][idx][:] = 0
+    for idx in range(0,24):
+        empty_img[6][idx][:] = 0
+    for idx in range(0,23):
+        empty_img[7][idx][:] = 0
+    for idx in range(0,22):
+        empty_img[8][idx][:] = 0
+    for idx in range(0,21):
+        empty_img[9][idx][:] = 0
+    for idx in range(0,20):
+        empty_img[10][idx][:] = 0
+    for idx in range(0,19):
+        empty_img[11][idx][:] = 0
+    for idx in range(0,18):
+        empty_img[12][idx][:] = 0
+    for idx in range(0,17):
+        empty_img[13][idx][:] = 0
+    for idx in range(0,16):
+        empty_img[14][idx][:] = 0
+    for idx in range(0,15):
+        empty_img[15][idx][:] = 0
+    for idx in range(0,14):
+        empty_img[16][idx][:] = 0
+    for idx in range(0,13):
+        empty_img[17][idx][:] = 0
+    for idx in range(0,12):
+        empty_img[18][idx][:] = 0
+    for idx in range(0,11):
+        empty_img[19][idx][:] = 0
+    for idx in range(0,10):
+        empty_img[20][idx][:] = 0
+    for idx in range(0,9):
+        empty_img[21][idx][:] = 0
+    for idx in range(0,8):
+        empty_img[22][idx][:] = 0
+    for idx in range(0,7):
+        empty_img[23][idx][:] = 0
+    for idx in range(0,6):
+        empty_img[24][idx][:] = 0
+    for idx in range(0,5):
+        empty_img[25][idx][:] = 0
+    for idx in range(0,4):
+        empty_img[26][idx][:] = 0
+    for idx in range(0,3):
+        empty_img[27][idx][:] = 0
+    for idx in range(0,2):
+        empty_img[28][idx][:] = 0
+    for idx in range(0,1):
+        empty_img[29][idx][:] = 0
+    for idx in range(0,0):
+        empty_img[30][idx][:] = 0
+
+    # Top Triangle
+    for idx in range(125,160):
+        empty_img[1][idx][:] = 0
+    for idx in range(126,160):
+        empty_img[2][idx][:] = 0
+    for idx in range(127,160):
+        empty_img[3][idx][:] = 0
+    for idx in range(128,160):
+        empty_img[4][idx][:] = 0
+    for idx in range(129,160):
+        empty_img[5][idx][:] = 0
+    for idx in range(130,160):
+        empty_img[6][idx][:] = 0
+    for idx in range(131,160):
+        empty_img[7][idx][:] = 0
+    for idx in range(132,160):
+        empty_img[8][idx][:] = 0
+    for idx in range(133,160):
+        empty_img[9][idx][:] = 0
+    for idx in range(134,160):
+        empty_img[10][idx][:] = 0
+    for idx in range(135,160):
+        empty_img[11][idx][:] = 0
+    for idx in range(136,160):
+        empty_img[12][idx][:] = 0
+    for idx in range(137,160):
+        empty_img[13][idx][:] = 0
+    for idx in range(138,160):
+        empty_img[14][idx][:] = 0
+    for idx in range(139,160):
+        empty_img[15][idx][:] = 0
+    for idx in range(140,160):
+        empty_img[16][idx][:] = 0
+    for idx in range(141,160):
+        empty_img[17][idx][:] = 0
+    for idx in range(142,160):
+        empty_img[18][idx][:] = 0
+    for idx in range(143,160):
+        empty_img[19][idx][:] = 0
+    for idx in range(144,160):
+        empty_img[20][idx][:] = 0
+    for idx in range(145,160):
+        empty_img[21][idx][:] = 0
+    for idx in range(146,160):
+        empty_img[22][idx][:] = 0
+    for idx in range(148,160):
+        empty_img[23][idx][:] = 0
+    for idx in range(149,160):
+        empty_img[24][idx][:] = 0
+    for idx in range(150,160):
+        empty_img[25][idx][:] = 0
+    for idx in range(151,160):
+        empty_img[26][idx][:] = 0
+    for idx in range(152,160):
+        empty_img[27][idx][:] = 0
+    for idx in range(153,160):
+        empty_img[28][idx][:] = 0
+    for idx in range(154,160):
+        empty_img[29][idx][:] = 0
+    for idx in range(155,160):
+        empty_img[30][idx][:] = 0
+    for idx in range(156,160):
+        empty_img[31][idx][:] = 0
+    for idx in range(157,160):
+        empty_img[32][idx][:] = 0
+    for idx in range(158,160):
+        empty_img[33][idx][:] = 0
+    for idx in range(159,160):
+        empty_img[34][idx][:] = 0
+
+    # Clean-Up Column 0
+    for idy in range(30,88):
+        empty_img[idy][0][:] = 0
+        empty_img[idy][0][2] = 255
+
+    # Clean-Up Column 159
+    for idy in range(36,88):
+        empty_img[idy][159][:] = 0
+        empty_img[idy][159][0] = 7
+        empty_img[idy][159][1] = 123
+        empty_img[idy][159][2] = 255
+
+    return(empty_img)
+
+# Function:
+# Input:
+# Output:
+def locate_stack_right(right):
     ## Quadrant 1
     # North Side
     right[25][124][:] = 0;
@@ -1745,6 +1918,165 @@ def locate_stack(right):
     right[110][78][:] = 0;
     right[110][78][2] = 255;
     # East Side
+    right[110][77][:] = 0
+    right[110][77][2] = 255
+    right[110][76][:] = 0
+    right[110][76][2] = 255
+    right[110][75][:] = 0
+    right[110][75][2] = 255
+    right[110][74][:] = 0
+    right[110][74][2] = 255
+    right[110][73][:] = 0
+    right[110][73][2] = 255
+    right[110][72][:] = 0
+    right[110][72][2] = 255
+    right[110][71][:] = 0
+    right[110][71][2] = 255
+    right[110][70][:] = 0
+    right[110][70][2] = 255
+    right[110][69][:] = 0
+    right[110][69][2] = 255
+    right[110][68][:] = 0
+    right[110][68][2] = 255
+    right[110][67][:] = 0
+    right[110][67][2] = 255
+    right[110][66][:] = 0
+    right[110][66][2] = 255
+    right[110][65][:] = 0
+    right[110][65][2] = 255
+    right[110][64][:] = 0
+    right[110][64][2] = 255
+    right[110][63][:] = 0
+    right[110][63][2] = 255
+    right[110][62][:] = 0
+    right[110][62][2] = 255
+    right[110][61][:] = 0
+    right[110][61][2] = 255
+    right[110][60][:] = 0
+    right[110][60][2] = 255
+    right[110][59][:] = 0
+    right[110][59][2] = 255
+    right[110][58][:] = 0
+    right[110][58][2] = 255
+    right[110][57][:] = 0
+    right[110][57][2] = 255
+    right[110][56][:] = 0
+    right[110][56][2] = 255
+    right[110][55][:] = 0
+    right[110][55][2] = 255
+    right[110][54][:] = 0
+    right[110][54][2] = 255
+    right[110][53][:] = 0
+    right[110][53][2] = 255
+    right[110][52][:] = 0
+    right[110][52][2] = 255
+    right[110][51][:] = 0
+    right[110][51][2] = 255
+    right[110][50][:] = 0
+    right[110][50][2] = 255
+    right[110][49][:] = 0
+    right[110][49][2] = 255
+    right[110][48][:] = 0
+    right[110][48][2] = 255
+    right[110][47][:] = 0
+    right[110][47][2] = 255
+    right[110][46][:] = 0
+    right[110][46][2] = 255
+    right[110][45][:] = 0
+    right[110][45][2] = 255
+    right[110][44][:] = 0
+    right[110][44][2] = 255
+    right[110][43][:] = 0
+    right[110][43][2] = 255
+    right[110][42][:] = 0
+    right[110][42][2] = 255
+    right[110][41][:] = 0
+    right[110][41][2] = 255
+    right[110][40][:] = 0
+    right[110][40][2] = 255
+    right[110][39][:] = 0
+    right[110][39][2] = 255
+    right[110][38][:] = 0
+    right[110][38][2] = 255
+    right[110][37][:] = 0
+    right[110][37][2] = 255
+    right[110][36][:] = 0
+    right[110][36][2] = 255
+    right[110][35][:] = 0
+    right[110][35][2] = 255
+    right[110][34][:] = 0
+    right[110][34][2] = 255
+    right[110][33][:] = 0
+    right[110][33][2] = 255
+    right[110][32][:] = 0
+    right[110][32][2] = 255
+    right[110][31][:] = 0
+    right[110][31][2] = 255
+    right[110][30][:] = 0
+    right[110][30][2] = 255
+
+
+    right[110][29][:] = 0
+    right[110][29][2] = 255
+    right[110][28][:] = 0
+    right[110][28][2] = 255
+    right[110][27][:] = 0
+    right[110][27][2] = 255
+    right[110][26][:] = 0
+    right[110][26][2] = 255
+    right[110][25][:] = 0
+    right[110][25][2] = 255
+    right[110][24][:] = 0
+    right[110][24][2] = 255
+
+    right[110][23][:] = 0
+    right[110][23][2] = 255
+    right[110][22][:] = 0
+    right[110][22][2] = 255
+    right[110][21][:] = 0
+    right[110][21][2] = 255
+    right[110][20][:] = 0
+    right[110][20][2] = 255
+    right[110][19][:] = 0
+    right[110][19][2] = 255
+    right[110][18][:] = 0
+    right[110][18][2] = 255
+    right[110][17][:] = 0
+    right[110][17][2] = 255
+    right[110][16][:] = 0
+    right[110][16][2] = 255
+    right[110][15][:] = 0
+    right[110][15][2] = 255
+    right[110][14][:] = 0
+    right[110][14][2] = 255
+    right[110][13][:] = 0
+    right[110][13][2] = 255
+    right[110][12][:] = 0
+    right[110][12][2] = 255
+    right[110][11][:] = 0
+    right[110][11][2] = 255
+    right[110][10][:] = 0
+    right[110][10][2] = 255
+    right[110][9][:] = 0
+    right[110][9][2] = 255
+    right[110][8][:] = 0
+    right[110][8][2] = 255
+    right[110][7][:] = 0
+    right[110][7][2] = 255
+    right[110][6][:] = 0
+    right[110][6][2] = 255
+    right[110][5][:] = 0
+    right[110][5][2] = 255
+    right[110][4][:] = 0
+    right[110][4][2] = 255
+    right[110][3][:] = 0
+    right[110][3][2] = 255
+    right[110][2][:] = 0
+    right[110][2][2] = 255
+    right[110][1][:] = 0
+    right[110][1][2] = 255
+    right[110][0][:] = 0
+    right[110][0][2] = 255
 
     # West Side
     right[46][7][:] = 0;
