@@ -744,12 +744,6 @@ def load_temp_values(filename):
     fig.savefig("output.png",pad_inches=0,bbox_inches='tight')
     return data
 
-def write_image(fileName,data):
-    cv2.imwrite(fileName+".png",data)
-
-#def data_export(minArray,maxArray):
-
-
 if __name__ == '__main__':
     main()
 #####################-----------Close-----------################################
