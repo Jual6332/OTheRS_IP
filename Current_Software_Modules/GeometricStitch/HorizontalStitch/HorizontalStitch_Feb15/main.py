@@ -1,19 +1,16 @@
 #!/usr/bin/env python3
 ################################################################################
 ################################################################################
-### RETIRED_StitchAPI - "main.py" ##############################################
+### Feb 15, Horizontal Stitch - "main.py" ##############################################
 ################################################################################
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
-##  Date Created: 1/28/19   ####################################################
-##  Date Modified: 2/26/19  ####################################################
+##  Date Created: 2/20/19   ####################################################
+##  Date Modified: 2/28/19  ####################################################
 ################################################################################
-
-# Main Purpose: Continue to explore image stitching techniques. Return StitchAPI
-# resulting image data. Accept two camera images and write final stitch
-# Action Item: Test with 160X120 images.
-# Caution: Prevent temperature data from being compromised.
-
+# Main Purpose:
+# Action Item:
+# Caution:
 #####################---------Libraries---------################################
 import numpy as np
 import cv2
@@ -27,8 +24,8 @@ from random import randrange
 #####################---------Main Code---------################################
 def main():
     # Step 7: Concatenate Images
-    image_first = cv2.imread('Inputs/FirstImage.png',cv2.IMREAD_COLOR) # First Image
-    image_second = cv2.imread('Inputs/stitch4.png',cv2.IMREAD_COLOR) # Second Image
+    image_first = cv2.imread('Inputs/.png',cv2.IMREAD_COLOR) # First Image
+    image_second = cv2.imread('Inputs/.png',cv2.IMREAD_COLOR) # Second Image
     image_final = concatenate_images(image_first,image_second)
     # Step 8: Write Final Image
     write_image("Outputs/FinalImage",image_final) # Write Full Image
