@@ -20,13 +20,12 @@ fi
 
 ## Onboard Image Post-Processing:
 # Stitch
+python3 stitch.py
+
 # Tile
 cd Tile/CurrentCode
 python3 main.py
 cd ..
 cd ..
-
 # Control
-#cd Control/CurrentCode
-#python3 main.py
 # Seral Data Export
