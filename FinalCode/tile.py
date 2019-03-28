@@ -10,6 +10,7 @@
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
+import pandas as pd
 import image_slicer
 import numpy as np
 import cv2
@@ -53,8 +54,40 @@ def load_temp_values(filename):
     return data
 
 def main():
-    data = load_temp_values('March24GridTesting/raw1.txt')
-    print()
+    data = load_temp_values('Inputs/March24GridTest/raw1.txt')/100 - 273.15
+    print(len(data[0]))
+    print(len(data))
+    print(data)
+    tiles_left = load_grid_data('left')
+    tiles_right = load_grid_data('right')
+
+def load_grid_data(side):
+    tiles=[]
+    if side == 'left':
+        for i in range(2,37):
+            filename = 'ImageJData/Left/tile'+str(i)+'.csv'
+            tile = load_tile_data(filename)
+            tiles.append(tile)
+    elif side == 'right':
+        for i in range(1,6):
+            filename = 'ImageJData/Right/tile'+str(i)+'.csv'
+            tile = load_tile_data(filename)
+            tiles.append(tile)
+        for i in range(7,37):
+            filename = 'ImageJData/Right/tile'+str(i)+'.csv'
+            tile = load_tile_data(filename)
+            tiles.append(tile)
+    return(tiles)
+
+
+def load_tile_data(filename):
+    df = pd.read_csv(filename)
+    x_column = df['X']
+    y_column = df['Y']
+    tile=[]
+    for idx in range(0,len(x_column)):
+        tile.append((x_column[idx],y_column[idx]))
+    return(tile)
 
 if __name__ == '__main__':
     main()
