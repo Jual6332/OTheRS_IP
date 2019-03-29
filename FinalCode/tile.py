@@ -5,8 +5,8 @@
 ################################################################################
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
-##  Date Created: 3/26/19   #####################################################
-##  Date Modified: 3/28/19  ####################################################
+##  Date Created: 3/26/19   ####################################################
+##  Date Modified: 3/29/19  ####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -54,7 +54,8 @@ def load_temp_values(filename):
     return data
 
 def main():
-    data = load_temp_values('Inputs/March24GridTest/raw1.txt')/100 - 273.15
+    data_left = load_temp_values('Inputs/March24GridTest/raw1.txt')/100 - 273.15
+    data_right = load_temp_values('Inputs/March24GridTest/raw2.txt')/100 - 273.15
     print(len(data[0]))
     print(len(data))
     print(data)
@@ -78,7 +79,6 @@ def load_grid_data(side):
             tile = load_tile_data(filename)
             tiles.append(tile)
     return(tiles)
-
 
 def load_tile_data(filename):
     df = pd.read_csv(filename)
