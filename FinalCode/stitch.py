@@ -42,16 +42,13 @@ def main():
     cv2.imwrite('Outputs/Left.png',image_left_rotate)
     cv2.imwrite('Outputs/Right.png',image_right_rotate)
 
-    
+    print(stitch_left_load[0][0])
+    print(stitch_left_load[0][1])
 
-    #print(len(stitch_left_load))
+    plt.scatter(*zip(*stitch_left_load))
+    plt.show()
 
-    num=0
 
-    #for item in image_left_load:
-    #    print(item)
-
-    #print(type(image_left_load))
 
     """
     for j in range(0,len(image_left_load[0])):
@@ -63,7 +60,7 @@ def main():
                 #print("Success!")
     """
 
-    print("Final="+str(num))
+    #print("Final="+str(num))
 
 
 def load_image(name):
