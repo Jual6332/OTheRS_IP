@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/8/19   #####################################################
-##  Date Modified: 3/29/19  ####################################################
+##  Date Modified: 3/30/19  ####################################################
 ################################################################################
 # Main Purpose: Stitch two images together
 #####################---------Libraries---------################################
@@ -41,29 +41,17 @@ def Test1():
     left = load_image('Inputs/March24GridTest/rgb1.png') # Left
     right = load_image('Inputs/March24GridTest/rgb2.png') # Right
 
-    # Locate Stack Face, draw outline
-    left_stack = locate_stack_left(left)
-    right_stack = locate_stack_right(right)
-
-    # Rotated Image, Stack Located
-    left_stack_rotate = ndimage.rotate(left_stack, -90) # Rotate stack image CCW 90deg
-    right_stack_rotate = ndimage.rotate(right_stack, 90) # Rotate stack image CCW 90deg
-    cv2.imwrite('Outputs/RotatedImages/Left_LocateStack.png',left_stack_rotate)
-    cv2.imwrite('Outputs/RotatedImages/Right_LocateStack.png',right_stack_rotate)
-
-    # Rotated Image, Data Selected, Stack located
-    #left_stack_select = select_stack_data_left(right_stack) # Locate Stack
-    right_stack_select = select_stack_data_right(right_stack) # Locate Stack
-    left_stack_rotate = ndimage.rotate(left, -90) # Rotate stack image CW 90deg
+    # Rotated Images
+    left_stack_select = select_stack_data_left(left) # Locate Stack
+    right_stack_select = select_stack_data_right(right) # Locate Stack
+    left_stack_rotate = ndimage.rotate(left_stack_select, -90) # Rotate stack image CW 90deg
     right_stack_rotate = ndimage.rotate(right_stack_select, 90) # Rotate stack image CCW 90deg
+    left = left_stack_rotate # final left image
+    right = right_stack_rotate # final right image
 
-    # Stitch Two Images Horizontally, Write Image
-    cv2.imwrite('Outputs/RotatedImages/Left.png',left_stack_rotate)
-    cv2.imwrite('Outputs/RotatedImages/Right_SelectStackData.png',right_stack_rotate)
-    left = left_stack_rotate
-    right = right_stack_rotate
-    #stitched_image = concatenate_images(left,right)
-    write_image("Outputs/stitched_image",right) # Write Full Image
+    stitched_image = concatenate_images(left,right)
+    write_image("Outputs/left_image",left) # Write Full Image
+    write_image("Outputs/stitched_image",stitched_image) # Write Full Image
 
 # Function: Load image data from file
 # Input: Name of file as a string
@@ -90,7 +78,16 @@ def write_image(fileName,data):
 # Input: Name of file as a string
 # Output: Image data of size (WIDTH X HEIGHT X 3)
 def select_stack_data_left(img):
-    return(img)
+    empty_img = np.zeros([65,160,3])
+    i=0;j=0;
+    print(len(range(38,102)))
+    for idx in range(0,159):
+        i += 1; j=0;
+        for idy in range(38,102):
+            j+=1;
+            empty_img[j][i][:] = img[idy][idx]
+
+    return(empty_img)
 
 ## Rename function as drawGrid()
 
@@ -99,15 +96,17 @@ def select_stack_data_left(img):
 # Input:
 # Output:
 def select_stack_data_right(img):
+    """
     for idx in range(0,160):
         for idy in range(0,24):
             img[idy][idx][:] = 0
     for idx in range(0,160):
         for idy in range(111,120):
             img[idy][idx][:] = 0
-    empty_img = np.zeros([88,160,3])
+    """
+    empty_img = np.zeros([86,160,3])
     i=0;j=0;
-    for idx in range(0,159):
+    for idx in range(3,159):
         i += 1; j=0;
         for idy in range(26,111):
             j+=1;
@@ -275,21 +274,6 @@ def select_stack_data_right(img):
             new_img[j][i][:] = empty_img[idy][idx]
 
     return(new_img)
-
-# Function:
-# Input:
-# Output:
-def locate_stack_left(left):
-    ## Quadrant 1
-    # North Side
-
-    # East Side
-
-    # West Side
-
-    # South Side
-
-    return(left)
 
 # Function:
 # Input:
