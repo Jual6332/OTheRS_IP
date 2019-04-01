@@ -45,14 +45,14 @@ def load_temp_values(filename):
                 print("Exception: {}".format(e))
             row += 1
     ## Show, Save the result
-    fig = plt.figure(frameon=False)
-    ax = plt.subplot(111)
+    #fig = plt.figure(frameon=False)
+    #ax = plt.subplot(111)
     #ax = plt.Axes(fig,[0,0,1,1])
-    ax.set_axis_off()
-    plt.imshow(data)
-    plt.axis('off')
-    fig.tight_layout()
-    fig.savefig("output.png",pad_inches=0,bbox_inches='tight')
+    #ax.set_axis_off()
+    #plt.imshow(data)
+    #plt.axis('off')
+    #fig.tight_layout()
+    #fig.savefig("output.png",pad_inches=0,bbox_inches='tight')
     return data
 
 def main():
@@ -67,7 +67,7 @@ def main():
     for i in range(0,len(tiles_left["tile2"]["coordinatesX"])):
         x = tiles_left["tile2"]["coordinatesX"][i]
         y = tiles_left["tile2"]["coordinatesY"][i]
-        val = data_left[x][y]
+        val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile2"]["tempdata"] = temp_data
     tiles_left["tile2"]["meantemp"] = mean(temp_data)
@@ -79,7 +79,7 @@ def main():
     for i in range(0,len(tiles_left["tile3"]["coordinatesX"])):
         x = tiles_left["tile3"]["coordinatesX"][i]
         y = tiles_left["tile3"]["coordinatesY"][i]
-        val = data_left[x][y]
+        val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile3"]["tempdata"] = temp_data
     tiles_left["tile3"]["meantemp"] = mean(temp_data)
@@ -139,7 +139,7 @@ def main():
     for i in range(0,len(tiles_left["tile9"]["coordinatesX"])):
         x = tiles_left["tile9"]["coordinatesX"][i]
         y = tiles_left["tile9"]["coordinatesY"][i]
-        val = data_left[x][y]
+        val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile9"]["tempdata"] = temp_data
     tiles_left["tile9"]["meantemp"] = mean(temp_data)
@@ -175,12 +175,228 @@ def main():
     for i in range(0,len(tiles_right["tile12"]["coordinatesX"])):
         x = tiles_right["tile12"]["coordinatesX"][i]
         y = tiles_right["tile12"]["coordinatesY"][i]
-        val = data_right[x][y]
+        val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile12"]["tempdata"] = temp_data
     tiles_right["tile12"]["meantemp"] = mean(temp_data)
     tiles_right["tile12"]["maxtemp"] = 10
     tiles_right["tile12"]["mintemp"] = 0
+
+    # Tile 13
+    temp_data = []
+    for i in range(0,len(tiles_left["tile13"]["coordinatesX"])):
+        x = tiles_left["tile13"]["coordinatesX"][i]
+        y = tiles_left["tile13"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile13"]["tempdata"] = temp_data
+    tiles_left["tile13"]["meantemp"] = mean(temp_data)
+    tiles_left["tile13"]["maxtemp"] = 10
+    tiles_left["tile13"]["mintemp"] = 0
+
+    # Tile 14
+    temp_data = []
+    for i in range(0,len(tiles_left["tile14"]["coordinatesX"])):
+        x = tiles_left["tile14"]["coordinatesX"][i]
+        y = tiles_left["tile14"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile14"]["tempdata"] = temp_data
+    tiles_left["tile14"]["meantemp"] = mean(temp_data)
+    tiles_left["tile14"]["maxtemp"] = 10
+    tiles_left["tile14"]["mintemp"] = 0
+
+    # Tile 15
+    temp_data = []
+    for i in range(0,len(tiles_left["tile15"]["coordinatesX"])):
+        x = tiles_left["tile15"]["coordinatesX"][i]
+        y = tiles_left["tile15"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile15"]["tempdata"] = temp_data
+    tiles_left["tile15"]["meantemp"] = mean(temp_data)
+    tiles_left["tile15"]["maxtemp"] = 10
+    tiles_left["tile15"]["mintemp"] = 0
+
+    # Tile 16
+    temp_data = []
+    for i in range(0,len(tiles_right["tile16"]["coordinatesX"])):
+        x = tiles_right["tile16"]["coordinatesX"][i]
+        y = tiles_right["tile16"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile16"]["tempdata"] = temp_data
+    tiles_right["tile16"]["meantemp"] = mean(temp_data)
+    tiles_right["tile16"]["maxtemp"] = 10
+    tiles_right["tile16"]["mintemp"] = 0
+
+    # Tile 17
+    temp_data = []
+    for i in range(0,len(tiles_right["tile17"]["coordinatesX"])):
+        x = tiles_right["tile17"]["coordinatesX"][i]
+        y = tiles_right["tile17"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile17"]["tempdata"] = temp_data
+    tiles_right["tile17"]["meantemp"] = mean(temp_data)
+    tiles_right["tile17"]["maxtemp"] = 10
+    tiles_right["tile17"]["mintemp"] = 0
+
+    # Tile 18
+    temp_data = []
+    for i in range(0,len(tiles_right["tile18"]["coordinatesX"])):
+        x = tiles_right["tile18"]["coordinatesX"][i]
+        y = tiles_right["tile18"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile18"]["tempdata"] = temp_data
+    tiles_right["tile18"]["meantemp"] = mean(temp_data)
+    tiles_right["tile18"]["maxtemp"] = 10
+    tiles_right["tile18"]["mintemp"] = 0
+
+    # Tile 19
+    temp_data = []
+    for i in range(0,len(tiles_left["tile19"]["coordinatesX"])):
+        x = tiles_left["tile19"]["coordinatesX"][i]
+        y = tiles_left["tile19"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile19"]["tempdata"] = temp_data
+    tiles_left["tile19"]["meantemp"] = mean(temp_data)
+    tiles_left["tile19"]["maxtemp"] = 10
+    tiles_left["tile19"]["mintemp"] = 0
+
+    # Tile 20
+    temp_data = []
+    for i in range(0,len(tiles_left["tile20"]["coordinatesX"])):
+        x = tiles_left["tile20"]["coordinatesX"][i]
+        y = tiles_left["tile20"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile20"]["tempdata"] = temp_data
+    tiles_left["tile20"]["meantemp"] = mean(temp_data)
+    tiles_left["tile20"]["maxtemp"] = 10
+    tiles_left["tile20"]["mintemp"] = 0
+
+    # Tile 21
+    temp_data = []
+    for i in range(0,len(tiles_left["tile21"]["coordinatesX"])):
+        x = tiles_left["tile21"]["coordinatesX"][i]
+        y = tiles_left["tile21"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile21"]["tempdata"] = temp_data
+    tiles_left["tile21"]["meantemp"] = mean(temp_data)
+    tiles_left["tile21"]["maxtemp"] = 10
+    tiles_left["tile21"]["mintemp"] = 0
+
+    # Tile 22
+    temp_data = []
+    for i in range(0,len(tiles_right["tile22"]["coordinatesX"])):
+        x = tiles_right["tile22"]["coordinatesX"][i]
+        y = tiles_right["tile22"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile22"]["tempdata"] = temp_data
+    tiles_right["tile22"]["meantemp"] = mean(temp_data)
+    tiles_right["tile22"]["maxtemp"] = 10
+    tiles_right["tile22"]["mintemp"] = 0
+
+    # Tile 23
+    temp_data = []
+    for i in range(0,len(tiles_right["tile23"]["coordinatesX"])):
+        x = tiles_right["tile23"]["coordinatesX"][i]
+        y = tiles_right["tile23"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile23"]["tempdata"] = temp_data
+    tiles_right["tile23"]["meantemp"] = mean(temp_data)
+    tiles_right["tile23"]["maxtemp"] = 10
+    tiles_right["tile23"]["mintemp"] = 0
+
+    # Tile 24
+    temp_data = []
+    for i in range(0,len(tiles_right["tile24"]["coordinatesX"])):
+        x = tiles_right["tile24"]["coordinatesX"][i]
+        y = tiles_right["tile24"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile24"]["tempdata"] = temp_data
+    tiles_right["tile24"]["meantemp"] = mean(temp_data)
+    tiles_right["tile24"]["maxtemp"] = 10
+    tiles_right["tile24"]["mintemp"] = 0
+
+    # Tile 25
+    temp_data = []
+    for i in range(0,len(tiles_left["tile25"]["coordinatesX"])):
+        x = tiles_left["tile25"]["coordinatesX"][i]
+        y = tiles_left["tile25"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile25"]["tempdata"] = temp_data
+    tiles_left["tile25"]["meantemp"] = mean(temp_data)
+    tiles_left["tile25"]["maxtemp"] = 10
+    tiles_left["tile25"]["mintemp"] = 0
+
+    # Tile 26
+    temp_data = []
+    for i in range(0,len(tiles_left["tile26"]["coordinatesX"])):
+        x = tiles_left["tile26"]["coordinatesX"][i]
+        y = tiles_left["tile26"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile26"]["tempdata"] = temp_data
+    tiles_left["tile26"]["meantemp"] = mean(temp_data)
+    tiles_left["tile26"]["maxtemp"] = 10
+    tiles_left["tile26"]["mintemp"] = 0
+
+    # Tile 27
+    temp_data = []
+    for i in range(0,len(tiles_left["tile27"]["coordinatesX"])):
+        x = tiles_left["tile27"]["coordinatesX"][i]
+        y = tiles_left["tile27"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile27"]["tempdata"] = temp_data
+    tiles_left["tile27"]["meantemp"] = mean(temp_data)
+    tiles_left["tile27"]["maxtemp"] = 10
+    tiles_left["tile27"]["mintemp"] = 0
+
+    # Tile 28
+    temp_data = []
+    for i in range(0,len(tiles_right["tile28"]["coordinatesX"])):
+        x = tiles_right["tile28"]["coordinatesX"][i]
+        y = tiles_right["tile28"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile28"]["tempdata"] = temp_data
+    tiles_right["tile28"]["meantemp"] = mean(temp_data)
+    tiles_right["tile28"]["maxtemp"] = 10
+    tiles_right["tile28"]["mintemp"] = 0
+
+    # Tile 29
+    temp_data = []
+    for i in range(0,len(tiles_right["tile29"]["coordinatesX"])):
+        x = tiles_right["tile29"]["coordinatesX"][i]
+        y = tiles_right["tile29"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile29"]["tempdata"] = temp_data
+    tiles_right["tile29"]["meantemp"] = mean(temp_data)
+    tiles_right["tile29"]["maxtemp"] = 10
+    tiles_right["tile29"]["mintemp"] = 0
+
+    # Tile 30
+    temp_data = []
+    for i in range(0,len(tiles_right["tile30"]["coordinatesX"])):
+        x = tiles_right["tile30"]["coordinatesX"][i]
+        y = tiles_right["tile30"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile30"]["tempdata"] = temp_data
+    tiles_right["tile30"]["meantemp"] = mean(temp_data)
+    tiles_right["tile30"]["maxtemp"] = 10
+    tiles_right["tile30"]["mintemp"] = 0
 
     ## Define Trays
     # Define Tray 1
@@ -189,10 +405,11 @@ def main():
     tray1["tile3"] = tiles_left["tile3"]
     tray1["tile4"] = tiles_right["tile4"]
     tray1["tile5"] = tiles_right["tile5"]
-    print(tray1["tile2"]["meantemp"])
-    print(tray1["tile3"]["meantemp"])
-    print(tray1["tile4"]["meantemp"])
-    print(tray1["tile5"]["meantemp"])
+    print("Tray 1, Tile 2:"+str(tray1["tile2"]["meantemp"])+" C")
+    print("Tray 1, Tile 3:"+str(tray1["tile3"]["meantemp"])+" C")
+    print("Tray 1, Tile 4:"+str(tray1["tile4"]["meantemp"])+" C")
+    print("Tray 1, Tile 5:"+str(tray1["tile5"]["meantemp"])+" C")
+    print()
     # Define Tray 2
     tray2 = {}
     tray2["tile7"] = tiles_left["tile7"]
@@ -201,14 +418,57 @@ def main():
     tray2["tile10"] = tiles_right["tile10"]
     tray2["tile11"] = tiles_right["tile11"]
     tray2["tile12"] = tiles_right["tile12"]
-    print(tray2["tile7"]["meantemp"])
-    print(tray2["tile8"]["meantemp"])
-    print(tray2["tile9"]["meantemp"])
-    print(tray2["tile10"]["meantemp"])
-    print(tray2["tile11"]["meantemp"])
-    print(tray2["tile12"]["meantemp"])
+    print("Tray 2, Tile 7:"+str(tray2["tile7"]["meantemp"])+" C")
+    print("Tray 2, Tile 8:"+str(tray2["tile8"]["meantemp"])+" C")
+    print("Tray 2, Tile 9:"+str(tray2["tile9"]["meantemp"])+" C")
+    print("Tray 2, Tile 10:"+str(tray2["tile10"]["meantemp"])+" C")
+    print("Tray 2, Tile 11:"+str(tray2["tile11"]["meantemp"])+" C")
+    print("Tray 2, Tile 12:"+str(tray2["tile12"]["meantemp"])+" C")
+    print()
     # Define Tray 3
     tray3 = {}
+    tray3["tile13"] = tiles_left["tile13"]
+    tray3["tile14"] = tiles_left["tile14"]
+    tray3["tile15"] = tiles_left["tile15"]
+    tray3["tile16"] = tiles_right["tile16"]
+    tray3["tile17"] = tiles_right["tile17"]
+    tray3["tile18"] = tiles_right["tile18"]
+    print("Tray 3, Tile 13:"+str(tray3["tile13"]["meantemp"])+" C")
+    print("Tray 3, Tile 14:"+str(tray3["tile14"]["meantemp"])+" C")
+    print("Tray 3, Tile 15:"+str(tray3["tile15"]["meantemp"])+" C")
+    print("Tray 3, Tile 16:"+str(tray3["tile16"]["meantemp"])+" C")
+    print("Tray 3, Tile 17:"+str(tray3["tile17"]["meantemp"])+" C")
+    print("Tray 3, Tile 18:"+str(tray3["tile18"]["meantemp"])+" C")
+    print()
+    # Define Tray 4
+    tray4 = {}
+    tray4["tile19"] = tiles_left["tile19"]
+    tray4["tile20"] = tiles_left["tile20"]
+    tray4["tile21"] = tiles_left["tile21"]
+    tray4["tile22"] = tiles_right["tile22"]
+    tray4["tile23"] = tiles_right["tile23"]
+    tray4["tile24"] = tiles_right["tile24"]
+    print("Tray 4, Tile 19:"+str(tray4["tile19"]["meantemp"])+" C")
+    print("Tray 4, Tile 20:"+str(tray4["tile20"]["meantemp"])+" C")
+    print("Tray 4, Tile 21:"+str(tray4["tile21"]["meantemp"])+" C")
+    print("Tray 4, Tile 22:"+str(tray4["tile22"]["meantemp"])+" C")
+    print("Tray 4, Tile 23:"+str(tray4["tile23"]["meantemp"])+" C")
+    print("Tray 4, Tile 24:"+str(tray4["tile24"]["meantemp"])+" C")
+    print()
+    # Define Tray 5
+    tray5 = {}
+    tray5["tile25"] = tiles_left["tile25"]
+    tray5["tile26"] = tiles_left["tile26"]
+    tray5["tile27"] = tiles_left["tile27"]
+    tray5["tile28"] = tiles_right["tile28"]
+    tray5["tile29"] = tiles_right["tile29"]
+    tray5["tile30"] = tiles_right["tile30"]
+    print("Tray 5, Tile 19:"+str(tray5["tile25"]["meantemp"])+" C")
+    print("Tray 5, Tile 20:"+str(tray5["tile26"]["meantemp"])+" C")
+    print("Tray 5, Tile 21:"+str(tray5["tile27"]["meantemp"])+" C")
+    print("Tray 5, Tile 22:"+str(tray5["tile28"]["meantemp"])+" C")
+    print("Tray 5, Tile 23:"+str(tray5["tile29"]["meantemp"])+" C")
+    print("Tray 5, Tile 24:"+str(tray5["tile30"]["meantemp"])+" C")
 
 # Function: Load Grid Data from External CSV files for each image
 # Input:
@@ -226,7 +486,7 @@ def load_grid_data(side):
             tiles["tile"+str(i)] = {"coordinatesX":coordinates[:][0],"coordinatesY":coordinates[:][1]}
     elif side == "right":
         for i in right_range:
-            filename = 'ImageJData/Left/tile'+str(i)+'.csv'
+            filename = 'ImageJData/Right/tile'+str(i)+'.csv'
             coordinates = load_tile_data(filename)
             tiles["tile"+str(i)] = {"coordinatesX":coordinates[:][0],"coordinatesY":coordinates[:][1]}
     return(tiles)
