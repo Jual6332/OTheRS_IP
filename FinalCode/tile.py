@@ -398,6 +398,54 @@ def main():
     tiles_right["tile30"]["maxtemp"] = 10
     tiles_right["tile30"]["mintemp"] = 0
 
+    # Tile 32
+    temp_data = []
+    for i in range(0,len(tiles_left["tile32"]["coordinatesX"])):
+        x = tiles_left["tile32"]["coordinatesX"][i]
+        y = tiles_left["tile32"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile32"]["tempdata"] = temp_data
+    tiles_left["tile32"]["meantemp"] = mean(temp_data)
+    tiles_left["tile32"]["maxtemp"] = 10
+    tiles_left["tile32"]["mintemp"] = 0
+
+    # Tile 33
+    temp_data = []
+    for i in range(0,len(tiles_left["tile33"]["coordinatesX"])):
+        x = tiles_left["tile33"]["coordinatesX"][i]
+        y = tiles_left["tile33"]["coordinatesY"][i]
+        val = data_left[y][x]
+        temp_data.append(val)
+    tiles_left["tile33"]["tempdata"] = temp_data
+    tiles_left["tile33"]["meantemp"] = mean(temp_data)
+    tiles_left["tile33"]["maxtemp"] = 10
+    tiles_left["tile33"]["mintemp"] = 0
+
+    # Tile 34
+    temp_data = []
+    for i in range(0,len(tiles_right["tile34"]["coordinatesX"])):
+        x = tiles_right["tile34"]["coordinatesX"][i]
+        y = tiles_right["tile34"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile34"]["tempdata"] = temp_data
+    tiles_right["tile34"]["meantemp"] = mean(temp_data)
+    tiles_right["tile34"]["maxtemp"] = 10
+    tiles_right["tile34"]["mintemp"] = 0
+
+    # Tile 35
+    temp_data = []
+    for i in range(0,len(tiles_right["tile35"]["coordinatesX"])):
+        x = tiles_right["tile35"]["coordinatesX"][i]
+        y = tiles_right["tile35"]["coordinatesY"][i]
+        val = data_right[y][x]
+        temp_data.append(val)
+    tiles_right["tile35"]["tempdata"] = temp_data
+    tiles_right["tile35"]["meantemp"] = mean(temp_data)
+    tiles_right["tile35"]["maxtemp"] = 10
+    tiles_right["tile35"]["mintemp"] = 0
+
     ## Define Trays
     # Define Tray 1
     tray1 = {}
@@ -463,12 +511,32 @@ def main():
     tray5["tile28"] = tiles_right["tile28"]
     tray5["tile29"] = tiles_right["tile29"]
     tray5["tile30"] = tiles_right["tile30"]
-    print("Tray 5, Tile 19:"+str(tray5["tile25"]["meantemp"])+" C")
-    print("Tray 5, Tile 20:"+str(tray5["tile26"]["meantemp"])+" C")
-    print("Tray 5, Tile 21:"+str(tray5["tile27"]["meantemp"])+" C")
-    print("Tray 5, Tile 22:"+str(tray5["tile28"]["meantemp"])+" C")
-    print("Tray 5, Tile 23:"+str(tray5["tile29"]["meantemp"])+" C")
-    print("Tray 5, Tile 24:"+str(tray5["tile30"]["meantemp"])+" C")
+    print("Tray 5, Tile 25:"+str(tray5["tile25"]["meantemp"])+" C")
+    print("Tray 5, Tile 26:"+str(tray5["tile26"]["meantemp"])+" C")
+    print("Tray 5, Tile 27:"+str(tray5["tile27"]["meantemp"])+" C")
+    print("Tray 5, Tile 28:"+str(tray5["tile28"]["meantemp"])+" C")
+    print("Tray 5, Tile 29:"+str(tray5["tile29"]["meantemp"])+" C")
+    print("Tray 5, Tile 30:"+str(tray5["tile30"]["meantemp"])+" C")
+    print()
+    # Define Tray 6
+    tray6 = {}
+    tray6["tile32"] = tiles_left["tile32"]
+    tray6["tile33"] = tiles_left["tile33"]
+    tray6["tile34"] = tiles_right["tile34"]
+    tray6["tile35"] = tiles_right["tile35"]
+    print("Tray 6, Tile 32:"+str(tray6["tile32"]["meantemp"])+" C")
+    print("Tray 6, Tile 33:"+str(tray6["tile33"]["meantemp"])+" C")
+    print("Tray 6, Tile 34:"+str(tray6["tile34"]["meantemp"])+" C")
+    print("Tray 6, Tile 35:"+str(tray6["tile35"]["meantemp"])+" C")
+
+    ## Store Final Tile Data
+    final_tile_data = {}
+    final_tile_data["tray1"] = tray1
+    final_tile_data["tray2"] = tray2
+    final_tile_data["tray3"] = tray3
+    final_tile_data["tray4"] = tray4
+    final_tile_data["tray5"] = tray5
+    final_tile_data["tray6"] = tray6
 
 # Function: Load Grid Data from External CSV files for each image
 # Input:
