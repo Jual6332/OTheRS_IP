@@ -23,9 +23,8 @@ fi
 python3 stitch.py
 
 # Tile
-cd Tile/CurrentCode
-python3 main.py
-cd ..
-cd ..
+python3 tile.py
+
 # Control
+
 # Seral Data Export

@@ -41,16 +41,16 @@ def Test1():
     # Rotate Images
     left_stack_select = select_stack_data_left(image_left) # Locate Stack
     right_stack_select = select_stack_data_right(image_right) # Locate Stack
-    write_image("Outputs/left_image1",left_stack_select)
-    write_image("Outputs/right_image1",right_stack_select)
+    #write_image("Outputs/left_image1",left_stack_select)
+    #write_image("Outputs/right_image1",right_stack_select)
 
     left = ndimage.rotate(left_stack_select, -90) # Rotate stack image CW 90deg
     right = ndimage.rotate(right_stack_select, 90) # Rotate stack image CCW 90deg
 
     # Concatenate Images
     stitched_image = concatenate_images(left,right)
-    write_image("Outputs/left_image",left)
-    write_image("Outputs/right_image",right)
+    #write_image("Outputs/left_image",left)
+    #write_image("Outputs/right_image",right)
     write_image("Outputs/stitched_image",stitched_image) # Write Full Image
 
 # Function: Load image data from file
