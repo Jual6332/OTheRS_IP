@@ -538,6 +538,9 @@ def main():
     final_tile_data["tray5"] = tray5
     final_tile_data["tray6"] = tray6
 
+    ## Write to File
+    write_to_file(final_tile_data)
+
 # Function: Load Grid Data from External CSV files for each image
 # Input:
 # Output:
@@ -545,8 +548,6 @@ def load_grid_data(side):
     tiles={}
     left_range = [2,3,7,8,9,13,14,15,19,20,21,25,26,27,32,33]
     right_range = [4,5,10,11,12,16,17,18,22,23,24,28,29,30,34,35]
-    #index_left = [2,3,7,8,9]
-    #index_right = [4,5,10,11,12]
     if side == "left":
         for i in left_range:
             filename = 'ImageJData/Left/tile'+str(i)+'.csv'
@@ -570,6 +571,57 @@ def load_tile_data(filename):
     tile.append(x_column)
     tile.append(y_column)
     return(tile)
+
+def write_to_file(data):
+    try:
+        file = open("Outputs/file.txt", 'w')
+    except IOError:
+        print("File not found or path is incorrect")
+    # Tray 1
+    temps = "0 "
+    for i in range(2,6):
+        tile = "tile"+str(i)
+        line = round(data["tray1"][tile]["meantemp"],2)
+        temps += str(line)+" "
+    temps+="0"
+    file.write(temps)
+    # Tray 2
+    temps = "\n"
+    for i in range(7,13):
+        tile = "tile"+str(i)
+        line = round(data["tray2"][tile]["meantemp"],2)
+        temps += str(line)+" "
+    file.write(temps)
+    # Tray 3
+    temps = "\n"
+    for i in range(13,19):
+        tile = "tile"+str(i)
+        line = round(data["tray3"][tile]["meantemp"],2)
+        temps += str(line)+" "
+    file.write(temps)
+    # Tray 4
+    temps = "\n"
+    for i in range(19,25):
+        tile = "tile"+str(i)
+        line = round(data["tray4"][tile]["meantemp"],2)
+        temps += str(line)+" "
+    file.write(temps)
+    # Tray 5
+    temps = "\n"
+    for i in range(25,31):
+        tile = "tile"+str(i)
+        line = round(data["tray5"][tile]["meantemp"],2)
+        temps += str(line)+" "
+    file.write(temps)
+    # Tray 6
+    temps = "\n0 "
+    for i in range(32,36):
+        tile = "tile"+str(i)
+        line = round(data["tray6"][tile]["meantemp"],2)
+        temps += str(line)+" "
+    temps+="0"
+    file.write(temps)
+    file.close()
 
 if __name__ == '__main__':
     main()
