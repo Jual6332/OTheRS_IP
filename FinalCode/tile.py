@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/26/19   ####################################################
-##  Date Modified: 3/31/19  ####################################################
+##  Date Modified: 4/2/19   ####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -29,7 +29,6 @@ WIDTH = 160
 HEIGHT = 120
 data = np.zeros((HEIGHT, WIDTH))
 #####################---------Main Code---------################################
-
 # Function: Load Temp Values from FLIR output txt files
 # Input:
 # Output:
@@ -56,8 +55,8 @@ def load_temp_values(filename):
     return data
 
 def main():
-    data_left = load_temp_values('Inputs/March24GridTest/raw1.txt')/100 - 273.15
-    data_right = load_temp_values('Inputs/March24GridTest/raw2.txt')/100 - 273.15
+    data_left = load_temp_values('Inputs/March24GridTest/Test1/left.txt')/100 - 273.15
+    data_right = load_temp_values('Inputs/March24GridTest/Test1/right.txt')/100 - 273.15
     tiles_left = load_grid_data('left')
     tiles_right = load_grid_data('right')
 
@@ -453,11 +452,11 @@ def main():
     tray1["tile3"] = tiles_left["tile3"]
     tray1["tile4"] = tiles_right["tile4"]
     tray1["tile5"] = tiles_right["tile5"]
-    print("Tray 1, Tile 2:"+str(tray1["tile2"]["meantemp"])+" C")
-    print("Tray 1, Tile 3:"+str(tray1["tile3"]["meantemp"])+" C")
-    print("Tray 1, Tile 4:"+str(tray1["tile4"]["meantemp"])+" C")
-    print("Tray 1, Tile 5:"+str(tray1["tile5"]["meantemp"])+" C")
-    print()
+    #print("Tray 1, Tile 2:"+str(tray1["tile2"]["meantemp"])+" C")
+    #print("Tray 1, Tile 3:"+str(tray1["tile3"]["meantemp"])+" C")
+    #print("Tray 1, Tile 4:"+str(tray1["tile4"]["meantemp"])+" C")
+    #print("Tray 1, Tile 5:"+str(tray1["tile5"]["meantemp"])+" C")
+    #print()
     # Define Tray 2
     tray2 = {}
     tray2["tile7"] = tiles_left["tile7"]
@@ -466,13 +465,13 @@ def main():
     tray2["tile10"] = tiles_right["tile10"]
     tray2["tile11"] = tiles_right["tile11"]
     tray2["tile12"] = tiles_right["tile12"]
-    print("Tray 2, Tile 7:"+str(tray2["tile7"]["meantemp"])+" C")
-    print("Tray 2, Tile 8:"+str(tray2["tile8"]["meantemp"])+" C")
-    print("Tray 2, Tile 9:"+str(tray2["tile9"]["meantemp"])+" C")
-    print("Tray 2, Tile 10:"+str(tray2["tile10"]["meantemp"])+" C")
-    print("Tray 2, Tile 11:"+str(tray2["tile11"]["meantemp"])+" C")
-    print("Tray 2, Tile 12:"+str(tray2["tile12"]["meantemp"])+" C")
-    print()
+    #print("Tray 2, Tile 7:"+str(tray2["tile7"]["meantemp"])+" C")
+    #print("Tray 2, Tile 8:"+str(tray2["tile8"]["meantemp"])+" C")
+    #print("Tray 2, Tile 9:"+str(tray2["tile9"]["meantemp"])+" C")
+    #print("Tray 2, Tile 10:"+str(tray2["tile10"]["meantemp"])+" C")
+    #print("Tray 2, Tile 11:"+str(tray2["tile11"]["meantemp"])+" C")
+    #print("Tray 2, Tile 12:"+str(tray2["tile12"]["meantemp"])+" C")
+    #print()
     # Define Tray 3
     tray3 = {}
     tray3["tile13"] = tiles_left["tile13"]
@@ -481,13 +480,13 @@ def main():
     tray3["tile16"] = tiles_right["tile16"]
     tray3["tile17"] = tiles_right["tile17"]
     tray3["tile18"] = tiles_right["tile18"]
-    print("Tray 3, Tile 13:"+str(tray3["tile13"]["meantemp"])+" C")
-    print("Tray 3, Tile 14:"+str(tray3["tile14"]["meantemp"])+" C")
-    print("Tray 3, Tile 15:"+str(tray3["tile15"]["meantemp"])+" C")
-    print("Tray 3, Tile 16:"+str(tray3["tile16"]["meantemp"])+" C")
-    print("Tray 3, Tile 17:"+str(tray3["tile17"]["meantemp"])+" C")
-    print("Tray 3, Tile 18:"+str(tray3["tile18"]["meantemp"])+" C")
-    print()
+    #print("Tray 3, Tile 13:"+str(tray3["tile13"]["meantemp"])+" C")
+    #print("Tray 3, Tile 14:"+str(tray3["tile14"]["meantemp"])+" C")
+    #print("Tray 3, Tile 15:"+str(tray3["tile15"]["meantemp"])+" C")
+    #print("Tray 3, Tile 16:"+str(tray3["tile16"]["meantemp"])+" C")
+    #print("Tray 3, Tile 17:"+str(tray3["tile17"]["meantemp"])+" C")
+    #print("Tray 3, Tile 18:"+str(tray3["tile18"]["meantemp"])+" C")
+    #print()
     # Define Tray 4
     tray4 = {}
     tray4["tile19"] = tiles_left["tile19"]
@@ -496,13 +495,13 @@ def main():
     tray4["tile22"] = tiles_right["tile22"]
     tray4["tile23"] = tiles_right["tile23"]
     tray4["tile24"] = tiles_right["tile24"]
-    print("Tray 4, Tile 19:"+str(tray4["tile19"]["meantemp"])+" C")
-    print("Tray 4, Tile 20:"+str(tray4["tile20"]["meantemp"])+" C")
-    print("Tray 4, Tile 21:"+str(tray4["tile21"]["meantemp"])+" C")
-    print("Tray 4, Tile 22:"+str(tray4["tile22"]["meantemp"])+" C")
-    print("Tray 4, Tile 23:"+str(tray4["tile23"]["meantemp"])+" C")
-    print("Tray 4, Tile 24:"+str(tray4["tile24"]["meantemp"])+" C")
-    print()
+    #print("Tray 4, Tile 19:"+str(tray4["tile19"]["meantemp"])+" C")
+    #print("Tray 4, Tile 20:"+str(tray4["tile20"]["meantemp"])+" C")
+    #print("Tray 4, Tile 21:"+str(tray4["tile21"]["meantemp"])+" C")
+    #print("Tray 4, Tile 22:"+str(tray4["tile22"]["meantemp"])+" C")
+    #print("Tray 4, Tile 23:"+str(tray4["tile23"]["meantemp"])+" C")
+    #print("Tray 4, Tile 24:"+str(tray4["tile24"]["meantemp"])+" C")
+    #print()
     # Define Tray 5
     tray5 = {}
     tray5["tile25"] = tiles_left["tile25"]
@@ -511,23 +510,23 @@ def main():
     tray5["tile28"] = tiles_right["tile28"]
     tray5["tile29"] = tiles_right["tile29"]
     tray5["tile30"] = tiles_right["tile30"]
-    print("Tray 5, Tile 25:"+str(tray5["tile25"]["meantemp"])+" C")
-    print("Tray 5, Tile 26:"+str(tray5["tile26"]["meantemp"])+" C")
-    print("Tray 5, Tile 27:"+str(tray5["tile27"]["meantemp"])+" C")
-    print("Tray 5, Tile 28:"+str(tray5["tile28"]["meantemp"])+" C")
-    print("Tray 5, Tile 29:"+str(tray5["tile29"]["meantemp"])+" C")
-    print("Tray 5, Tile 30:"+str(tray5["tile30"]["meantemp"])+" C")
-    print()
+    #print("Tray 5, Tile 25:"+str(tray5["tile25"]["meantemp"])+" C")
+    #print("Tray 5, Tile 26:"+str(tray5["tile26"]["meantemp"])+" C")
+    #print("Tray 5, Tile 27:"+str(tray5["tile27"]["meantemp"])+" C")
+    #print("Tray 5, Tile 28:"+str(tray5["tile28"]["meantemp"])+" C")
+    #print("Tray 5, Tile 29:"+str(tray5["tile29"]["meantemp"])+" C")
+    #print("Tray 5, Tile 30:"+str(tray5["tile30"]["meantemp"])+" C")
+    #print()
     # Define Tray 6
     tray6 = {}
     tray6["tile32"] = tiles_left["tile32"]
     tray6["tile33"] = tiles_left["tile33"]
     tray6["tile34"] = tiles_right["tile34"]
     tray6["tile35"] = tiles_right["tile35"]
-    print("Tray 6, Tile 32:"+str(tray6["tile32"]["meantemp"])+" C")
-    print("Tray 6, Tile 33:"+str(tray6["tile33"]["meantemp"])+" C")
-    print("Tray 6, Tile 34:"+str(tray6["tile34"]["meantemp"])+" C")
-    print("Tray 6, Tile 35:"+str(tray6["tile35"]["meantemp"])+" C")
+    #print("Tray 6, Tile 32:"+str(tray6["tile32"]["meantemp"])+" C")
+    #print("Tray 6, Tile 33:"+str(tray6["tile33"]["meantemp"])+" C")
+    #print("Tray 6, Tile 34:"+str(tray6["tile34"]["meantemp"])+" C")
+    #print("Tray 6, Tile 35:"+str(tray6["tile35"]["meantemp"])+" C")
 
     ## Store Final Tile Data
     final_tile_data = {}
@@ -624,5 +623,13 @@ def write_to_file(data):
     file.close()
 
 if __name__ == '__main__':
+    times=[]
+    for i in range(0,15):
+        start = time.time()
+        main()
+        end = time.time()
+        times.append(end-start)
+    print("Mean time to complete is: "+str(mean(times))+" seconds")
     main()
+
 #####################-----------Close-----------################################

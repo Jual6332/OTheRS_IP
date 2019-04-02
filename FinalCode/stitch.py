@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/8/19   #####################################################
-##  Date Modified: 3/30/19  ####################################################
+##  Date Modified: 4/2/19  #####################################################
 ################################################################################
 # Main Purpose: Final stitch for two images together
 #####################---------Libraries---------################################
@@ -21,6 +21,7 @@ from image_slicer import join
 from PIL import Image, ImageDraw, ImageFont, ImageChops
 from matplotlib import pyplot as plt
 from scipy import ndimage
+from statistics import mean
 from random import randrange
 ##################---------Global Variables---------############################
 WIDTH = 160
@@ -35,8 +36,8 @@ def main():
 # Unit Test 1
 def Test1():
     # Load Images
-    image_left = load_image('Inputs/March24GridTest/rgb1.png')
-    image_right = load_image('Inputs/March24GridTest/rgb2.png')
+    image_left = load_image('Inputs/March24GridTest/Test1/left.png')
+    image_right = load_image('Inputs/March24GridTest/Test1/right.png')
 
     # Rotate Images
     left_stack_select = select_stack_data_left(image_left) # Locate Stack
@@ -110,5 +111,11 @@ def write_image(fileName,data):
     cv2.imwrite(str(fileName)+".png",data)
 
 if __name__ == '__main__':
-    main()
+    times=[]
+    for i in range(0,1):
+        start = time.time()
+        main()
+        end = time.time()
+        times.append(end-start)
+    print("Mean time to complete is: "+str(mean(times))+" seconds")
 #####################-----------Close-----------################################
