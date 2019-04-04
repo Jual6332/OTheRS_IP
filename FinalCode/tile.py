@@ -538,7 +538,8 @@ def main():
     final_tile_data["tray6"] = tray6
 
     ## Write to File
-    write_to_file(final_tile_data)
+    temps = write_to_file(final_tile_data)
+    return(temps)
 
 # Function: Load Grid Data from External CSV files for each image
 # Input:
@@ -572,6 +573,7 @@ def load_tile_data(filename):
     return(tile)
 
 def write_to_file(data):
+    final = []
     try:
         file = open("Outputs/file.txt", 'w')
     except IOError:
@@ -582,54 +584,64 @@ def write_to_file(data):
         tile = "tile"+str(i)
         line = round(data["tray1"][tile]["meantemp"],2)
         temps += str(line)+" "
-    temps+="0"
+    temps+="0\n"
     file.write(temps)
+    final.append(temps)
     # Tray 2
-    temps = "\n"
+    temps = ""
     for i in range(7,13):
         tile = "tile"+str(i)
         line = round(data["tray2"][tile]["meantemp"],2)
         temps += str(line)+" "
+    temps += "\n"
     file.write(temps)
+    final.append(temps)
     # Tray 3
-    temps = "\n"
+    temps = ""
     for i in range(13,19):
         tile = "tile"+str(i)
         line = round(data["tray3"][tile]["meantemp"],2)
         temps += str(line)+" "
+    temps += "\n"
     file.write(temps)
+    final.append(temps)
     # Tray 4
-    temps = "\n"
+    temps = ""
     for i in range(19,25):
         tile = "tile"+str(i)
         line = round(data["tray4"][tile]["meantemp"],2)
         temps += str(line)+" "
+    temps += "\n"
     file.write(temps)
+    final.append(temps)
     # Tray 5
-    temps = "\n"
+    temps = ""
     for i in range(25,31):
         tile = "tile"+str(i)
         line = round(data["tray5"][tile]["meantemp"],2)
         temps += str(line)+" "
+    temps += "\n"
     file.write(temps)
+    final.append(temps)
     # Tray 6
-    temps = "\n0 "
-    for i in range(32,36):
-        tile = "tile"+str(i)
-        line = round(data["tray6"][tile]["meantemp"],2)
-        temps += str(line)+" "
-    temps+="0"
+    temps = "0 0 0 0 0 0\n"
+    final.append(temps)
     file.write(temps)
     file.close()
+    return(final)
 
 if __name__ == '__main__':
     times=[]
     for i in range(0,15):
         start = time.time()
-        main()
+        temps = main()
         end = time.time()
         times.append(end-start)
     print("Mean time to complete is: "+str(mean(times))+" seconds")
-    main()
+    temps = main()
+    print(temps)
+
+    # 1 LED 0 or 1 - heater off/on - too cold so turn heater on
+    # 1 LED for tray on/off - everything is too hot, turn heater off
 
 #####################-----------Close-----------################################
