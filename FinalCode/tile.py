@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/26/19   ####################################################
-##  Date Modified: 4/2/19   ####################################################
+##  Date Modified: 4/5/19   ####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -674,11 +674,12 @@ def control(data):
     for i in range(1,7):
         tray6.append(0)
     #print(tray6)
-    # Control Decisions -> Send from IP over Serial to Monitor GUI
+    
+    ## Control Decisions -> Send from IP over Serial to Monitor GUI
     control_tray1 = []
     for i in range(0,len(tray1)):
         line = ""
-        if tray1[i] > 0:
+        if tray1[i] >= 0:
             line+="0"
             line+=" "+str(int(abs(round(tray1[i],2))*100))
         else:
@@ -689,7 +690,7 @@ def control(data):
     control_tray2 = []
     for i in range(0,len(tray2)):
         line = ""
-        if tray2[i] > 0:
+        if tray2[i] >= 0:
             line+="0"
             line+=" "+str(int(abs(round(tray2[i],2))*100))
         else:
@@ -700,7 +701,7 @@ def control(data):
     control_tray3 = []
     for i in range(0,len(tray3)):
         line = ""
-        if tray3[i] > 0:
+        if tray3[i] >= 0:
             line+="0"
             line+=" "+str(int(abs(round(tray3[i],2))*100))
         else:
@@ -708,11 +709,10 @@ def control(data):
             line+=" "+str(int(abs(round(tray3[i],2))*100))
         control_tray3.append(line)
     print(control_tray3)
-
     control_tray4 = []
     for i in range(0,len(tray4)):
         line = ""
-        if tray4[i] > 0:
+        if tray4[i] >= 0:
             line+="0"
             line+=" "+str(int(abs(round(tray4[i],2))*100))
         else:
@@ -720,11 +720,10 @@ def control(data):
             line+=" "+str(int(abs(round(tray4[i],2))*100))
         control_tray4.append(line)
     print(control_tray4)
-
     control_tray5 = []
     for i in range(0,len(tray5)):
         line = ""
-        if tray5[i] > 0:
+        if tray5[i] >= 0:
             line+="0"
             line+=" "+str(int(abs(round(tray5[i],2))*100))
         else:
@@ -732,11 +731,10 @@ def control(data):
             line+=" "+str(int(abs(round(tray5[i],2))*100))
         control_tray5.append(line)
     print(control_tray5)
-
     control_tray6 = []
     for i in range(0,len(tray6)):
         line = ""
-        if tray6[i] > 0:
+        if tray6[i] >= 0:
             line+="0"
             line+=" "+str(int(abs(round(tray6[i],2))*100))
         else:
@@ -745,19 +743,11 @@ def control(data):
         control_tray6.append(line)
     print(control_tray6)
 
-
 if __name__ == '__main__':
-    times=[]
-    """
-    for i in range(0,15):
-        start = time.time()
-        temps = main()
-        end = time.time()
-        times.append(end-start)
-    print("Mean time to complete is: "+str(mean(times))+" seconds")
-    """
+    start = time.time()
     data = main()
     control(data)
+    end = time.time()
 
     # 1 LED 0 or 1 - heater off/on - too cold so turn heater on
     # 1 LED for tray on/off - everything is too hot, turn heater off
