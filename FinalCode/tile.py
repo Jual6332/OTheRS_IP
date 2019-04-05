@@ -538,6 +538,7 @@ def main():
     final_tile_data["tray6"] = tray6
 
     ## Write to File
+    global temps
     temps = write_to_file(final_tile_data)
     return(temps)
 
@@ -628,18 +629,99 @@ def write_to_file(data):
     final.append(temps)
     file.write(temps)
     file.close()
-    return(final)
+    return(data)
+
+def control(data):
+    # Tray 1
+    tray1 = []
+    tray1.append(0)
+    for i in range(2,6):
+        tile = "tile"+str(i)
+        temp = round(data["tray1"][tile]["meantemp"],2)
+        tray1.append(temp)
+    tray1.append(0)
+    #print(tray1)
+    # Tray 2
+    tray2 = []
+    for i in range(7,13):
+        tile = "tile"+str(i)
+        temp = round(data["tray2"][tile]["meantemp"],2)
+        tray2.append(temp)
+    #print(tray2)
+    # Tray 3
+    tray3 = []
+    for i in range(13,19):
+        tile = "tile"+str(i)
+        temp = round(data["tray3"][tile]["meantemp"],2)
+        tray3.append(temp)
+    #print(tray3)
+    # Tray 4
+    tray4 = []
+    for i in range(19,25):
+        tile = "tile"+str(i)
+        temp = round(data["tray4"][tile]["meantemp"],2)
+        tray4.append(temp)
+    #print(tray4)
+    # Tray 5
+    tray5 = []
+    for i in range(25,31):
+        tile = "tile"+str(i)
+        temp = round(data["tray5"][tile]["meantemp"],2)
+        tray5.append(temp)
+    #print(tray5)
+    # Tray 6
+    tray6 = []
+    for i in range(1,7):
+        tray6.append(0)
+    #print(tray6)
+    # Control Decisions -> Send from IP over Serial to Monitor GUI
+    control_tray1 = []
+    for i in range(0,len(tray1)):
+        line = ""
+        if tray1[i] > 0:
+            line+="0"
+            line+=" "+str(int(abs(tray1[i]))*100)
+        else:
+            line+="1"
+            line+=" "+str(int(abs(round(tray1[i],2)))*100)
+        control_tray1.append(line)
+    print(control_tray1)
+    control_tray2 = []
+    for i in range(0,len(tray2)):
+        line = ""
+        if tray2[i] > 0:
+            line+="0"
+            line+=" "+str(int(abs(round(tray2[i],2)))*100)
+        else:
+            line+="1"
+            line+=" "+str(int(abs(round(tray2[i],2)))*100)
+        control_tray2.append(line)
+    print(control_tray2)
+    control_tray3 = []
+    for i in range(0,len(tray3)):
+        line = ""
+        if tray3[i] > 0:
+            line+="0"
+            line+=" "+str(int(abs(round(tray3[i])))*100)
+        else:
+            line+="1"
+            line+=" "+str(int(abs(round(tray3[i])))*100)
+        control_tray3.append(line)
+    print(control_tray3)
+
 
 if __name__ == '__main__':
     times=[]
+    """
     for i in range(0,15):
         start = time.time()
         temps = main()
         end = time.time()
         times.append(end-start)
     print("Mean time to complete is: "+str(mean(times))+" seconds")
-    temps = main()
-    print(temps)
+    """
+    data = main()
+    control(data)
 
     # 1 LED 0 or 1 - heater off/on - too cold so turn heater on
     # 1 LED for tray on/off - everything is too hot, turn heater off
