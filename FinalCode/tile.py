@@ -538,7 +538,6 @@ def main():
     final_tile_data["tray6"] = tray6
 
     ## Write to File
-    global temps
     temps = write_to_file(final_tile_data)
     return(temps)
 
@@ -576,7 +575,7 @@ def load_tile_data(filename):
 def write_to_file(data):
     final = []
     try:
-        file = open("Outputs/file.txt", 'w')
+        file = open("Outputs/temperatures_output.txt", 'w')
     except IOError:
         print("File not found or path is incorrect")
     # Tray 1
@@ -631,6 +630,9 @@ def write_to_file(data):
     file.close()
     return(data)
 
+# Function: Load Temp Data for tiles in each image
+# Input:
+# Output:
 def control(data):
     # Tray 1
     tray1 = []
@@ -674,7 +676,7 @@ def control(data):
     for i in range(1,7):
         tray6.append(0)
     #print(tray6)
-    
+
     ## Control Decisions -> Send from IP over Serial to Monitor GUI
     control_tray1 = []
     for i in range(0,len(tray1)):
@@ -686,7 +688,7 @@ def control(data):
             line+="1"
             line+=" "+str(int(abs(round(tray1[i],2))*100))
         control_tray1.append(line)
-    print(control_tray1)
+    #print(control_tray1)
     control_tray2 = []
     for i in range(0,len(tray2)):
         line = ""
@@ -697,7 +699,7 @@ def control(data):
             line+="1"
             line+=" "+str(int(abs(round(tray2[i],2))*100))
         control_tray2.append(line)
-    print(control_tray2)
+    #print(control_tray2)
     control_tray3 = []
     for i in range(0,len(tray3)):
         line = ""
@@ -708,7 +710,7 @@ def control(data):
             line+="1"
             line+=" "+str(int(abs(round(tray3[i],2))*100))
         control_tray3.append(line)
-    print(control_tray3)
+    #print(control_tray3)
     control_tray4 = []
     for i in range(0,len(tray4)):
         line = ""
@@ -719,7 +721,7 @@ def control(data):
             line+="1"
             line+=" "+str(int(abs(round(tray4[i],2))*100))
         control_tray4.append(line)
-    print(control_tray4)
+    #print(control_tray4)
     control_tray5 = []
     for i in range(0,len(tray5)):
         line = ""
@@ -730,7 +732,7 @@ def control(data):
             line+="1"
             line+=" "+str(int(abs(round(tray5[i],2))*100))
         control_tray5.append(line)
-    print(control_tray5)
+    #print(control_tray5)
     control_tray6 = []
     for i in range(0,len(tray6)):
         line = ""
@@ -741,13 +743,31 @@ def control(data):
             line+="1"
             line+=" "+str(int(abs(round(tray6[i],2))*100))
         control_tray6.append(line)
-    print(control_tray6)
+    #print(control_tray6)
+    # Input to the Serial function
+    serial_input=[]
+    serial_input.append(control_tray1)
+    serial_input.append(control_tray2)
+    serial_input.append(control_tray3)
+    serial_input.append(control_tray4)
+    serial_input.append(control_tray5)
+    serial_input.append(control_tray6)
+    return(serial_input)
 
+# Function: Load Temp Data for tiles in each image
+# Input:
+# Output:
+def serial_data(input):
+    print("\n")
+
+# Call Main Function
 if __name__ == '__main__':
     start = time.time()
-    data = main()
-    control(data)
+    data = main() # Temp. data dictionary output
+    serial_input = control(data) # Serial data
+    serial_data(serial_input) # Serial data communication
     end = time.time()
+    print(end-start)
 
     # 1 LED 0 or 1 - heater off/on - too cold so turn heater on
     # 1 LED for tray on/off - everything is too hot, turn heater off
