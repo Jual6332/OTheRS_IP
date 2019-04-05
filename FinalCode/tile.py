@@ -680,10 +680,10 @@ def control(data):
         line = ""
         if tray1[i] > 0:
             line+="0"
-            line+=" "+str(int(abs(tray1[i]))*100)
+            line+=" "+str(int(abs(round(tray1[i],2))*100))
         else:
             line+="1"
-            line+=" "+str(int(abs(round(tray1[i],2)))*100)
+            line+=" "+str(int(abs(round(tray1[i],2))*100))
         control_tray1.append(line)
     print(control_tray1)
     control_tray2 = []
@@ -691,10 +691,10 @@ def control(data):
         line = ""
         if tray2[i] > 0:
             line+="0"
-            line+=" "+str(int(abs(round(tray2[i],2)))*100)
+            line+=" "+str(int(abs(round(tray2[i],2))*100))
         else:
             line+="1"
-            line+=" "+str(int(abs(round(tray2[i],2)))*100)
+            line+=" "+str(int(abs(round(tray2[i],2))*100))
         control_tray2.append(line)
     print(control_tray2)
     control_tray3 = []
@@ -702,12 +702,48 @@ def control(data):
         line = ""
         if tray3[i] > 0:
             line+="0"
-            line+=" "+str(int(abs(round(tray3[i])))*100)
+            line+=" "+str(int(abs(round(tray3[i],2))*100))
         else:
             line+="1"
-            line+=" "+str(int(abs(round(tray3[i])))*100)
+            line+=" "+str(int(abs(round(tray3[i],2))*100))
         control_tray3.append(line)
     print(control_tray3)
+
+    control_tray4 = []
+    for i in range(0,len(tray4)):
+        line = ""
+        if tray4[i] > 0:
+            line+="0"
+            line+=" "+str(int(abs(round(tray4[i],2))*100))
+        else:
+            line+="1"
+            line+=" "+str(int(abs(round(tray4[i],2))*100))
+        control_tray4.append(line)
+    print(control_tray4)
+
+    control_tray5 = []
+    for i in range(0,len(tray5)):
+        line = ""
+        if tray5[i] > 0:
+            line+="0"
+            line+=" "+str(int(abs(round(tray5[i],2))*100))
+        else:
+            line+="1"
+            line+=" "+str(int(abs(round(tray5[i],2))*100))
+        control_tray5.append(line)
+    print(control_tray5)
+
+    control_tray6 = []
+    for i in range(0,len(tray6)):
+        line = ""
+        if tray6[i] > 0:
+            line+="0"
+            line+=" "+str(int(abs(round(tray6[i],2))*100))
+        else:
+            line+="1"
+            line+=" "+str(int(abs(round(tray6[i],2))*100))
+        control_tray6.append(line)
+    print(control_tray6)
 
 
 if __name__ == '__main__':
