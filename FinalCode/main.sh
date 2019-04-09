@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
 currentDate=""
-newFolder="Image_Capture_Data/MarchTesting" # Data Storage
+newFolder="Image_Capture_Data/AprilTesting1" # Data Storage
 
 ## Image Sensing Part 1: Create New Folder for Testing
 if test -d "$newFolder"; then
   echo "Directory $newFolder exists."
+  
 else
   echo "Directory $newFolder not found."
+  mkdir -p "$newFolder"
+  echo "Folder created."
 fi
 
 ## Image Sensing Part 2:
@@ -29,5 +32,11 @@ python3 tile.py
 echo "Finished tile software module."
 
 # Control
+echo "Starting control software module."
+python3 control.py
+echo "Finished control software module."
 
 # Seral Data Export
+echo "Starting serial data software module."
+python3 raspi_serial.py
+echo "Finished serial data software module."

@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/26/19   ####################################################
-##  Date Modified: 4/5/19   ####################################################
+##  Date Modified: 4/7/19   ####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -609,135 +609,48 @@ def control(data):
         temp = round(data["tray1"][tile]["meantemp"],2)
         tray1.append(temp)
     tray1.append(0)
-    #print(tray1)
     # Tray 2
     tray2 = []
     for i in range(7,13):
         tile = "tile"+str(i)
         temp = round(data["tray2"][tile]["meantemp"],2)
         tray2.append(temp)
-    #print(tray2)
     # Tray 3
     tray3 = []
     for i in range(13,19):
         tile = "tile"+str(i)
         temp = round(data["tray3"][tile]["meantemp"],2)
         tray3.append(temp)
-    #print(tray3)
     # Tray 4
     tray4 = []
     for i in range(19,25):
         tile = "tile"+str(i)
         temp = round(data["tray4"][tile]["meantemp"],2)
         tray4.append(temp)
-    #print(tray4)
     # Tray 5
     tray5 = []
     for i in range(25,31):
         tile = "tile"+str(i)
         temp = round(data["tray5"][tile]["meantemp"],2)
         tray5.append(temp)
-    #print(tray5)
     # Tray 6
     tray6 = []
     for i in range(1,7):
         tray6.append(0)
-    #print(tray6)
-
-    ## Control Decisions -> Send from IP over Serial to Monitor GUI
-    control_tray1 = []
-    for i in range(0,len(tray1)):
-        line = ""
-        if tray1[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray1[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray1[i],2))*100))
-        control_tray1.append(line)
-    #print(control_tray1)
-    control_tray2 = []
-    for i in range(0,len(tray2)):
-        line = ""
-        if tray2[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray2[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray2[i],2))*100))
-        control_tray2.append(line)
-    #print(control_tray2)
-    control_tray3 = []
-    for i in range(0,len(tray3)):
-        line = ""
-        if tray3[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray3[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray3[i],2))*100))
-        control_tray3.append(line)
-    #print(control_tray3)
-    control_tray4 = []
-    for i in range(0,len(tray4)):
-        line = ""
-        if tray4[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray4[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray4[i],2))*100))
-        control_tray4.append(line)
-    #print(control_tray4)
-    control_tray5 = []
-    for i in range(0,len(tray5)):
-        line = ""
-        if tray5[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray5[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray5[i],2))*100))
-        control_tray5.append(line)
-    #print(control_tray5)
-    control_tray6 = []
-    for i in range(0,len(tray6)):
-        line = ""
-        if tray6[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray6[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray6[i],2))*100))
-        control_tray6.append(line)
-    #print(control_tray6)
-    # Input to the Serial function
-    serial_input=[]
-    serial_input.append(control_tray1)
-    serial_input.append(control_tray2)
-    serial_input.append(control_tray3)
-    serial_input.append(control_tray4)
-    serial_input.append(control_tray5)
-    serial_input.append(control_tray6)
-    return(serial_input)
-
-# Function: Load Temp Data for tiles in each image
-# Input:
-# Output:
-def serial_data(serial_input):
-    #print(serial_input[0])
-    # While loop
-    for i in range(0,len(serial_input)):
-        for j in range(0,len(serial_input[0])):
-            print(serial_input[i][j])
-    #print("\n")
+    trays=[]
+    trays.append(tray1)
+    trays.append(tray2)
+    trays.append(tray3)
+    trays.append(tray4)
+    trays.append(tray5)
+    trays.append(tray6)
+    return(trays)
 
 # Call Main Function
 if __name__ == '__main__':
     start = time.time()
     data = main() # Temp. data dictionary output
     serial_input = control(data) # Serial data
-    serial_data(serial_input) # Serial data communication
     end = time.time()
     print("Timing Analysis: "+str(end-start)+" s")
 
