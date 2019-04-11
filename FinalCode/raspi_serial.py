@@ -6,7 +6,7 @@
 ##  Justin A, Pierre G.     ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 4/3/19    ####################################################
-##  Date Modified: 4/11/19   ####################################################
+##  Date Modified: 4/11/19  ####################################################
 ################################################################################
 # Main Purpose: Send control decisions
 #####################---------Libraries---------################################
@@ -19,7 +19,7 @@ ser.port = '/dev/ttyS0'
 time.sleep(1)
 ser.open()
 #print(ser.isOpen())
-		
+
 start = time.time()
 filename = "Outputs/temperatures_output.txt"
 data = []
@@ -39,12 +39,20 @@ while(1):
 		for row in data:
 			for col in row:
 				tempz=col
+				temp=""
+				if tempz > 50.0:
+					temp+="2 "
+				elif tempz < -20.0:
+					temp+="1 "
+				else:
+					temp+="0 "
 				if tempz>=0:
-					temp="0 "+str(tempz)+"\n"
+					temp+="0 "+str(tempz)+"\n"
 					#print(temp)
 					ser.write(temp.encode('ascii'))
 				else:
-					temp="1 "+str(tempz)+"\n"
+					temp+="1 "+str(tempz)+"\n"
+					#print(temp)
 					ser.write(temp.encode('ascii'))
 		ser.write("end".encode("ascii"))
 		break;
@@ -56,7 +64,7 @@ while(1):
 		time.sleep(0.01)
 	except Exception as e:
 		print(e)
-		
+
 end = time.time()
 print("Timing Analysis: "+str(end-start)+" s")
 #####################-----------Close-----------################################
