@@ -6,7 +6,7 @@
 ##  Justin A, Pierre G.     ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 4/3/19    ####################################################
-##  Date Modified: 4/7/19   ####################################################
+##  Date Modified: 4/11/19   ####################################################
 ################################################################################
 # Main Purpose: Send control decisions
 #####################---------Libraries---------################################
@@ -18,8 +18,9 @@ ser.baudrate = 9600
 ser.port = '/dev/ttyS0'
 time.sleep(1)
 ser.open()
-print(ser.isOpen())
-
+#print(ser.isOpen())
+		
+start = time.time()
 filename = "Outputs/temperatures_output.txt"
 data = []
 with open(filename, "r") as f:
@@ -40,7 +41,7 @@ while(1):
 				tempz=col
 				if tempz>=0:
 					temp="0 "+str(tempz)+"\n"
-					print(temp)
+					#print(temp)
 					ser.write(temp.encode('ascii'))
 				else:
 					temp="1 "+str(tempz)+"\n"
@@ -55,4 +56,7 @@ while(1):
 		time.sleep(0.01)
 	except Exception as e:
 		print(e)
+		
+end = time.time()
+print("Timing Analysis: "+str(end-start)+" s")
 #####################-----------Close-----------################################

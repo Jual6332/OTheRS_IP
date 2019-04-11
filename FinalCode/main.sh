@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+################################################################################
+################################################################################
+### Locate tiles - "main.sh" #################################################
+################################################################################
+##  Justin A, Pierre G.     ####################################################
+##  OTheRS IP Lead          ####################################################
+##  Date Created: 4/3/19    ####################################################
+##  Date Modified: 4/11/19   ####################################################
+################################################################################
+# Main Purpose: Send control decisions
+#####################---------Libraries---------################################
 
 currentDate=""
 newFolder="Image_Capture_Data/AprilTesting1" # Data Storage
@@ -12,13 +23,6 @@ else
   mkdir -p "$newFolder"
   echo "Folder created."
 fi
-
-## Image Sensing Part 2:
-# Call raw_capture folder file executables
-echo "Starting image and temperature data capture."
-echo "Finished image and temperature data capture."
-
-## Image Sensing (while loop)
 
 ## Onboard Image Post-Processing:
 # Stitch
