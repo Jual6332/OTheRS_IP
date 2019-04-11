@@ -1,21 +1,28 @@
 #!/usr/bin/env bash
+################################################################################
+################################################################################
+### Locate tiles - "main.sh" #################################################
+################################################################################
+##  Justin A, Pierre G.     ####################################################
+##  OTheRS IP Lead          ####################################################
+##  Date Created: 4/3/19    ####################################################
+##  Date Modified: 4/11/19   ####################################################
+################################################################################
+# Main Purpose: Send control decisions
+#####################---------Libraries---------################################
 
 currentDate=""
-newFolder="Image_Capture_Data/MarchTesting" # Data Storage
+newFolder="Image_Capture_Data/AprilTesting1" # Data Storage
 
 ## Image Sensing Part 1: Create New Folder for Testing
 if test -d "$newFolder"; then
   echo "Directory $newFolder exists."
+  
 else
   echo "Directory $newFolder not found."
+  mkdir -p "$newFolder"
+  echo "Folder created."
 fi
-
-## Image Sensing Part 2:
-# Call raw_capture folder file executables
-echo "Starting image and temperature data capture."
-echo "Finished image and temperature data capture."
-
-## Image Sensing (while loop)
 
 ## Onboard Image Post-Processing:
 # Stitch
@@ -29,5 +36,11 @@ python3 tile.py
 echo "Finished tile software module."
 
 # Control
+echo "Starting control software module."
+python3 control.py
+echo "Finished control software module."
 
 # Seral Data Export
+echo "Starting serial data software module."
+python3 raspi_serial.py
+echo "Finished serial data software module."

@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/26/19   ####################################################
-##  Date Modified: 4/5/19   ####################################################
+##  Date Modified: 4/11/19   ####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -256,8 +256,8 @@ def main():
         temp_data.append(val)
     tiles_left["tile20"]["tempdata"] = temp_data
     tiles_left["tile20"]["meantemp"] = mean(temp_data)
-    tiles_left["tile20"]["maxtemp"] = 10
-    tiles_left["tile20"]["mintemp"] = 0
+    tiles_left["tile20"]["maxtemp"] = max(temp_data)
+    tiles_left["tile20"]["mintemp"] = min(temp_data)
     # Tile 21
     temp_data = []
     for i in range(0,len(tiles_left["tile21"]["coordinatesX"])):
@@ -278,8 +278,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile22"]["tempdata"] = temp_data
     tiles_right["tile22"]["meantemp"] = mean(temp_data)
-    tiles_right["tile22"]["maxtemp"] = 10
-    tiles_right["tile22"]["mintemp"] = 0
+    tiles_right["tile22"]["maxtemp"] = max(temp_data)
+    tiles_right["tile22"]["mintemp"] = min(temp_data)
     # Tile 23
     temp_data = []
     for i in range(0,len(tiles_right["tile23"]["coordinatesX"])):
@@ -289,8 +289,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile23"]["tempdata"] = temp_data
     tiles_right["tile23"]["meantemp"] = mean(temp_data)
-    tiles_right["tile23"]["maxtemp"] = 10
-    tiles_right["tile23"]["mintemp"] = 0
+    tiles_right["tile23"]["maxtemp"] = max(temp_data)
+    tiles_right["tile23"]["mintemp"] = min(temp_data)
     # Tile 24
     temp_data = []
     for i in range(0,len(tiles_right["tile24"]["coordinatesX"])):
@@ -300,8 +300,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile24"]["tempdata"] = temp_data
     tiles_right["tile24"]["meantemp"] = mean(temp_data)
-    tiles_right["tile24"]["maxtemp"] = 10
-    tiles_right["tile24"]["mintemp"] = 0
+    tiles_right["tile24"]["maxtemp"] = max(temp_data)
+    tiles_right["tile24"]["mintemp"] = min(temp_data)
     # Tile 25
     temp_data = []
     for i in range(0,len(tiles_left["tile25"]["coordinatesX"])):
@@ -311,8 +311,8 @@ def main():
         temp_data.append(val)
     tiles_left["tile25"]["tempdata"] = temp_data
     tiles_left["tile25"]["meantemp"] = mean(temp_data)
-    tiles_left["tile25"]["maxtemp"] = 10
-    tiles_left["tile25"]["mintemp"] = 0
+    tiles_left["tile25"]["maxtemp"] = max(temp_data)
+    tiles_left["tile25"]["mintemp"] = min(temp_data)
     # Tile 26
     temp_data = []
     for i in range(0,len(tiles_left["tile26"]["coordinatesX"])):
@@ -322,8 +322,8 @@ def main():
         temp_data.append(val)
     tiles_left["tile26"]["tempdata"] = temp_data
     tiles_left["tile26"]["meantemp"] = mean(temp_data)
-    tiles_left["tile26"]["maxtemp"] = 10
-    tiles_left["tile26"]["mintemp"] = 0
+    tiles_left["tile26"]["maxtemp"] = max(temp_data)
+    tiles_left["tile26"]["mintemp"] = min(temp_data)
     # Tile 27
     temp_data = []
     for i in range(0,len(tiles_left["tile27"]["coordinatesX"])):
@@ -333,8 +333,8 @@ def main():
         temp_data.append(val)
     tiles_left["tile27"]["tempdata"] = temp_data
     tiles_left["tile27"]["meantemp"] = mean(temp_data)
-    tiles_left["tile27"]["maxtemp"] = 10
-    tiles_left["tile27"]["mintemp"] = 0
+    tiles_left["tile27"]["maxtemp"] = max(temp_data)
+    tiles_left["tile27"]["mintemp"] = min(temp_data)
     # Tile 28
     temp_data = []
     for i in range(0,len(tiles_right["tile28"]["coordinatesX"])):
@@ -344,8 +344,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile28"]["tempdata"] = temp_data
     tiles_right["tile28"]["meantemp"] = mean(temp_data)
-    tiles_right["tile28"]["maxtemp"] = 10
-    tiles_right["tile28"]["mintemp"] = 0
+    tiles_right["tile28"]["maxtemp"] = max(temp_data)
+    tiles_right["tile28"]["mintemp"] = min(temp_data)
     # Tile 29
     temp_data = []
     for i in range(0,len(tiles_right["tile29"]["coordinatesX"])):
@@ -355,8 +355,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile29"]["tempdata"] = temp_data
     tiles_right["tile29"]["meantemp"] = mean(temp_data)
-    tiles_right["tile29"]["maxtemp"] = 10
-    tiles_right["tile29"]["mintemp"] = 0
+    tiles_right["tile29"]["maxtemp"] = max(temp_data)
+    tiles_right["tile29"]["mintemp"] = min(temp_data)
     # Tile 30
     temp_data = []
     for i in range(0,len(tiles_right["tile30"]["coordinatesX"])):
@@ -366,8 +366,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile30"]["tempdata"] = temp_data
     tiles_right["tile30"]["meantemp"] = mean(temp_data)
-    tiles_right["tile30"]["maxtemp"] = 10
-    tiles_right["tile30"]["mintemp"] = 0
+    tiles_right["tile30"]["maxtemp"] = max(temp_data)
+    tiles_right["tile30"]["mintemp"] = min(temp_data)
     # Tile 32
     temp_data = []
     for i in range(0,len(tiles_left["tile32"]["coordinatesX"])):
@@ -377,8 +377,8 @@ def main():
         temp_data.append(val)
     tiles_left["tile32"]["tempdata"] = temp_data
     tiles_left["tile32"]["meantemp"] = mean(temp_data)
-    tiles_left["tile32"]["maxtemp"] = 10
-    tiles_left["tile32"]["mintemp"] = 0
+    tiles_left["tile32"]["maxtemp"] = max(temp_data)
+    tiles_left["tile32"]["mintemp"] = min(temp_data)
     # Tile 33
     temp_data = []
     for i in range(0,len(tiles_left["tile33"]["coordinatesX"])):
@@ -388,8 +388,8 @@ def main():
         temp_data.append(val)
     tiles_left["tile33"]["tempdata"] = temp_data
     tiles_left["tile33"]["meantemp"] = mean(temp_data)
-    tiles_left["tile33"]["maxtemp"] = 10
-    tiles_left["tile33"]["mintemp"] = 0
+    tiles_left["tile33"]["maxtemp"] = max(temp_data)
+    tiles_left["tile33"]["mintemp"] = min(temp_data)
     # Tile 34
     temp_data = []
     for i in range(0,len(tiles_right["tile34"]["coordinatesX"])):
@@ -399,8 +399,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile34"]["tempdata"] = temp_data
     tiles_right["tile34"]["meantemp"] = mean(temp_data)
-    tiles_right["tile34"]["maxtemp"] = 10
-    tiles_right["tile34"]["mintemp"] = 0
+    tiles_right["tile34"]["maxtemp"] = max(temp_data)
+    tiles_right["tile34"]["mintemp"] = min(temp_data)
     # Tile 35
     temp_data = []
     for i in range(0,len(tiles_right["tile35"]["coordinatesX"])):
@@ -410,8 +410,8 @@ def main():
         temp_data.append(val)
     tiles_right["tile35"]["tempdata"] = temp_data
     tiles_right["tile35"]["meantemp"] = mean(temp_data)
-    tiles_right["tile35"]["maxtemp"] = 10
-    tiles_right["tile35"]["mintemp"] = 0
+    tiles_right["tile35"]["maxtemp"] = max(temp_data)
+    tiles_right["tile35"]["mintemp"] = min(temp_data)
     ## Define Trays
     # Define Tray 1
     tray1 = {}
@@ -609,135 +609,48 @@ def control(data):
         temp = round(data["tray1"][tile]["meantemp"],2)
         tray1.append(temp)
     tray1.append(0)
-    #print(tray1)
     # Tray 2
     tray2 = []
     for i in range(7,13):
         tile = "tile"+str(i)
         temp = round(data["tray2"][tile]["meantemp"],2)
         tray2.append(temp)
-    #print(tray2)
     # Tray 3
     tray3 = []
     for i in range(13,19):
         tile = "tile"+str(i)
         temp = round(data["tray3"][tile]["meantemp"],2)
         tray3.append(temp)
-    #print(tray3)
     # Tray 4
     tray4 = []
     for i in range(19,25):
         tile = "tile"+str(i)
         temp = round(data["tray4"][tile]["meantemp"],2)
         tray4.append(temp)
-    #print(tray4)
     # Tray 5
     tray5 = []
     for i in range(25,31):
         tile = "tile"+str(i)
         temp = round(data["tray5"][tile]["meantemp"],2)
         tray5.append(temp)
-    #print(tray5)
     # Tray 6
     tray6 = []
     for i in range(1,7):
         tray6.append(0)
-    #print(tray6)
-
-    ## Control Decisions -> Send from IP over Serial to Monitor GUI
-    control_tray1 = []
-    for i in range(0,len(tray1)):
-        line = ""
-        if tray1[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray1[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray1[i],2))*100))
-        control_tray1.append(line)
-    #print(control_tray1)
-    control_tray2 = []
-    for i in range(0,len(tray2)):
-        line = ""
-        if tray2[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray2[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray2[i],2))*100))
-        control_tray2.append(line)
-    #print(control_tray2)
-    control_tray3 = []
-    for i in range(0,len(tray3)):
-        line = ""
-        if tray3[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray3[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray3[i],2))*100))
-        control_tray3.append(line)
-    #print(control_tray3)
-    control_tray4 = []
-    for i in range(0,len(tray4)):
-        line = ""
-        if tray4[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray4[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray4[i],2))*100))
-        control_tray4.append(line)
-    #print(control_tray4)
-    control_tray5 = []
-    for i in range(0,len(tray5)):
-        line = ""
-        if tray5[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray5[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray5[i],2))*100))
-        control_tray5.append(line)
-    #print(control_tray5)
-    control_tray6 = []
-    for i in range(0,len(tray6)):
-        line = ""
-        if tray6[i] >= 0:
-            line+="0"
-            line+=" "+str(int(abs(round(tray6[i],2))*100))
-        else:
-            line+="1"
-            line+=" "+str(int(abs(round(tray6[i],2))*100))
-        control_tray6.append(line)
-    #print(control_tray6)
-    # Input to the Serial function
-    serial_input=[]
-    serial_input.append(control_tray1)
-    serial_input.append(control_tray2)
-    serial_input.append(control_tray3)
-    serial_input.append(control_tray4)
-    serial_input.append(control_tray5)
-    serial_input.append(control_tray6)
-    return(serial_input)
-
-# Function: Load Temp Data for tiles in each image
-# Input:
-# Output:
-def serial_data(serial_input):
-    #print(serial_input[0])
-    # While loop
-    for i in range(0,len(serial_input)):
-        for j in range(0,len(serial_input[0])):
-            print(serial_input[i][j])
-    #print("\n")
+    trays=[]
+    trays.append(tray1)
+    trays.append(tray2)
+    trays.append(tray3)
+    trays.append(tray4)
+    trays.append(tray5)
+    trays.append(tray6)
+    return(trays)
 
 # Call Main Function
 if __name__ == '__main__':
     start = time.time()
     data = main() # Temp. data dictionary output
     serial_input = control(data) # Serial data
-    serial_data(serial_input) # Serial data communication
     end = time.time()
     print("Timing Analysis: "+str(end-start)+" s")
 
