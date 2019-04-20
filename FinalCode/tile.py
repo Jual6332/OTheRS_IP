@@ -6,7 +6,7 @@
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/26/19   ####################################################
-##  Date Modified: 4/11/19   ####################################################
+##  Date Modified: 4/26/19   ####################################################
 ################################################################################
 # Main Purpose: Break up the image into representative tiles, check temp values
 #####################---------Libraries---------################################
@@ -55,8 +55,11 @@ def load_temp_values(filename):
     return data
 
 def main():
-    data_left = load_temp_values('Inputs/March24GridTest/Test1/left.txt')/100 - 273.15
-    data_right = load_temp_values('Inputs/March24GridTest/Test1/right.txt')/100 - 273.15
+    fName_left = "Inputs/March24GridTest/"+str(sys.argv[1])+"/left.txt"
+    fName_right = "Inputs/March24GridTest/"+str(sys.argv[1])+"/right.txt"
+
+    data_left = load_temp_values(fName_left)/100 - 273.15
+    data_right = load_temp_values(fName_right)/100 - 273.15
     tiles_left = load_grid_data('left')
     tiles_right = load_grid_data('right')
     ## Left Tiles
@@ -67,10 +70,17 @@ def main():
         y = tiles_left["tile2"]["coordinatesY"][i]
         val = data_left[y][x]
         temp_data.append(val)
+        
+        #temp_data.append(-60)
+        #temp_data.append(-60)
+        #temp_data.append(-60)
+        #temp_data.append(-60)
+        #print(type(temp_data))
+
     tiles_left["tile2"]["tempdata"] = temp_data
-    tiles_left["tile2"]["meantemp"] = mean(temp_data)
-    tiles_left["tile2"]["maxtemp"] = 10
-    tiles_left["tile2"]["mintemp"] = 0
+    tiles_left["tile2"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile2"]["maxtemp"] = max(temp_data)
+    tiles_left["tile2"]["mintemp"] = min(temp_data)
     # Tile 3
     temp_data = []
     for i in range(0,len(tiles_left["tile3"]["coordinatesX"])):
@@ -79,9 +89,9 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile3"]["tempdata"] = temp_data
-    tiles_left["tile3"]["meantemp"] = mean(temp_data)
-    tiles_left["tile3"]["maxtemp"] = 10
-    tiles_left["tile3"]["mintemp"] = 0
+    tiles_left["tile3"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile3"]["maxtemp"] = max(temp_data)
+    tiles_left["tile3"]["mintemp"] = min(temp_data)
     # Tile 4
     temp_data = []
     for i in range(0,len(tiles_right["tile4"]["coordinatesX"])):
@@ -90,9 +100,9 @@ def main():
         val = data_right[x][y]
         temp_data.append(val)
     tiles_right["tile4"]["tempdata"] = temp_data
-    tiles_right["tile4"]["meantemp"] = mean(temp_data)
-    tiles_right["tile4"]["maxtemp"] = 10
-    tiles_right["tile4"]["mintemp"] = 0
+    tiles_right["tile4"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile4"]["maxtemp"] = max(temp_data)
+    tiles_right["tile4"]["mintemp"] = min(temp_data)
     # Tile 5
     temp_data = []
     for i in range(0,len(tiles_right["tile5"]["coordinatesX"])):
@@ -101,9 +111,9 @@ def main():
         val = data_right[x][y]
         temp_data.append(val)
     tiles_right["tile5"]["tempdata"] = temp_data
-    tiles_right["tile5"]["meantemp"] = mean(temp_data)
-    tiles_right["tile5"]["maxtemp"] = 10
-    tiles_right["tile5"]["mintemp"] = 0
+    tiles_right["tile5"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile5"]["maxtemp"] = max(temp_data)
+    tiles_right["tile5"]["mintemp"] = min(temp_data)
     # Tile 7
     temp_data = []
     for i in range(0,len(tiles_left["tile7"]["coordinatesX"])):
@@ -112,9 +122,9 @@ def main():
         val = data_left[x][y]
         temp_data.append(val)
     tiles_left["tile7"]["tempdata"] = temp_data
-    tiles_left["tile7"]["meantemp"] = mean(temp_data)
-    tiles_left["tile7"]["maxtemp"] = 10
-    tiles_left["tile7"]["mintemp"] = 0
+    tiles_left["tile7"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile7"]["maxtemp"] = max(temp_data)
+    tiles_left["tile7"]["mintemp"] = min(temp_data)
     # Tile 8
     temp_data = []
     for i in range(0,len(tiles_left["tile8"]["coordinatesX"])):
@@ -123,9 +133,9 @@ def main():
         val = data_left[x][y]
         temp_data.append(val)
     tiles_left["tile8"]["tempdata"] = temp_data
-    tiles_left["tile8"]["meantemp"] = mean(temp_data)
-    tiles_left["tile8"]["maxtemp"] = 10
-    tiles_left["tile8"]["mintemp"] = 0
+    tiles_left["tile8"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile8"]["maxtemp"] = max(temp_data)
+    tiles_left["tile8"]["mintemp"] = min(temp_data)
     # Tile 9
     temp_data = []
     for i in range(0,len(tiles_left["tile9"]["coordinatesX"])):
@@ -134,9 +144,9 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile9"]["tempdata"] = temp_data
-    tiles_left["tile9"]["meantemp"] = mean(temp_data)
-    tiles_left["tile9"]["maxtemp"] = 10
-    tiles_left["tile9"]["mintemp"] = 0
+    tiles_left["tile9"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile9"]["maxtemp"] = max(temp_data)
+    tiles_left["tile9"]["mintemp"] = min(temp_data)
     # Tile 10
     temp_data = []
     for i in range(0,len(tiles_right["tile10"]["coordinatesX"])):
@@ -145,9 +155,9 @@ def main():
         val = data_right[x][y]
         temp_data.append(val)
     tiles_right["tile10"]["tempdata"] = temp_data
-    tiles_right["tile10"]["meantemp"] = mean(temp_data)
-    tiles_right["tile10"]["maxtemp"] = 10
-    tiles_right["tile10"]["mintemp"] = 0
+    tiles_right["tile10"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile10"]["maxtemp"] = max(temp_data)
+    tiles_right["tile10"]["mintemp"] = min(temp_data)
     # Tile 11
     temp_data = []
     for i in range(0,len(tiles_right["tile11"]["coordinatesX"])):
@@ -156,9 +166,9 @@ def main():
         val = data_right[x][y]
         temp_data.append(val)
     tiles_right["tile11"]["tempdata"] = temp_data
-    tiles_right["tile11"]["meantemp"] = mean(temp_data)
-    tiles_right["tile11"]["maxtemp"] = 10
-    tiles_right["tile11"]["mintemp"] = 0
+    tiles_right["tile11"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile11"]["maxtemp"] = max(temp_data)
+    tiles_right["tile11"]["mintemp"] = min(temp_data)
     # Tile 12
     temp_data = []
     for i in range(0,len(tiles_right["tile12"]["coordinatesX"])):
@@ -167,9 +177,9 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile12"]["tempdata"] = temp_data
-    tiles_right["tile12"]["meantemp"] = mean(temp_data)
-    tiles_right["tile12"]["maxtemp"] = 10
-    tiles_right["tile12"]["mintemp"] = 0
+    tiles_right["tile12"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile12"]["maxtemp"] = max(temp_data)
+    tiles_right["tile12"]["mintemp"] = min(temp_data)
     # Tile 13
     temp_data = []
     for i in range(0,len(tiles_left["tile13"]["coordinatesX"])):
@@ -178,9 +188,9 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile13"]["tempdata"] = temp_data
-    tiles_left["tile13"]["meantemp"] = mean(temp_data)
-    tiles_left["tile13"]["maxtemp"] = 10
-    tiles_left["tile13"]["mintemp"] = 0
+    tiles_left["tile13"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile13"]["maxtemp"] = max(temp_data)
+    tiles_left["tile13"]["mintemp"] = min(temp_data)
     # Tile 14
     temp_data = []
     for i in range(0,len(tiles_left["tile14"]["coordinatesX"])):
@@ -189,9 +199,9 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile14"]["tempdata"] = temp_data
-    tiles_left["tile14"]["meantemp"] = mean(temp_data)
-    tiles_left["tile14"]["maxtemp"] = 10
-    tiles_left["tile14"]["mintemp"] = 0
+    tiles_left["tile14"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile14"]["maxtemp"] = max(temp_data)
+    tiles_left["tile14"]["mintemp"] = min(temp_data)
     # Tile 15
     temp_data = []
     for i in range(0,len(tiles_left["tile15"]["coordinatesX"])):
@@ -200,9 +210,9 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile15"]["tempdata"] = temp_data
-    tiles_left["tile15"]["meantemp"] = mean(temp_data)
-    tiles_left["tile15"]["maxtemp"] = 10
-    tiles_left["tile15"]["mintemp"] = 0
+    tiles_left["tile15"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile15"]["maxtemp"] = max(temp_data)
+    tiles_left["tile15"]["mintemp"] = min(temp_data)
     # Tile 16
     temp_data = []
     for i in range(0,len(tiles_right["tile16"]["coordinatesX"])):
@@ -211,9 +221,9 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile16"]["tempdata"] = temp_data
-    tiles_right["tile16"]["meantemp"] = mean(temp_data)
-    tiles_right["tile16"]["maxtemp"] = 10
-    tiles_right["tile16"]["mintemp"] = 0
+    tiles_right["tile16"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile16"]["maxtemp"] = max(temp_data)
+    tiles_right["tile16"]["mintemp"] = min(temp_data)
     # Tile 17
     temp_data = []
     for i in range(0,len(tiles_right["tile17"]["coordinatesX"])):
@@ -222,9 +232,9 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile17"]["tempdata"] = temp_data
-    tiles_right["tile17"]["meantemp"] = mean(temp_data)
-    tiles_right["tile17"]["maxtemp"] = 10
-    tiles_right["tile17"]["mintemp"] = 0
+    tiles_right["tile17"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile17"]["maxtemp"] = max(temp_data)
+    tiles_right["tile17"]["mintemp"] = min(temp_data)
     # Tile 18
     temp_data = []
     for i in range(0,len(tiles_right["tile18"]["coordinatesX"])):
@@ -233,9 +243,9 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile18"]["tempdata"] = temp_data
-    tiles_right["tile18"]["meantemp"] = mean(temp_data)
-    tiles_right["tile18"]["maxtemp"] = 10
-    tiles_right["tile18"]["mintemp"] = 0
+    tiles_right["tile18"]["meantemp"] = find_avg(temp_data)
+    tiles_right["tile18"]["maxtemp"] = max(temp_data)
+    tiles_right["tile18"]["mintemp"] = min(temp_data)
     # Tile 19
     temp_data = []
     for i in range(0,len(tiles_left["tile19"]["coordinatesX"])):
@@ -244,9 +254,9 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile19"]["tempdata"] = temp_data
-    tiles_left["tile19"]["meantemp"] = mean(temp_data)
-    tiles_left["tile19"]["maxtemp"] = 10
-    tiles_left["tile19"]["mintemp"] = 0
+    tiles_left["tile19"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile19"]["maxtemp"] = max(temp_data)
+    tiles_left["tile19"]["mintemp"] = min(temp_data)
     # Tile 20
     temp_data = []
     for i in range(0,len(tiles_left["tile20"]["coordinatesX"])):
@@ -255,7 +265,7 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile20"]["tempdata"] = temp_data
-    tiles_left["tile20"]["meantemp"] = mean(temp_data)
+    tiles_left["tile20"]["meantemp"] = find_avg(temp_data)
     tiles_left["tile20"]["maxtemp"] = max(temp_data)
     tiles_left["tile20"]["mintemp"] = min(temp_data)
     # Tile 21
@@ -266,9 +276,9 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile21"]["tempdata"] = temp_data
-    tiles_left["tile21"]["meantemp"] = mean(temp_data)
-    tiles_left["tile21"]["maxtemp"] = 10
-    tiles_left["tile21"]["mintemp"] = 0
+    tiles_left["tile21"]["meantemp"] = find_avg(temp_data)
+    tiles_left["tile21"]["maxtemp"] = max(temp_data)
+    tiles_left["tile21"]["mintemp"] = min(temp_data)
     # Tile 22
     temp_data = []
     for i in range(0,len(tiles_right["tile22"]["coordinatesX"])):
@@ -277,7 +287,7 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile22"]["tempdata"] = temp_data
-    tiles_right["tile22"]["meantemp"] = mean(temp_data)
+    tiles_right["tile22"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile22"]["maxtemp"] = max(temp_data)
     tiles_right["tile22"]["mintemp"] = min(temp_data)
     # Tile 23
@@ -288,7 +298,7 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile23"]["tempdata"] = temp_data
-    tiles_right["tile23"]["meantemp"] = mean(temp_data)
+    tiles_right["tile23"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile23"]["maxtemp"] = max(temp_data)
     tiles_right["tile23"]["mintemp"] = min(temp_data)
     # Tile 24
@@ -299,7 +309,7 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile24"]["tempdata"] = temp_data
-    tiles_right["tile24"]["meantemp"] = mean(temp_data)
+    tiles_right["tile24"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile24"]["maxtemp"] = max(temp_data)
     tiles_right["tile24"]["mintemp"] = min(temp_data)
     # Tile 25
@@ -310,7 +320,7 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile25"]["tempdata"] = temp_data
-    tiles_left["tile25"]["meantemp"] = mean(temp_data)
+    tiles_left["tile25"]["meantemp"] = find_avg(temp_data)
     tiles_left["tile25"]["maxtemp"] = max(temp_data)
     tiles_left["tile25"]["mintemp"] = min(temp_data)
     # Tile 26
@@ -321,7 +331,7 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile26"]["tempdata"] = temp_data
-    tiles_left["tile26"]["meantemp"] = mean(temp_data)
+    tiles_left["tile26"]["meantemp"] = find_avg(temp_data)
     tiles_left["tile26"]["maxtemp"] = max(temp_data)
     tiles_left["tile26"]["mintemp"] = min(temp_data)
     # Tile 27
@@ -332,7 +342,7 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile27"]["tempdata"] = temp_data
-    tiles_left["tile27"]["meantemp"] = mean(temp_data)
+    tiles_left["tile27"]["meantemp"] = find_avg(temp_data)
     tiles_left["tile27"]["maxtemp"] = max(temp_data)
     tiles_left["tile27"]["mintemp"] = min(temp_data)
     # Tile 28
@@ -343,7 +353,7 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile28"]["tempdata"] = temp_data
-    tiles_right["tile28"]["meantemp"] = mean(temp_data)
+    tiles_right["tile28"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile28"]["maxtemp"] = max(temp_data)
     tiles_right["tile28"]["mintemp"] = min(temp_data)
     # Tile 29
@@ -354,7 +364,7 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile29"]["tempdata"] = temp_data
-    tiles_right["tile29"]["meantemp"] = mean(temp_data)
+    tiles_right["tile29"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile29"]["maxtemp"] = max(temp_data)
     tiles_right["tile29"]["mintemp"] = min(temp_data)
     # Tile 30
@@ -364,8 +374,9 @@ def main():
         y = tiles_right["tile30"]["coordinatesY"][i]
         val = data_right[y][x]
         temp_data.append(val)
+        temp_data
     tiles_right["tile30"]["tempdata"] = temp_data
-    tiles_right["tile30"]["meantemp"] = mean(temp_data)
+    tiles_right["tile30"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile30"]["maxtemp"] = max(temp_data)
     tiles_right["tile30"]["mintemp"] = min(temp_data)
     # Tile 32
@@ -376,7 +387,7 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile32"]["tempdata"] = temp_data
-    tiles_left["tile32"]["meantemp"] = mean(temp_data)
+    tiles_left["tile32"]["meantemp"] = find_avg(temp_data)
     tiles_left["tile32"]["maxtemp"] = max(temp_data)
     tiles_left["tile32"]["mintemp"] = min(temp_data)
     # Tile 33
@@ -387,7 +398,7 @@ def main():
         val = data_left[y][x]
         temp_data.append(val)
     tiles_left["tile33"]["tempdata"] = temp_data
-    tiles_left["tile33"]["meantemp"] = mean(temp_data)
+    tiles_left["tile33"]["meantemp"] = find_avg(temp_data)
     tiles_left["tile33"]["maxtemp"] = max(temp_data)
     tiles_left["tile33"]["mintemp"] = min(temp_data)
     # Tile 34
@@ -398,7 +409,7 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile34"]["tempdata"] = temp_data
-    tiles_right["tile34"]["meantemp"] = mean(temp_data)
+    tiles_right["tile34"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile34"]["maxtemp"] = max(temp_data)
     tiles_right["tile34"]["mintemp"] = min(temp_data)
     # Tile 35
@@ -409,7 +420,7 @@ def main():
         val = data_right[y][x]
         temp_data.append(val)
     tiles_right["tile35"]["tempdata"] = temp_data
-    tiles_right["tile35"]["meantemp"] = mean(temp_data)
+    tiles_right["tile35"]["meantemp"] = find_avg(temp_data)
     tiles_right["tile35"]["maxtemp"] = max(temp_data)
     tiles_right["tile35"]["mintemp"] = min(temp_data)
     ## Define Trays
@@ -538,9 +549,20 @@ def load_tile_data(filename):
     tile.append(x_column)
     tile.append(y_column)
     return(tile)
+    
+def find_avg(array):
+	#print("Data points before:"+str(len(array)))
+	for item in array:
+		if item < -50:
+			array.remove(item)
+	#print("Data points after:"+str(len(array)))
+	return(mean(array))
+			
 
 def write_to_file(data):
     final = []
+    with open("Outputs/temperatures_output.txt","w"):
+        pass
     try:
         file = open("Outputs/temperatures_output.txt", 'w')
     except IOError:

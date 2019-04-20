@@ -6,7 +6,7 @@
 ##  Justin A, Pierre G.     ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 4/3/19    ####################################################
-##  Date Modified: 4/11/19  ####################################################
+##  Date Modified: 4/14/19  ####################################################
 ################################################################################
 # Main Purpose: Send control decisions
 #####################---------Libraries---------################################
@@ -18,7 +18,7 @@ ser.baudrate = 9600
 ser.port = '/dev/ttyS0'
 time.sleep(1)
 ser.open()
-#print(ser.isOpen())
+print(ser.isOpen())
 
 start = time.time()
 filename = "Outputs/temperatures_output.txt"
@@ -28,14 +28,14 @@ with open(filename, "r") as f:
 	for line in f.read().strip().split("\n"):
 		try:
 			numbers = [float(i) for i in line.strip().split(" ")]
-			#print(numbers)
+			print(numbers)
 			data.append(numbers)
 		except Exception as e:
 			print("Exception: {}".format(e))
 
 while(1):
 	try:
-		ser.write("begin".encode("ascii"))
+		ser.write("begin\n".encode("ascii"))
 		for row in data:
 			for col in row:
 				tempz=col
@@ -47,14 +47,14 @@ while(1):
 				else:
 					temp+="0 "
 				if tempz>=0:
-					temp+="0 "+str(tempz)+"\n"
+					temp+="0 "+str(abs(tempz))+"\n"
 					#print(temp)
 					ser.write(temp.encode('ascii'))
 				else:
-					temp+="1 "+str(tempz)+"\n"
+					temp+="1 "+str(abs(tempz))+"\n"
 					#print(temp)
 					ser.write(temp.encode('ascii'))
-		ser.write("end".encode("ascii"))
+		ser.write("end\n".encode("ascii"))
 		break;
 		if ser.inWaiting() > 0:
 				rec_data = ser.readline()

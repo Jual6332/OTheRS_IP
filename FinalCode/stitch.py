@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 ################################################################################
 ################################################################################
-### Image Stitching - "stitch_old.py" ##########################################
+### Image Stitching - "stitch.py" ##########################################
 ################################################################################
 ##  Justin Alvey            ####################################################
 ##  OTheRS IP Lead          ####################################################
 ##  Date Created: 3/8/19   #####################################################
-##  Date Modified: 4/2/19  #####################################################
+##  Date Modified: 4/16/19  #####################################################
 ################################################################################
 # Main Purpose: Final stitch for two images together
 #####################---------Libraries---------################################
@@ -36,9 +36,21 @@ def main():
 # Unit Test 1
 def Test1():
     # Load Images
-    image_left = load_image('Inputs/March24GridTest/Test1/left.png')
-    image_right = load_image('Inputs/March24GridTest/Test1/right.png')
-
+    fName_left = "Inputs/March24GridTest/"+str(sys.argv[1])+"/image1"
+    fName_right = "Inputs/March24GridTest/"+str(sys.argv[1])+"/image2"
+    image_left = np.loadtxt(fName_left)
+    image_right = np.loadtxt(fName_right)
+    
+    # Save Image in PNG form
+    img = Image.fromarray(image_left,'RGB')
+    img.save('Outputs/Image_left.png')
+    img.show()
+    img = Image.fromarray(image_right,'RGB')
+    img.save('Outputs/Image_right.png')
+    img.show()
+    print(image_left)
+    write_image("Outputs/Image1.png",image_left)
+    
     # Rotate Images
     left_stack_select = select_stack_data_left(image_left) # Locate Stack
     right_stack_select = select_stack_data_right(image_right) # Locate Stack
