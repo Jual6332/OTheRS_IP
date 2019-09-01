@@ -1,7 +1,7 @@
 # OTheRS_IP
 Image processing and software repository for OTheRS project.
 Created: 10/30/2018
-Modified: 11/23/18
+Modified: 4/20/18
 
 ## Main Software Tasks:
 1. Capture image (FLIR Lepton)
